@@ -105,6 +105,8 @@ export class Grid {
       }
     }
 
+    imgData.FlipOverX();
+
     return imgData;
   }
 }

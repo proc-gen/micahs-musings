@@ -24,4 +24,28 @@ export class Image extends ImageData {
       }
     }
   }
+
+  FlipOverY() {
+    let newData: Image = new Image(this.width, this.height);
+    for (let i: number = 0; i < this.width; i++) {
+      for (let j: number = 0; j < this.height; j++) {
+        newData.SetPixel(i, this.height - 1 - j, this.GetPixel(i, j));
+      }
+    }
+    for (let i: number = 0; i < this.data.length; i++) {
+      this.data[i] = newData.data[i];
+    }
+  }
+
+  FlipOverX() {
+    let newData: Image = new Image(this.width, this.height);
+    for (let i: number = 0; i < this.width; i++) {
+      for (let j: number = 0; j < this.height; j++) {
+        newData.SetPixel(this.width - 1 - i, j, this.GetPixel(i, j));
+      }
+    }
+    for (let i: number = 0; i < this.data.length; i++) {
+      this.data[i] = newData.data[i];
+    }
+  }
 }
