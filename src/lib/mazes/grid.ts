@@ -105,6 +105,7 @@ export class Grid {
       }
     }
 
+    imgData.Transpose();
     imgData.FlipOverX();
 
     return imgData;

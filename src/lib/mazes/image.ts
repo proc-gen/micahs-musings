@@ -48,4 +48,16 @@ export class Image extends ImageData {
       this.data[i] = newData.data[i];
     }
   }
+
+  Transpose() {
+    let newData: Image = new Image(this.width, this.height);
+    for (let i: number = 0; i < this.width; i++) {
+      for (let j: number = 0; j < this.height; j++) {
+        newData.SetPixel(j, i, this.GetPixel(i, j));
+      }
+    }
+    for (let i: number = 0; i < this.data.length; i++) {
+      this.data[i] = newData.data[i];
+    }
+  }
 }
