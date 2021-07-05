@@ -28,6 +28,7 @@ import {
   AldousBroder,
   AldousBroderData,
 } from '../../../../lib/mazes/aldous-broder';
+import { Wilson, WilsonData } from '../../../../lib/mazes/wilson';
 
 interface IGeneratorState {
   imgData: Image;
@@ -38,6 +39,7 @@ interface IGeneratorState {
   binaryTree: BinaryTreeData;
   sidewinder: SidewinderData;
   aldousBroder: AldousBroderData;
+  wilson: WilsonData;
 }
 
 export class Generator extends React.Component<any, IGeneratorState> {
@@ -53,6 +55,7 @@ export class Generator extends React.Component<any, IGeneratorState> {
       binaryTree: new BinaryTreeData(),
       sidewinder: new SidewinderData(),
       aldousBroder: new AldousBroderData(),
+      wilson: new WilsonData(),
     };
     this.handleGeneratorChange = this.handleGeneratorChange.bind(this);
     this.handleSeedChange = this.handleSeedChange.bind(this);
@@ -111,6 +114,18 @@ export class Generator extends React.Component<any, IGeneratorState> {
           0,
           0,
           this.state.aldousBroder
+        );
+        break;
+      case 4:
+        //alert('Created Wilson');
+        maze = new Wilson(
+          this.state.width,
+          this.state.height,
+          4,
+          this.state.seed,
+          0,
+          0,
+          this.state.wilson
         );
         break;
       default:
@@ -173,6 +188,9 @@ export class Generator extends React.Component<any, IGeneratorState> {
       case 3:
         retVal = 'Aldous-Broder';
         break;
+      case 4:
+        retVal = "Wilson's";
+        break;
     }
     return retVal;
   }
@@ -221,6 +239,7 @@ export class Generator extends React.Component<any, IGeneratorState> {
                         <option value="1">Binary Tree</option>
                         <option value="2">Sidewinder</option>
                         <option value="3">Aldous-Broder</option>
+                        <option value="4">Wilson's</option>
                       </Select>
                     </FormControl>
                     <FormControl id="seed">
@@ -288,6 +307,7 @@ export class Generator extends React.Component<any, IGeneratorState> {
           maxHeight="container.lg"
           overflow="scroll"
           padding="1em"
+          textAlign="center"
         >
           <Canvas id="mazeCanvas" imgData={this.state.imgData}></Canvas>
         </Container>
