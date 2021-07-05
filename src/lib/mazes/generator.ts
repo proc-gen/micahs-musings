@@ -3,7 +3,7 @@ import { Grid } from './grid';
 import { Image } from './image';
 import { Random } from './random';
 
-export class Generator {
+export class GeneratorData {
   height: number;
   width: number;
   numCellSides: number;
@@ -11,27 +11,35 @@ export class Generator {
   grid!: Grid;
   weave: number;
   cullDeadEnds: number;
+  generator: number;
+
+  constructor() {
+    this.generator = 1;
+    this.width = 10;
+    this.height = 10;
+    this.numCellSides = 4;
+    this.seed = 1337;
+    this.weave = 0;
+    this.cullDeadEnds = 0;
+  }
+}
+
+export class Generator {
+  baseProps: GeneratorData;
+  grid!: Grid;
   random!: Random;
 
-  constructor(
-    width: number,
-    height: number,
-    numCellSides: number,
-    seed: number,
-    weave: number,
-    cullDeadEnds: number
-  ) {
-    this.width = width;
-    this.height = height;
-    this.numCellSides = numCellSides;
-    this.seed = seed;
-    this.weave = weave;
-    this.cullDeadEnds = cullDeadEnds;
+  constructor(baseProps: GeneratorData) {
+    this.baseProps = baseProps;
   }
 
   RunGenerator(): void {
-    this.random = new Random(this.seed);
-    this.grid = new Grid(this.width, this.height, this.numCellSides);
+    this.random = new Random(this.baseProps.seed);
+    this.grid = new Grid(
+      this.baseProps.width,
+      this.baseProps.height,
+      this.baseProps.numCellSides
+    );
     this.grid.InitializeGrid();
 
     this.Generate();
@@ -46,7 +54,7 @@ export class Generator {
   protected RemoveDeadEnds(): void {}
 
   protected MergeCells(currentCell: Cell, nextCell: Cell | undefined): void {
-    if (this.numCellSides === 4) {
+    if (this.baseProps.numCellSides === 4) {
       if (
         currentCell.adjacentCells[0] !== undefined &&
         currentCell.adjacentCells[0]?.x === nextCell?.x &&

@@ -5,23 +5,23 @@ import {
   Button,
   Container,
   Heading,
-  Input,
-  FormControl,
-  FormLabel,
-  Select,
-  SimpleGrid,
   Text,
   Tabs,
   TabList,
   TabPanels,
   Tab,
   TabPanel,
+  Center,
 } from '@chakra-ui/react';
 import { Canvas } from '../../../../lib/mazes/canvas';
-import { Generator as MazeGenerator } from '../../../../lib/mazes/generator';
+import {
+  Generator as MazeGenerator,
+  GeneratorData,
+} from '../../../../lib/mazes/generator';
 import { BinaryTree, BinaryTreeData } from '../../../../lib/mazes/binarytree';
 import { Sidewinder, SidewinderData } from '../../../../lib/mazes/sidewinder';
 import { Image } from '../../../../lib/mazes/image';
+import { GeneratorProperties } from './components/generator-properties';
 import { BinaryTreeProperties } from './components/binary-tree-properties';
 import { SidewinderProperties } from './components/sidewinder-properties';
 import {
@@ -32,10 +32,7 @@ import { Wilson, WilsonData } from '../../../../lib/mazes/wilson';
 
 interface IGeneratorState {
   imgData: Image;
-  seed: number;
-  generator: number;
-  width: number;
-  height: number;
+  generatorData: GeneratorData;
   binaryTree: BinaryTreeData;
   sidewinder: SidewinderData;
   aldousBroder: AldousBroderData;
@@ -48,95 +45,38 @@ export class Generator extends React.Component<any, IGeneratorState> {
 
     this.state = {
       imgData: new Image(1, 1),
-      seed: 1337,
-      generator: 1,
-      width: 10,
-      height: 10,
+      generatorData: new GeneratorData(),
       binaryTree: new BinaryTreeData(),
       sidewinder: new SidewinderData(),
       aldousBroder: new AldousBroderData(),
       wilson: new WilsonData(),
     };
-    this.handleGeneratorChange = this.handleGeneratorChange.bind(this);
-    this.handleSeedChange = this.handleSeedChange.bind(this);
-    this.handleWidthChange = this.handleWidthChange.bind(this);
-    this.handleHeightChange = this.handleHeightChange.bind(this);
 
+    this.handleGeneratorDataChange = this.handleGeneratorDataChange.bind(this);
     this.handleBinaryTreeChange = this.handleBinaryTreeChange.bind(this);
     this.handleSidewinderChange = this.handleSidewinderChange.bind(this);
   }
 
-  componentDidMount() {
-    const maze: BinaryTree = new BinaryTree(
-      this.state.width,
-      this.state.height,
-      4,
-      this.state.seed,
-      0,
-      0,
-      this.state.binaryTree
-    );
-    maze.RunGenerator();
-    this.setState({ imgData: maze.Display(64) });
-  }
-
   generate = () => {
     let maze: MazeGenerator;
-    switch (this.state.generator) {
+    const { binaryTree, sidewinder, aldousBroder, wilson, generatorData } =
+      this.state;
+
+    switch (generatorData.generator) {
       case 1:
-        maze = new BinaryTree(
-          this.state.width,
-          this.state.height,
-          4,
-          this.state.seed,
-          0,
-          0,
-          this.state.binaryTree
-        );
+        maze = new BinaryTree(generatorData, binaryTree);
         break;
       case 2:
-        maze = new Sidewinder(
-          this.state.width,
-          this.state.height,
-          4,
-          this.state.seed,
-          0,
-          0,
-          this.state.sidewinder
-        );
+        maze = new Sidewinder(generatorData, sidewinder);
         break;
       case 3:
-        maze = new AldousBroder(
-          this.state.width,
-          this.state.height,
-          4,
-          this.state.seed,
-          0,
-          0,
-          this.state.aldousBroder
-        );
+        maze = new AldousBroder(generatorData, aldousBroder);
         break;
       case 4:
-        maze = new Wilson(
-          this.state.width,
-          this.state.height,
-          4,
-          this.state.seed,
-          0,
-          0,
-          this.state.wilson
-        );
+        maze = new Wilson(generatorData, wilson);
         break;
       default:
-        maze = new BinaryTree(
-          this.state.width,
-          this.state.height,
-          4,
-          this.state.seed,
-          0,
-          0,
-          this.state.binaryTree
-        );
+        maze = new BinaryTree(generatorData, binaryTree);
         break;
     }
 
@@ -144,40 +84,30 @@ export class Generator extends React.Component<any, IGeneratorState> {
     this.setState({ imgData: maze.Display(64) });
   };
 
-  handleGeneratorChange(event: React.FormEvent<HTMLSelectElement>) {
-    this.setState({ generator: parseInt(event.currentTarget.value) });
-  }
-
-  handleSeedChange(event: React.FormEvent<HTMLInputElement>) {
-    this.setState({ seed: parseInt(event.currentTarget.value) });
-  }
-
-  handleWidthChange(event: React.FormEvent<HTMLInputElement>) {
-    this.setState({ width: parseInt(event.currentTarget.value) });
-  }
-
-  handleHeightChange(event: React.FormEvent<HTMLInputElement>) {
-    this.setState({ height: parseInt(event.currentTarget.value) });
-  }
-
-  handleBinaryTreeChange(fieldName: string, value: number) {
-    let binaryTree = this.state.binaryTree;
+  handleGeneratorDataChange(fieldName: string, value: number) {
+    let generatorData = this.state.generatorData;
 
     switch (fieldName) {
-      case 'directions':
-        binaryTree.direction = value;
+      case 'generator':
+        generatorData.generator = value;
         break;
-      case 'chanceVertical':
-        binaryTree.chanceVertical = value;
+      case 'seed':
+        generatorData.seed = value;
+        break;
+      case 'width':
+        generatorData.width = value;
+        break;
+      case 'height':
+        generatorData.height = value;
         break;
     }
 
-    this.setState({ binaryTree: binaryTree });
+    this.setState({ generatorData: generatorData });
   }
 
   getGeneratorPropertiesTabName(): string {
     let retVal: string = '';
-    switch (this.state.generator) {
+    switch (this.state.generatorData.generator) {
       case 1:
         retVal = 'Binary Tree';
         break;
@@ -194,6 +124,20 @@ export class Generator extends React.Component<any, IGeneratorState> {
     return retVal;
   }
 
+  handleBinaryTreeChange(fieldName: string, value: number) {
+    let binaryTree = this.state.binaryTree;
+
+    switch (fieldName) {
+      case 'directions':
+        binaryTree.direction = value;
+        break;
+      case 'chanceVertical':
+        binaryTree.chanceVertical = value;
+        break;
+    }
+
+    this.setState({ binaryTree: binaryTree });
+  }
   handleSidewinderChange(fieldName: string, value: number) {
     let sidewinder = this.state.sidewinder;
 
@@ -212,6 +156,27 @@ export class Generator extends React.Component<any, IGeneratorState> {
     this.setState({ sidewinder: sidewinder });
   }
 
+  getGeneratorSpecificPropertiesElement(): JSX.Element {
+    let retElement = <></>;
+
+    if (this.state.generatorData.generator === 1) {
+      retElement = (
+        <BinaryTreeProperties
+          data={this.state.binaryTree}
+          handleChange={this.handleBinaryTreeChange}
+        />
+      );
+    } else if (this.state.generatorData.generator === 2) {
+      retElement = (
+        <SidewinderProperties
+          data={this.state.sidewinder}
+          handleChange={this.handleSidewinderChange}
+        />
+      );
+    }
+    return retElement;
+  }
+
   render() {
     return (
       <Box padding="1em">
@@ -226,75 +191,13 @@ export class Generator extends React.Component<any, IGeneratorState> {
               </TabList>
               <TabPanels>
                 <TabPanel>
-                  <SimpleGrid columns={2} spacing="1em" paddingBottom="1em">
-                    <FormControl id="generator">
-                      <FormLabel>Generator</FormLabel>
-                      <Select
-                        name="generator"
-                        placeHolder="Select Generator"
-                        value={this.state.generator}
-                        onChange={this.handleGeneratorChange}
-                      >
-                        <option value="1">Binary Tree</option>
-                        <option value="2">Sidewinder</option>
-                        <option value="3">Aldous-Broder</option>
-                        <option value="4">Wilson's</option>
-                      </Select>
-                    </FormControl>
-                    <FormControl id="seed">
-                      <FormLabel>Seed</FormLabel>
-                      <Input
-                        name="seed"
-                        placeholder="Seed"
-                        value={this.state.seed}
-                        onChange={this.handleSeedChange}
-                      />
-                    </FormControl>
-                  </SimpleGrid>
-                  <SimpleGrid columns={2} spacing="1em" paddingBottom="1em">
-                    <FormControl id="width">
-                      <FormLabel>Width</FormLabel>
-                      <Input
-                        name="width"
-                        placeholder="Width"
-                        value={this.state.width}
-                        onChange={this.handleWidthChange}
-                      />
-                    </FormControl>
-                    <FormControl id="height">
-                      <FormLabel>Height</FormLabel>
-                      <Input
-                        name="height"
-                        placeholder="Height"
-                        value={this.state.height}
-                        onChange={this.handleHeightChange}
-                      />
-                    </FormControl>
-                  </SimpleGrid>
+                  <GeneratorProperties
+                    data={this.state.generatorData}
+                    handleChange={this.handleGeneratorDataChange}
+                  />
                 </TabPanel>
                 <TabPanel>
-                  <Box
-                    visibility={
-                      this.state.generator === 1 ? 'visible' : 'hidden'
-                    }
-                    display={this.state.generator === 1 ? 'initial' : 'none'}
-                  >
-                    <BinaryTreeProperties
-                      data={this.state.binaryTree}
-                      handleChange={this.handleBinaryTreeChange}
-                    />
-                  </Box>
-                  <Box
-                    visibility={
-                      this.state.generator === 2 ? 'visible' : 'hidden'
-                    }
-                    display={this.state.generator === 2 ? 'initial' : 'none'}
-                  >
-                    <SidewinderProperties
-                      data={this.state.sidewinder}
-                      handleChange={this.handleSidewinderChange}
-                    />
-                  </Box>
+                  {this.getGeneratorSpecificPropertiesElement()}
                 </TabPanel>
               </TabPanels>
             </Tabs>
@@ -304,11 +207,13 @@ export class Generator extends React.Component<any, IGeneratorState> {
         <Container
           maxWidth="container.lg"
           maxHeight="container.lg"
+          textAlign="center"
           overflow="scroll"
           padding="1em"
-          textAlign="center"
         >
-          <Canvas id="mazeCanvas" imgData={this.state.imgData}></Canvas>
+          <Center>
+            <Canvas id="mazeCanvas" imgData={this.state.imgData}></Canvas>
+          </Center>
         </Container>
       </Box>
     );

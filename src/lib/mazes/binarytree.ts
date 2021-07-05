@@ -1,4 +1,4 @@
-import { Generator } from './generator';
+import { Generator, GeneratorData } from './generator';
 
 export class BinaryTreeData {
   direction: number; //1 = NE, 2 = SE, 3 = SW, 4 = NW
@@ -13,16 +13,8 @@ export class BinaryTreeData {
 export class BinaryTree extends Generator {
   props: BinaryTreeData;
 
-  constructor(
-    width: number,
-    height: number,
-    numCellSides: number,
-    seed: number,
-    weave: number,
-    cullDeadEnds: number,
-    props: BinaryTreeData
-  ) {
-    super(width, height, numCellSides, seed, weave, cullDeadEnds);
+  constructor(baseProps: GeneratorData, props: BinaryTreeData) {
+    super(baseProps);
     this.props = props;
   }
 
@@ -33,9 +25,9 @@ export class BinaryTree extends Generator {
     const horizontalCell: number =
       this.props.direction === 1 || this.props.direction === 2 ? 1 : 3;
 
-    for (let i: number = 0; i < this.width; i++) {
-      for (let j: number = 0; j < this.height; j++) {
-        if (this.numCellSides === 4) {
+    for (let i: number = 0; i < this.baseProps.width; i++) {
+      for (let j: number = 0; j < this.baseProps.height; j++) {
+        if (this.baseProps.numCellSides === 4) {
           if (
             this.grid.cells[i][j]?.adjacentCells[verticalCell] !== undefined &&
             this.grid.cells[i][j]?.adjacentCells[horizontalCell] !== undefined

@@ -1,5 +1,5 @@
 import { Cell } from './cell';
-import { Generator } from './generator';
+import { Generator, GeneratorData } from './generator';
 
 export class WilsonData {
   direction: number;
@@ -14,16 +14,8 @@ export class WilsonData {
 export class Wilson extends Generator {
   props: WilsonData;
 
-  constructor(
-    width: number,
-    height: number,
-    numCellSides: number,
-    seed: number,
-    weave: number,
-    cullDeadEnds: number,
-    props: WilsonData
-  ) {
-    super(width, height, numCellSides, seed, weave, cullDeadEnds);
+  constructor(baseProps: GeneratorData, props: WilsonData) {
+    super(baseProps);
     this.props = props;
   }
 
@@ -33,8 +25,8 @@ export class Wilson extends Generator {
     let currentCell: Cell;
     let adjacentCount: number;
 
-    for (let i: number = 0; i < this.width; i++) {
-      for (let j: number = 0; j < this.height; j++) {
+    for (let i: number = 0; i < this.baseProps.width; i++) {
+      for (let j: number = 0; j < this.baseProps.height; j++) {
         if (!this.grid.cells[i][j].masked) {
           mapCells.push(this.grid.cells[i][j]);
         }

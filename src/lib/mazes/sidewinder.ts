@@ -1,4 +1,4 @@
-import { Generator } from './generator';
+import { Generator, GeneratorData } from './generator';
 import { Cell } from './cell';
 
 export class SidewinderData {
@@ -16,16 +16,8 @@ export class SidewinderData {
 export class Sidewinder extends Generator {
   props: SidewinderData;
 
-  constructor(
-    width: number,
-    height: number,
-    numCellSides: number,
-    seed: number,
-    weave: number,
-    cullDeadEnds: number,
-    props: SidewinderData
-  ) {
-    super(width, height, numCellSides, seed, weave, cullDeadEnds);
+  constructor(baseProps: GeneratorData, props: SidewinderData) {
+    super(baseProps);
     this.props = props;
   }
 
@@ -34,30 +26,30 @@ export class Sidewinder extends Generator {
     let randResult: number = 0;
 
     let iStart = 0,
-      iMax = this.width,
+      iMax = this.baseProps.width,
       iStep = 1;
     let jStart = 0,
-      jMax = this.height,
+      jMax = this.baseProps.height,
       jStep = 1;
 
     switch (this.props.sideDirection) {
       case 0:
         jStart = 0;
-        jMax = this.height;
+        jMax = this.baseProps.height;
         jStep = 1;
         break;
       case 1:
         iStart = 0;
-        iMax = this.width;
+        iMax = this.baseProps.width;
         iStep = 1;
         break;
       case 2:
-        jStart = this.height - 1;
+        jStart = this.baseProps.height - 1;
         jMax = 0;
         jStep = -1;
         break;
       case 3:
-        iStart = this.width - 1;
+        iStart = this.baseProps.width - 1;
         iMax = 0;
         iStep = -1;
         break;
@@ -66,21 +58,21 @@ export class Sidewinder extends Generator {
     switch (this.props.windDirection) {
       case 0:
         jStart = 0;
-        jMax = this.height;
+        jMax = this.baseProps.height;
         jStep = 1;
         break;
       case 1:
         iStart = 0;
-        iMax = this.width;
+        iMax = this.baseProps.width;
         iStep = 1;
         break;
       case 2:
-        jStart = this.height - 1;
+        jStart = this.baseProps.height - 1;
         jMax = 0;
         jStep = -1;
         break;
       case 3:
-        iStart = this.width - 1;
+        iStart = this.baseProps.width - 1;
         iMax = 0;
         iStep = -1;
         break;
@@ -98,7 +90,7 @@ export class Sidewinder extends Generator {
           iStart === 0 ? i < iMax : i >= iMax;
           i += iStep
         ) {
-          if (this.numCellSides === 4) {
+          if (this.baseProps.numCellSides === 4) {
             cellRun.push(this.grid.cells[i][j]);
             randResult = this.random.GetInt(100);
 
@@ -144,7 +136,7 @@ export class Sidewinder extends Generator {
           jStart === 0 ? j < jMax : j >= jMax;
           j += jStep
         ) {
-          if (this.numCellSides === 4) {
+          if (this.baseProps.numCellSides === 4) {
             cellRun.push(this.grid.cells[i][j]);
             randResult = this.random.GetInt(100);
 

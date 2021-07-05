@@ -1,5 +1,5 @@
 import { Cell } from './cell';
-import { Generator } from './generator';
+import { Generator, GeneratorData } from './generator';
 
 export class AldousBroderData {
   direction: number; //1 = NE, 2 = SE, 3 = SW, 4 = NW
@@ -14,16 +14,8 @@ export class AldousBroderData {
 export class AldousBroder extends Generator {
   props: AldousBroderData;
 
-  constructor(
-    width: number,
-    height: number,
-    numCellSides: number,
-    seed: number,
-    weave: number,
-    cullDeadEnds: number,
-    props: AldousBroderData
-  ) {
-    super(width, height, numCellSides, seed, weave, cullDeadEnds);
+  constructor(baseProps: GeneratorData, props: AldousBroderData) {
+    super(baseProps);
     this.props = props;
   }
 
@@ -33,8 +25,8 @@ export class AldousBroder extends Generator {
     let currentCell: Cell;
     let nextCell: Cell | undefined;
 
-    for (let i: number = 0; i < this.width; i++) {
-      for (let j: number = 0; j < this.height; j++) {
+    for (let i: number = 0; i < this.baseProps.width; i++) {
+      for (let j: number = 0; j < this.baseProps.height; j++) {
         if (!this.grid.cells[i][j].masked) {
           mapCells.push(this.grid.cells[i][j]);
         }
