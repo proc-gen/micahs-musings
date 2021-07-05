@@ -161,11 +161,14 @@ export class Generator extends React.Component<any, IGeneratorState> {
     let sidewinder = this.state.sidewinder;
 
     switch (fieldName) {
-      case 'directions':
-        sidewinder.direction = value;
+      case 'sideDirection':
+        sidewinder.sideDirection = value;
+        break;
+      case 'windDirection':
+        sidewinder.windDirection = value;
         break;
       case 'chanceVertical':
-        sidewinder.chanceVertical = value;
+        sidewinder.chanceWind = value;
         break;
     }
 

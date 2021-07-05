@@ -24,16 +24,26 @@ export class SidewinderProperties extends React.Component<
     super(props);
     this.state = {};
 
-    this.handleDirectionsChange = this.handleDirectionsChange.bind(this);
-    this.handleChanceVerticalChange =
-      this.handleChanceVerticalChange.bind(this);
+    this.handleWindDirectionChange = this.handleWindDirectionChange.bind(this);
+    this.handleChanceWindChange = this.handleChanceWindChange.bind(this);
+    this.handleSideDirectionChange = this.handleSideDirectionChange.bind(this);
   }
 
-  handleDirectionsChange(event: React.FormEvent<HTMLSelectElement>) {
-    this.props.handleChange('directions', parseInt(event.currentTarget.value));
+  handleSideDirectionChange(event: React.FormEvent<HTMLSelectElement>) {
+    this.props.handleChange(
+      'sideDirection',
+      parseInt(event.currentTarget.value)
+    );
   }
 
-  handleChanceVerticalChange(event: React.FormEvent<HTMLInputElement>) {
+  handleWindDirectionChange(event: React.FormEvent<HTMLSelectElement>) {
+    this.props.handleChange(
+      'windDirection',
+      parseInt(event.currentTarget.value)
+    );
+  }
+
+  handleChanceWindChange(event: React.FormEvent<HTMLInputElement>) {
     this.props.handleChange(
       'chanceVertical',
       parseInt(event.currentTarget.value)
@@ -42,31 +52,49 @@ export class SidewinderProperties extends React.Component<
 
   render() {
     return (
-      <SimpleGrid columns={2} spacing="1em" paddingBottom="1em">
-        <FormControl id="directions">
-          <FormLabel>Direction Choices</FormLabel>
-          <Select
-            name="directions"
-            placeHolder="Directions"
-            value={this.props.data.direction}
-            onChange={this.handleDirectionsChange}
-          >
-            <option value="1">North & East</option>
-            <option value="2">South & East</option>
-            <option value="3">South & West</option>
-            <option value="4">North & West</option>
-          </Select>
-        </FormControl>
-        <FormControl id="chanceVertical">
-          <FormLabel>Vertical Chance</FormLabel>
-          <Input
-            name="chanceVertical"
-            placeholder="Vertical Chance"
-            value={this.props.data.chanceVertical}
-            onChange={this.handleChanceVerticalChange}
-          />
-        </FormControl>
-      </SimpleGrid>
+      <>
+        <SimpleGrid columns={2} spacing="1em" paddingBottom="1em">
+          <FormControl id="sideDirection">
+            <FormLabel>Side Direction</FormLabel>
+            <Select
+              name="sideDirection"
+              placeHolder="Side Direction"
+              value={this.props.data.sideDirection}
+              onChange={this.handleSideDirectionChange}
+            >
+              <option value="0">North</option>
+              <option value="1">East</option>
+              <option value="2">South</option>
+              <option value="3">West</option>
+            </Select>
+          </FormControl>
+          <FormControl id="windDirection">
+            <FormLabel>Wind Direction</FormLabel>
+            <Select
+              name="windDirection"
+              placeHolder="Wind Direction"
+              value={this.props.data.windDirection}
+              onChange={this.handleWindDirectionChange}
+            >
+              <option value="0">North</option>
+              <option value="1">East</option>
+              <option value="2">South</option>
+              <option value="3">West</option>
+            </Select>
+          </FormControl>
+        </SimpleGrid>
+        <SimpleGrid columns={2} spacing="1em" paddingBottom="1em">
+          <FormControl id="chanceWind">
+            <FormLabel>Wind Chance</FormLabel>
+            <Input
+              name="chanceWind"
+              placeholder="Wind Chance"
+              value={this.props.data.chanceWind}
+              onChange={this.handleChanceWindChange}
+            />
+          </FormControl>
+        </SimpleGrid>
+      </>
     );
   }
 }
