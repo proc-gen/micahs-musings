@@ -117,7 +117,6 @@ export class Generator extends React.Component<any, IGeneratorState> {
         );
         break;
       case 4:
-        //alert('Created Wilson');
         maze = new Wilson(
           this.state.width,
           this.state.height,

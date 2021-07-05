@@ -2,8 +2,8 @@ import { Cell } from './cell';
 import { Generator } from './generator';
 
 export class WilsonData {
-  direction: number; //1 = NE, 2 = SE, 3 = SW, 4 = NW
-  chanceVertical: number; //1 - 99
+  direction: number;
+  chanceVertical: number;
 
   constructor() {
     this.direction = 1;
