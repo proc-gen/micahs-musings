@@ -24,6 +24,10 @@ import { Sidewinder, SidewinderData } from '../../../../lib/mazes/sidewinder';
 import { Image } from '../../../../lib/mazes/image';
 import { BinaryTreeProperties } from './components/binary-tree-properties';
 import { SidewinderProperties } from './components/sidewinder-properties';
+import {
+  AldousBroder,
+  AldousBroderData,
+} from '../../../../lib/mazes/aldous-broder';
 
 interface IGeneratorState {
   imgData: Image;
@@ -33,6 +37,7 @@ interface IGeneratorState {
   height: number;
   binaryTree: BinaryTreeData;
   sidewinder: SidewinderData;
+  aldousBroder: AldousBroderData;
 }
 
 export class Generator extends React.Component<any, IGeneratorState> {
@@ -47,6 +52,7 @@ export class Generator extends React.Component<any, IGeneratorState> {
       height: 10,
       binaryTree: new BinaryTreeData(),
       sidewinder: new SidewinderData(),
+      aldousBroder: new AldousBroderData(),
     };
     this.handleGeneratorChange = this.handleGeneratorChange.bind(this);
     this.handleSeedChange = this.handleSeedChange.bind(this);
@@ -94,6 +100,17 @@ export class Generator extends React.Component<any, IGeneratorState> {
           0,
           0,
           this.state.sidewinder
+        );
+        break;
+      case 3:
+        maze = new AldousBroder(
+          this.state.width,
+          this.state.height,
+          4,
+          this.state.seed,
+          0,
+          0,
+          this.state.aldousBroder
         );
         break;
       default:
@@ -153,6 +170,9 @@ export class Generator extends React.Component<any, IGeneratorState> {
       case 2:
         retVal = 'Sidewinder';
         break;
+      case 3:
+        retVal = 'Aldous-Broder';
+        break;
     }
     return retVal;
   }
@@ -200,6 +220,7 @@ export class Generator extends React.Component<any, IGeneratorState> {
                       >
                         <option value="1">Binary Tree</option>
                         <option value="2">Sidewinder</option>
+                        <option value="3">Aldous-Broder</option>
                       </Select>
                     </FormControl>
                     <FormControl id="seed">
