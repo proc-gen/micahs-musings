@@ -18,7 +18,7 @@ import {
   Generator as MazeGenerator,
   GeneratorData,
 } from '../../../../lib/mazes/generator';
-import { BinaryTree, BinaryTreeData } from '../../../../lib/mazes/binarytree';
+import { BinaryTree, BinaryTreeData } from '../../../../lib/mazes/binary-tree';
 import { Sidewinder, SidewinderData } from '../../../../lib/mazes/sidewinder';
 import { Image } from '../../../../lib/mazes/image';
 import { GeneratorProperties } from './components/generator-properties';
@@ -29,6 +29,14 @@ import {
   AldousBroderData,
 } from '../../../../lib/mazes/aldous-broder';
 import { Wilson, WilsonData } from '../../../../lib/mazes/wilson';
+import {
+  HuntAndKill,
+  HuntAndKillData,
+} from '../../../../lib/mazes/hunt-and-kill';
+import {
+  RecursiveBacktracker,
+  RecursiveBacktrackerData,
+} from '../../../../lib/mazes/recursive-backtracker';
 
 interface IGeneratorState {
   imgData: Image;
@@ -37,6 +45,8 @@ interface IGeneratorState {
   sidewinder: SidewinderData;
   aldousBroder: AldousBroderData;
   wilson: WilsonData;
+  huntAndKill: HuntAndKillData;
+  recursiveBacktracker: RecursiveBacktrackerData;
 }
 
 export class Generator extends React.Component<any, IGeneratorState> {
@@ -50,6 +60,8 @@ export class Generator extends React.Component<any, IGeneratorState> {
       sidewinder: new SidewinderData(),
       aldousBroder: new AldousBroderData(),
       wilson: new WilsonData(),
+      huntAndKill: new HuntAndKillData(),
+      recursiveBacktracker: new RecursiveBacktrackerData(),
     };
 
     this.handleGeneratorDataChange = this.handleGeneratorDataChange.bind(this);
@@ -59,8 +71,15 @@ export class Generator extends React.Component<any, IGeneratorState> {
 
   generate = () => {
     let maze: MazeGenerator;
-    const { binaryTree, sidewinder, aldousBroder, wilson, generatorData } =
-      this.state;
+    const {
+      binaryTree,
+      sidewinder,
+      aldousBroder,
+      wilson,
+      huntAndKill,
+      recursiveBacktracker,
+      generatorData,
+    } = this.state;
 
     switch (generatorData.generator) {
       case 1:
@@ -74,6 +93,12 @@ export class Generator extends React.Component<any, IGeneratorState> {
         break;
       case 4:
         maze = new Wilson(generatorData, wilson);
+        break;
+      case 5:
+        maze = new HuntAndKill(generatorData, huntAndKill);
+        break;
+      case 6:
+        maze = new RecursiveBacktracker(generatorData, recursiveBacktracker);
         break;
       default:
         maze = new BinaryTree(generatorData, binaryTree);
@@ -119,6 +144,12 @@ export class Generator extends React.Component<any, IGeneratorState> {
         break;
       case 4:
         retVal = "Wilson's";
+        break;
+      case 5:
+        retVal = 'Hunt and Kill';
+        break;
+      case 6:
+        retVal = 'Recursive Backtracker';
         break;
     }
     return retVal;
