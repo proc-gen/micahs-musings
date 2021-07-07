@@ -245,6 +245,34 @@ export class Cell {
     return imgData;
   }
 
+  GetWeightDirection(weight: number) {
+    let retVal: number = -1;
+    let i: number = 0;
+    do {
+      if (this.walls[i].weight === weight) {
+        retVal = i;
+      }
+      i++;
+    } while (retVal === -1 || i < this.numCellSides);
+    return retVal;
+  }
+
+  GetCellDirection(nextCell: Cell): number {
+    let retVal: number = -1;
+    let i: number = 0;
+    do {
+      if (
+        this.adjacentCells[i] !== undefined &&
+        (this.adjacentCells[i] as Cell).x === nextCell.x &&
+        (this.adjacentCells[i] as Cell).y === nextCell.y
+      ) {
+        retVal = i;
+      }
+      i++;
+    } while (retVal === -1 || i < this.numCellSides);
+    return retVal;
+  }
+
   ToString(): string {
     return '(' + this.x.toString() + ',' + this.y.toString() + ')';
   }

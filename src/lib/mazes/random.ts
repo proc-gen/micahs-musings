@@ -10,6 +10,10 @@ export class Random {
     return Math.floor(this.mulberry32() * max);
   }
 
+  GetIntInRange(min: number, max: number) {
+    return Math.floor(this.mulberry32() * (max - min)) + min;
+  }
+
   private mulberry32(): number {
     this.i++;
     let t: number = (this.seed + this.i) ^ 0x6d2b79f5;

@@ -9,7 +9,11 @@ export class Wall {
   isWall!: boolean;
   isStairsDown!: boolean;
   isStairsUp!: boolean;
-  weight!: number;
+  weight: number;
+
+  constructor() {
+    this.weight = 0;
+  }
 
   IsFlat(): boolean {
     return !this.isWall && !this.isStairsUp && !this.isStairsDown;

@@ -64,6 +64,8 @@ export class GeneratorProperties extends React.Component<
               <option value="4">Wilson's</option>
               <option value="5">Hunt and Kill</option>
               <option value="6">Recursive Backtracker</option>
+              <option value="7">Kruskal's</option>
+              <option value="8">Prim's</option>
             </Select>
           </FormControl>
           <FormControl id="seed">
