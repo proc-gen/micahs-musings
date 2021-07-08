@@ -39,6 +39,10 @@ import {
 } from '../../../../lib/mazes/recursive-backtracker';
 import { Prim, PrimData } from '../../../../lib/mazes/prim';
 import { Kruskal, KruskalData } from '../../../../lib/mazes/kruskal';
+import {
+  GrowingTree,
+  GrowingTreeData,
+} from '../../../../lib/mazes/growing-tree';
 
 interface IGeneratorState {
   imgData: Image;
@@ -51,6 +55,7 @@ interface IGeneratorState {
   recursiveBacktracker: RecursiveBacktrackerData;
   kruskal: KruskalData;
   prim: PrimData;
+  growingTree: GrowingTreeData;
 }
 
 export class Generator extends React.Component<any, IGeneratorState> {
@@ -68,6 +73,7 @@ export class Generator extends React.Component<any, IGeneratorState> {
       recursiveBacktracker: new RecursiveBacktrackerData(),
       kruskal: new KruskalData(),
       prim: new PrimData(),
+      growingTree: new GrowingTreeData(),
     };
 
     this.handleGeneratorDataChange = this.handleGeneratorDataChange.bind(this);
@@ -86,6 +92,7 @@ export class Generator extends React.Component<any, IGeneratorState> {
       recursiveBacktracker,
       kruskal,
       prim,
+      growingTree,
       generatorData,
     } = this.state;
 
@@ -113,6 +120,9 @@ export class Generator extends React.Component<any, IGeneratorState> {
         break;
       case 8:
         maze = new Prim(generatorData, prim);
+        break;
+      case 9:
+        maze = new GrowingTree(generatorData, growingTree);
         break;
       default:
         maze = new BinaryTree(generatorData, binaryTree);
@@ -170,6 +180,9 @@ export class Generator extends React.Component<any, IGeneratorState> {
         break;
       case 8:
         retVal = "Prims's";
+        break;
+      case 9:
+        retVal = 'Growing Tree';
         break;
     }
     return retVal;

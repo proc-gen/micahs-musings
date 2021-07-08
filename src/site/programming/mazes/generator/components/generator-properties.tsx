@@ -66,6 +66,7 @@ export class GeneratorProperties extends React.Component<
               <option value="6">Recursive Backtracker</option>
               <option value="7">Kruskal's</option>
               <option value="8">Prim's</option>
+              <option value="9">Growing Tree</option>
             </Select>
           </FormControl>
           <FormControl id="seed">
