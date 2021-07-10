@@ -13,7 +13,7 @@ import {
   TabPanel,
   Center,
 } from '@chakra-ui/react';
-import { Canvas } from '../../../../lib/components/canvas';
+import { Canvas } from '../../../lib/components/canvas';
 import { GeneratorProperties } from './components/generator-properties';
 import { BinaryTreeProperties } from './components/binary-tree-properties';
 import { SidewinderProperties } from './components/sidewinder-properties';
@@ -44,7 +44,7 @@ import {
   EllerData,
   RecursiveSubdivision,
   RecursiveSubdivisionData,
-} from '../../../../lib/mazes';
+} from '../../../lib/mazes';
 
 interface IGeneratorState {
   imgData: Image;

@@ -7,7 +7,7 @@ import {
   SimpleGrid,
   Text,
 } from '@chakra-ui/react';
-import { LinkButton } from '../../../../lib/components/link-button';
+import { LinkButton } from '../../../lib/components/link-button';
 
 export const Mazes: React.FC = () => {
   return (
@@ -17,11 +17,11 @@ export const Mazes: React.FC = () => {
         <LinkButton href="/programming/mazes/generator" text="Generator" />
         <LinkButton href="/programming/mazes/algorithms" text="Algorithms" />
       </SimpleGrid>
-      <Container maxW="container.lg" padding="1em">
+      <Container maxW="container.lg" padding="1em" fontSize="md">
         <Text textAlign="left" paddingBottom="1em">
-          Around the time of June 2020, I was perusing through Amazon looking
-          for new books to read whether they were for something to learn or just
-          for enjoyment. I ended up coming across{' '}
+          Back in May 2020, I was perusing through Amazon looking for new books
+          to read whether they were for something to learn or just for
+          enjoyment. I ended up coming across{' '}
           <Link
             href="https://www.amazon.com/Mazes-Programmers-Twisty-Little-Passages/dp/1680500554"
             isExternal

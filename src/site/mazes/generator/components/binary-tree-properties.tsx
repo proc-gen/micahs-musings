@@ -7,7 +7,7 @@ import {
   SimpleGrid,
 } from '@chakra-ui/react';
 
-import { BinaryTreeData } from '../../../../../lib/mazes';
+import { BinaryTreeData } from '../../../../lib/mazes';
 
 export interface IBinaryTreeProps {
   data: BinaryTreeData;

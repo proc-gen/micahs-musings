@@ -28,50 +28,28 @@ export const LeftNav: React.FC<ILeftNavProps> = () => {
           </AccordionItem>
           <AccordionItem>
             <AccordionButton w="100%">
-              Programming
+              Mazes
               <AccordionIcon />
             </AccordionButton>
             <AccordionPanel w="100%">
               <AccordionItem>
                 <AccordionButton>
-                  <Link as={ReactLink} to="/programming">
+                  <Link as={ReactLink} to="/mazes">
                     Overview
                   </Link>
                 </AccordionButton>
               </AccordionItem>
               <AccordionItem>
-                <AccordionButton w="100%">
-                  Mazes
-                  <AccordionIcon />
+                <AccordionButton>
+                  <Link as={ReactLink} to="/mazes/generator">
+                    Generator
+                  </Link>
                 </AccordionButton>
-                <AccordionPanel w="100%">
-                  <AccordionItem>
-                    <AccordionButton>
-                      <Link as={ReactLink} to="/programming/mazes">
-                        Overview
-                      </Link>
-                    </AccordionButton>
-                  </AccordionItem>
-                  <AccordionItem>
-                    <AccordionButton>
-                      <Link as={ReactLink} to="/programming/mazes/generator">
-                        Generator
-                      </Link>
-                    </AccordionButton>
-                  </AccordionItem>
-                  <AccordionItem>
-                    <AccordionButton>
-                      <Link as={ReactLink} to="/programming/mazes/algorithms">
-                        Algorithms
-                      </Link>
-                    </AccordionButton>
-                  </AccordionItem>
-                </AccordionPanel>
               </AccordionItem>
               <AccordionItem>
-                <AccordionButton w="100%">
-                  <Link as={ReactLink} to="/programming/terrain-generation">
-                    Terrain Generation
+                <AccordionButton>
+                  <Link as={ReactLink} to="/mazes/algorithms">
+                    Algorithms
                   </Link>
                 </AccordionButton>
               </AccordionItem>
@@ -83,19 +61,33 @@ export const LeftNav: React.FC<ILeftNavProps> = () => {
               <AccordionIcon />
             </AccordionButton>
             <AccordionPanel w="100%">
-              <AccordionButton>
-                <Link as={ReactLink} to="/writing" w="100%">
-                  Overview
-                </Link>
-              </AccordionButton>
+              <AccordionItem>
+                <AccordionButton>
+                  <Link as={ReactLink} to="/writing" w="100%">
+                    Overview
+                  </Link>
+                </AccordionButton>
+              </AccordionItem>
+              <AccordionItem>
+                <AccordionButton w="100%">
+                  When Worlds Collide
+                  <AccordionIcon />
+                </AccordionButton>
+                <AccordionPanel w="100%">
+                  <AccordionItem>
+                    <AccordionButton>
+                      <Link
+                        as={ReactLink}
+                        to="/writing/when-worlds-collide/chapter-1"
+                        w="100%"
+                      >
+                        Chapter 1
+                      </Link>
+                    </AccordionButton>
+                  </AccordionItem>
+                </AccordionPanel>
+              </AccordionItem>
             </AccordionPanel>
-          </AccordionItem>
-          <AccordionItem>
-            <AccordionButton>
-              <Link as={ReactLink} to="/about-me">
-                About Me
-              </Link>
-            </AccordionButton>
           </AccordionItem>
         </Accordion>
       </VStack>

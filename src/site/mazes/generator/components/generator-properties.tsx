@@ -7,7 +7,7 @@ import {
   SimpleGrid,
 } from '@chakra-ui/react';
 
-import { GeneratorData } from '../../../../../lib/mazes';
+import { GeneratorData } from '../../../../lib/mazes';
 
 export interface IGeneratorProps {
   data: GeneratorData;

@@ -7,7 +7,7 @@ import {
   SimpleGrid,
 } from '@chakra-ui/react';
 
-import { SidewinderData } from '../../../../../lib/mazes';
+import { SidewinderData } from '../../../../lib/mazes';
 
 export interface ISidewinderProps {
   data: SidewinderData;

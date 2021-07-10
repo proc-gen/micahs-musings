@@ -23,10 +23,9 @@ export const Home: React.FC = () => {
           they're cool, interesting, or just meant to make you think. Enjoy!
         </Text>
       </Box>
-      <SimpleGrid columns={3} spacing="1em" padding="1em">
-        <LinkButton href="/programming" text="Programming" />
+      <SimpleGrid columns={2} spacing="1em" padding="1em">
+        <LinkButton href="/mazes" text="Mazes" />
         <LinkButton href="/writing" text="Writing" />
-        <LinkButton href="/about-me" text="About Me" />
       </SimpleGrid>
       <SimpleGrid columns={2} spacing="5em" padding="1em">
         <Thumbnail source={MazeGenerator} altText="Maze Generator" />
