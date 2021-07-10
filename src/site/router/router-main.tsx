@@ -14,6 +14,7 @@ import IsDev from '../../lib/helpers/check-environment';
 
 export const RouterMain: React.FC = () => {
   if (!IsDev) {
+    alert('hello');
     return (
       <LayoutMain>
         <Route exact path="/micahs-musings" component={Home} />

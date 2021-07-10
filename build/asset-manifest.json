@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.js": "http://localhost:3000/static/js/main.bd14d308.chunk.js",
-    "main.js.map": "http://localhost:3000/static/js/main.bd14d308.chunk.js.map",
-    "runtime-main.js": "http://localhost:3000/static/js/runtime-main.80286b05.js",
-    "runtime-main.js.map": "http://localhost:3000/static/js/runtime-main.80286b05.js.map",
-    "static/js/2.fa2abf20.chunk.js": "http://localhost:3000/static/js/2.fa2abf20.chunk.js",
-    "static/js/2.fa2abf20.chunk.js.map": "http://localhost:3000/static/js/2.fa2abf20.chunk.js.map",
-    "static/js/3.ef070ccb.chunk.js": "http://localhost:3000/static/js/3.ef070ccb.chunk.js",
-    "static/js/3.ef070ccb.chunk.js.map": "http://localhost:3000/static/js/3.ef070ccb.chunk.js.map",
-    "index.html": "http://localhost:3000/index.html",
-    "static/js/2.fa2abf20.chunk.js.LICENSE.txt": "http://localhost:3000/static/js/2.fa2abf20.chunk.js.LICENSE.txt",
-    "static/media/3-d-maze.faf6ae04.png": "http://localhost:3000/static/media/3-d-maze.faf6ae04.png",
-    "static/media/maze-generator.87da6afb.png": "http://localhost:3000/static/media/maze-generator.87da6afb.png",
-    "static/media/molten-teapot.7f5a8561.jpg": "http://localhost:3000/static/media/molten-teapot.7f5a8561.jpg",
-    "static/media/multiple-noise-terrain.858abf92.jpg": "http://localhost:3000/static/media/multiple-noise-terrain.858abf92.jpg"
+    "main.js": "/micahs-musings/static/js/main.f7cae292.chunk.js",
+    "main.js.map": "/micahs-musings/static/js/main.f7cae292.chunk.js.map",
+    "runtime-main.js": "/micahs-musings/static/js/runtime-main.5583551b.js",
+    "runtime-main.js.map": "/micahs-musings/static/js/runtime-main.5583551b.js.map",
+    "static/js/2.fa2abf20.chunk.js": "/micahs-musings/static/js/2.fa2abf20.chunk.js",
+    "static/js/2.fa2abf20.chunk.js.map": "/micahs-musings/static/js/2.fa2abf20.chunk.js.map",
+    "static/js/3.ef070ccb.chunk.js": "/micahs-musings/static/js/3.ef070ccb.chunk.js",
+    "static/js/3.ef070ccb.chunk.js.map": "/micahs-musings/static/js/3.ef070ccb.chunk.js.map",
+    "index.html": "/micahs-musings/index.html",
+    "static/js/2.fa2abf20.chunk.js.LICENSE.txt": "/micahs-musings/static/js/2.fa2abf20.chunk.js.LICENSE.txt",
+    "static/media/3-d-maze.faf6ae04.png": "/micahs-musings/static/media/3-d-maze.faf6ae04.png",
+    "static/media/maze-generator.87da6afb.png": "/micahs-musings/static/media/maze-generator.87da6afb.png",
+    "static/media/molten-teapot.7f5a8561.jpg": "/micahs-musings/static/media/molten-teapot.7f5a8561.jpg",
+    "static/media/multiple-noise-terrain.858abf92.jpg": "/micahs-musings/static/media/multiple-noise-terrain.858abf92.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.80286b05.js",
+    "static/js/runtime-main.5583551b.js",
     "static/js/2.fa2abf20.chunk.js",
-    "static/js/main.bd14d308.chunk.js"
+    "static/js/main.f7cae292.chunk.js"
   ]
 }
