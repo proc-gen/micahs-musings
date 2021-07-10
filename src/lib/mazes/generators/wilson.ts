@@ -1,4 +1,4 @@
-import { Cell } from './cell';
+import { Cell } from '../';
 import { Generator, GeneratorData } from './generator';
 
 export class WilsonData {

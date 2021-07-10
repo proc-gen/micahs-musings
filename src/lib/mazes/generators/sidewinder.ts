@@ -1,5 +1,5 @@
 import { Generator, GeneratorData } from './generator';
-import { Cell } from './cell';
+import { Cell } from '../';
 
 export class SidewinderData {
   sideDirection: number;

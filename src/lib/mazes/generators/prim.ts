@@ -1,6 +1,6 @@
-import { Cell } from './cell';
+import { Cell } from '../';
 import { Generator, GeneratorData } from './generator';
-import { Wall } from './wall';
+import { Wall } from '../';
 
 export class PrimData {
   direction: number; //1 = NE, 2 = SE, 3 = SW, 4 = NW

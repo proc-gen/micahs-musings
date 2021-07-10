@@ -1,4 +1,4 @@
-import { Cell } from './cell';
+import { Cell } from '../maze-parts/cell';
 import { Generator, GeneratorData } from './generator';
 
 export class GrowingTreeData {

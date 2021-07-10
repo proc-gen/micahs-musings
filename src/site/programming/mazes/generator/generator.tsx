@@ -13,36 +13,36 @@ import {
   TabPanel,
   Center,
 } from '@chakra-ui/react';
-import { Canvas } from '../../../../lib/mazes/canvas';
-import {
-  Generator as MazeGenerator,
-  GeneratorData,
-} from '../../../../lib/mazes/generator';
-import { BinaryTree, BinaryTreeData } from '../../../../lib/mazes/binary-tree';
-import { Sidewinder, SidewinderData } from '../../../../lib/mazes/sidewinder';
-import { Image } from '../../../../lib/mazes/image';
+import { Canvas } from '../../../../lib/components/canvas';
 import { GeneratorProperties } from './components/generator-properties';
 import { BinaryTreeProperties } from './components/binary-tree-properties';
 import { SidewinderProperties } from './components/sidewinder-properties';
+
 import {
+  Generator as MazeGenerator,
+  GeneratorData,
+  BinaryTree,
+  BinaryTreeData,
+  Sidewinder,
+  SidewinderData,
+  Image,
   AldousBroder,
   AldousBroderData,
-} from '../../../../lib/mazes/aldous-broder';
-import { Wilson, WilsonData } from '../../../../lib/mazes/wilson';
-import {
+  Wilson,
+  WilsonData,
   HuntAndKill,
   HuntAndKillData,
-} from '../../../../lib/mazes/hunt-and-kill';
-import {
   RecursiveBacktracker,
   RecursiveBacktrackerData,
-} from '../../../../lib/mazes/recursive-backtracker';
-import { Prim, PrimData } from '../../../../lib/mazes/prim';
-import { Kruskal, KruskalData } from '../../../../lib/mazes/kruskal';
-import {
+  Prim,
+  PrimData,
+  Kruskal,
+  KruskalData,
   GrowingTree,
   GrowingTreeData,
-} from '../../../../lib/mazes/growing-tree';
+  Eller,
+  EllerData,
+} from '../../../../lib/mazes';
 
 interface IGeneratorState {
   imgData: Image;
@@ -56,6 +56,7 @@ interface IGeneratorState {
   kruskal: KruskalData;
   prim: PrimData;
   growingTree: GrowingTreeData;
+  eller: EllerData;
 }
 
 export class Generator extends React.Component<any, IGeneratorState> {
@@ -74,6 +75,7 @@ export class Generator extends React.Component<any, IGeneratorState> {
       kruskal: new KruskalData(),
       prim: new PrimData(),
       growingTree: new GrowingTreeData(),
+      eller: new EllerData(),
     };
 
     this.handleGeneratorDataChange = this.handleGeneratorDataChange.bind(this);
@@ -93,6 +95,7 @@ export class Generator extends React.Component<any, IGeneratorState> {
       kruskal,
       prim,
       growingTree,
+      eller,
       generatorData,
     } = this.state;
 
@@ -123,6 +126,9 @@ export class Generator extends React.Component<any, IGeneratorState> {
         break;
       case 9:
         maze = new GrowingTree(generatorData, growingTree);
+        break;
+      case 10:
+        maze = new Eller(generatorData, eller);
         break;
       default:
         maze = new BinaryTree(generatorData, binaryTree);
@@ -183,6 +189,9 @@ export class Generator extends React.Component<any, IGeneratorState> {
         break;
       case 9:
         retVal = 'Growing Tree';
+        break;
+      case 10:
+        retVal = "Eller's";
         break;
     }
     return retVal;

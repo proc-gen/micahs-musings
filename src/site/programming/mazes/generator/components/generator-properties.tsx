@@ -7,7 +7,7 @@ import {
   SimpleGrid,
 } from '@chakra-ui/react';
 
-import { GeneratorData } from '../../../../../lib/mazes/generator';
+import { GeneratorData } from '../../../../../lib/mazes';
 
 export interface IGeneratorProps {
   data: GeneratorData;
@@ -67,6 +67,7 @@ export class GeneratorProperties extends React.Component<
               <option value="7">Kruskal's</option>
               <option value="8">Prim's</option>
               <option value="9">Growing Tree</option>
+              <option value="10">Eller's</option>
             </Select>
           </FormControl>
           <FormControl id="seed">

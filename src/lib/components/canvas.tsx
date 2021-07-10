@@ -1,9 +1,8 @@
 import React from 'react';
-import { Image } from './image';
 
 export interface ICanvasProps {
   id: string;
-  imgData: Image;
+  imgData: ImageData;
   width?: number;
   height?: number;
 }

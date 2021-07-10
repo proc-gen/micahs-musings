@@ -1,4 +1,4 @@
-import { Cell } from './cell';
+import { Cell } from '../';
 import { Generator, GeneratorData } from './generator';
 
 export class KruskalData {
@@ -49,8 +49,7 @@ export class Kruskal extends Generator {
 
     do {
       while (
-        mapCells.filter((a) => a.walls.some((a) => a.weight === currentWeight))
-          .length > 0
+        mapCells.some((a) => a.walls.some((b) => b.weight === currentWeight))
       ) {
         currentCell = mapCells.filter((a) =>
           a.walls.some((b) => b.weight === currentWeight)
@@ -111,13 +110,13 @@ export class Kruskal extends Generator {
               mapSet = (currentCell as Cell).set;
               mapCells
                 .filter((a) => a.set === filterSet)
-                .map((a) => (a.set = mapSet));
+                .forEach((a) => (a.set = mapSet));
             } else {
               filterSet = (currentCell as Cell).set;
               mapSet = (nextCell as Cell).set;
               mapCells
                 .filter((a) => a.set === filterSet)
-                .map((a) => (a.set = mapSet));
+                .forEach((a) => (a.set = mapSet));
             }
           }
         }
