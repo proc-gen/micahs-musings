@@ -5,7 +5,7 @@ export { Wall } from './maze-parts/wall';
 export { Image } from './image-utils/image';
 export { RGBA } from './image-utils/rgba';
 
-export { Random } from './random/random';
+export { Random } from './utils/random';
 
 export { AldousBroder, AldousBroderData } from './generators/aldous-broder';
 export { BinaryTree, BinaryTreeData } from './generators/binary-tree';
@@ -21,3 +21,7 @@ export {
 export { Sidewinder, SidewinderData } from './generators/sidewinder';
 export { Wilson, WilsonData } from './generators/wilson';
 export { Eller, EllerData } from './generators/eller';
+export {
+  RecursiveSubdivision,
+  RecursiveSubdivisionData,
+} from './generators/recursive-subdivision';

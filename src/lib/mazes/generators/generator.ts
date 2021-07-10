@@ -1,7 +1,7 @@
 import { Cell } from '../maze-parts/cell';
 import { Grid } from '../maze-parts/grid';
 import { Image } from '../image-utils/image';
-import { Random } from '../random/random';
+import { Random } from '../utils/random';
 
 export class GeneratorData {
   height: number;

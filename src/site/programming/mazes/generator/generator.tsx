@@ -42,6 +42,8 @@ import {
   GrowingTreeData,
   Eller,
   EllerData,
+  RecursiveSubdivision,
+  RecursiveSubdivisionData,
 } from '../../../../lib/mazes';
 
 interface IGeneratorState {
@@ -57,6 +59,7 @@ interface IGeneratorState {
   prim: PrimData;
   growingTree: GrowingTreeData;
   eller: EllerData;
+  recursiveSubdivision: RecursiveSubdivisionData;
 }
 
 export class Generator extends React.Component<any, IGeneratorState> {
@@ -76,6 +79,7 @@ export class Generator extends React.Component<any, IGeneratorState> {
       prim: new PrimData(),
       growingTree: new GrowingTreeData(),
       eller: new EllerData(),
+      recursiveSubdivision: new RecursiveSubdivisionData(),
     };
 
     this.handleGeneratorDataChange = this.handleGeneratorDataChange.bind(this);
@@ -96,6 +100,7 @@ export class Generator extends React.Component<any, IGeneratorState> {
       prim,
       growingTree,
       eller,
+      recursiveSubdivision,
       generatorData,
     } = this.state;
 
@@ -129,6 +134,9 @@ export class Generator extends React.Component<any, IGeneratorState> {
         break;
       case 10:
         maze = new Eller(generatorData, eller);
+        break;
+      case 11:
+        maze = new RecursiveSubdivision(generatorData, recursiveSubdivision);
         break;
       default:
         maze = new BinaryTree(generatorData, binaryTree);
@@ -192,6 +200,9 @@ export class Generator extends React.Component<any, IGeneratorState> {
         break;
       case 10:
         retVal = "Eller's";
+        break;
+      case 11:
+        retVal = 'Recursive Subdivision';
         break;
     }
     return retVal;

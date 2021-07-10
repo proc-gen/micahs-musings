@@ -1,5 +1,6 @@
 import { Cell } from '../maze-parts/cell';
 import { Generator, GeneratorData } from './generator';
+import { MathUtils } from '../utils/math';
 
 export class EllerData {
   direction: number;
@@ -36,8 +37,8 @@ export class Eller extends Generator {
       }
     }
 
-    row = this.MaxY(mapCells);
-    finalRow = this.MinY(mapCells);
+    row = MathUtils.MaxY(mapCells);
+    finalRow = MathUtils.MinY(mapCells);
 
     do {
       currentRow = mapCells.filter((a) => a.y === row);
@@ -129,21 +130,5 @@ export class Eller extends Generator {
         }
       }
     }
-  }
-
-  private MaxY(mapCells: Cell[]): number {
-    let retVal: number = -Infinity;
-    for (let i: number = 0; i < mapCells.length; i++) {
-      retVal = mapCells[i].y > retVal ? mapCells[i].y : retVal;
-    }
-    return retVal;
-  }
-
-  private MinY(mapCells: Cell[]): number {
-    let retVal: number = Infinity;
-    for (let i: number = 0; i < mapCells.length; i++) {
-      retVal = mapCells[i].y < retVal ? mapCells[i].y : retVal;
-    }
-    return retVal;
   }
 }

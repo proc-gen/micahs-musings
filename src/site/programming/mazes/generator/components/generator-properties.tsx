@@ -68,6 +68,7 @@ export class GeneratorProperties extends React.Component<
               <option value="8">Prim's</option>
               <option value="9">Growing Tree</option>
               <option value="10">Eller's</option>
+              <option value="11">Recursive Subdivision</option>
             </Select>
           </FormControl>
           <FormControl id="seed">
