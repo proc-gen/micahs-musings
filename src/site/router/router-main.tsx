@@ -13,6 +13,7 @@ import { Algorithms } from '../programming/mazes/algorithms/algorithms';
 import IsDev from '../../lib/helpers/check-environment';
 
 export const RouterMain: React.FC = () => {
+  alert(window.location.href);
   if (window.location.href.includes('/micahs-musings')) {
     return (
       <LayoutMain>
