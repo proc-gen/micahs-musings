@@ -13,8 +13,7 @@ import { Algorithms } from '../programming/mazes/algorithms/algorithms';
 import IsDev from '../../lib/helpers/check-environment';
 
 export const RouterMain: React.FC = () => {
-  if (!IsDev) {
-    alert('hello');
+  if (window.location.href.includes('/micahs-musings')) {
     return (
       <LayoutMain>
         <Route exact path="/micahs-musings" component={Home} />
