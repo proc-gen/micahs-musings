@@ -9,7 +9,7 @@ import { Generator } from '../mazes/generator/generator';
 import { Algorithms } from '../mazes/algorithms/algorithms';
 
 import { Writing } from '../writing/writing';
-import { Chapter1WWC } from '../writing/when-worlds-collide/writing';
+import { Chapter1WWC } from '../writing/when-worlds-collide/chapter-1';
 
 export const RouterMain: React.FC = () => {
   return (

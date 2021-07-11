@@ -65,7 +65,38 @@ export class Cell {
   }
 
   CanTunnelDirection(direction: number): boolean {
-    return false;
+    let canTunnel: boolean = false;
+
+    canTunnel =
+      this.adjacentCells[direction] !== undefined &&
+      this.adjacentCells[direction]?.underCell === undefined &&
+      this.adjacentCells[direction]?.adjacentCells[direction] !== undefined &&
+      this.checkPassage(direction) &&
+      (this.adjacentCells[direction] as Cell).adjacentCells[(direction + 1) % 4]
+        ?.underCell === undefined &&
+      (this.adjacentCells[direction] as Cell).adjacentCells[(direction + 3) % 4]
+        ?.underCell === undefined;
+    return canTunnel;
+  }
+
+  private checkPassage(direction: number): boolean {
+    let retVal: boolean = false;
+
+    if (direction === 0 || direction === 2) {
+      retVal =
+        (this.adjacentCells[direction] as Cell).walls[0].isWall &&
+        !(this.adjacentCells[direction] as Cell).walls[1].isWall &&
+        (this.adjacentCells[direction] as Cell).walls[2].isWall &&
+        !(this.adjacentCells[direction] as Cell).walls[3].isWall;
+    } else {
+      retVal =
+        !(this.adjacentCells[direction] as Cell).walls[0].isWall &&
+        (this.adjacentCells[direction] as Cell).walls[1].isWall &&
+        !(this.adjacentCells[direction] as Cell).walls[2].isWall &&
+        (this.adjacentCells[direction] as Cell).walls[3].isWall;
+    }
+
+    return retVal;
   }
 
   ColumnExists(direction: number): boolean | undefined {
@@ -238,6 +269,14 @@ export class Cell {
       paintColor = floorColor;
       for (let j: number = dimension / 4; j < dimension - dimension / 4; j++) {
         for (let i: number = 0; i < dimension / 4; i++)
+          imgData.SetPixel(i, j, paintColor);
+      }
+    }
+
+    if (this.walls.filter((a) => a.isWall).length === 4) {
+      paintColor = wallColor;
+      for (let i: number = 0; i < dimension; i++) {
+        for (let j: number = 0; j < dimension; j++)
           imgData.SetPixel(i, j, paintColor);
       }
     }

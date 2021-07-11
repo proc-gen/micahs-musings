@@ -1,10 +1,13 @@
 import React from 'react';
 import {
   Input,
+  InputGroup,
+  InputRightAddon,
   FormControl,
   FormLabel,
   Select,
   SimpleGrid,
+  Tooltip,
 } from '@chakra-ui/react';
 
 import { GeneratorData } from '../../../../lib/mazes';
@@ -28,6 +31,8 @@ export class GeneratorProperties extends React.Component<
     this.handleSeedChange = this.handleSeedChange.bind(this);
     this.handleWidthChange = this.handleWidthChange.bind(this);
     this.handleHeightChange = this.handleHeightChange.bind(this);
+    this.handleDeadEndChange = this.handleDeadEndChange.bind(this);
+    this.handleWeaveChange = this.handleWeaveChange.bind(this);
   }
 
   handleGeneratorChange(event: React.FormEvent<HTMLSelectElement>) {
@@ -46,12 +51,23 @@ export class GeneratorProperties extends React.Component<
     this.props.handleChange('height', parseInt(event.currentTarget.value));
   }
 
+  handleDeadEndChange(event: React.FormEvent<HTMLInputElement>) {
+    this.props.handleChange('deadEnd', parseInt(event.currentTarget.value));
+  }
+
+  handleWeaveChange(event: React.FormEvent<HTMLInputElement>) {
+    this.props.handleChange('weave', parseInt(event.currentTarget.value));
+  }
+
   render() {
     return (
       <>
         <SimpleGrid columns={2} spacing="1em" paddingBottom="1em">
           <FormControl id="generator">
-            <FormLabel>Generator</FormLabel>
+            <Tooltip label="The base algorithm used by the maze generator. Go to Mazes/Algorithms in the left navigation for more information about a specific generator.">
+              <FormLabel>Generator</FormLabel>
+            </Tooltip>
+
             <Select
               name="generator"
               placeHolder="Select Generator"
@@ -72,7 +88,9 @@ export class GeneratorProperties extends React.Component<
             </Select>
           </FormControl>
           <FormControl id="seed">
-            <FormLabel>Seed</FormLabel>
+            <Tooltip label="The seed used by the random number generator.">
+              <FormLabel>Seed</FormLabel>
+            </Tooltip>
             <Input
               name="seed"
               placeholder="Seed"
@@ -81,9 +99,11 @@ export class GeneratorProperties extends React.Component<
             />
           </FormControl>
         </SimpleGrid>
-        <SimpleGrid columns={2} spacing="1em" paddingBottom="1em">
+        <SimpleGrid columns={4} spacing="1em" paddingBottom="1em">
           <FormControl id="width">
-            <FormLabel>Width</FormLabel>
+            <Tooltip label="The width of the maze to be generated.">
+              <FormLabel>Width</FormLabel>
+            </Tooltip>
             <Input
               name="width"
               placeholder="Width"
@@ -92,12 +112,40 @@ export class GeneratorProperties extends React.Component<
             />
           </FormControl>
           <FormControl id="height">
-            <FormLabel>Height</FormLabel>
+            <Tooltip label="The height of the maze to be generated.">
+              <FormLabel>Height</FormLabel>
+            </Tooltip>
             <Input
               name="height"
               placeholder="Height"
               value={this.props.data.height}
               onChange={this.handleHeightChange}
+            />
+          </FormControl>
+
+          <FormControl id="weave">
+            <Tooltip label="The percentage chance that a cell that fits the criteria for weaving is woven.">
+              <FormLabel>Weave</FormLabel>
+            </Tooltip>
+            <InputGroup>
+              <Input
+                name="weave"
+                placeholder="Weave"
+                value={this.props.data.weave}
+                onChange={this.handleWeaveChange}
+              />
+              <InputRightAddon children="%" />
+            </InputGroup>
+          </FormControl>
+          <FormControl id="deadEnd">
+            <Tooltip label="The number of dead ends to be removed after the maze has been generated. At least one cell will always remain at the end of generation.">
+              <FormLabel>Cull Dead Ends</FormLabel>
+            </Tooltip>
+            <Input
+              name="deadEnd"
+              placeholder="Cull Dead Ends"
+              value={this.props.data.cullDeadEnds}
+              onChange={this.handleDeadEndChange}
             />
           </FormControl>
         </SimpleGrid>

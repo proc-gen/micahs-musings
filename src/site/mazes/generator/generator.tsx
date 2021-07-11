@@ -144,7 +144,7 @@ export class Generator extends React.Component<any, IGeneratorState> {
     }
 
     maze.RunGenerator();
-    this.setState({ imgData: maze.Display(64) });
+    this.setState({ imgData: maze.Display(32) });
   };
 
   handleGeneratorDataChange(fieldName: string, value: number) {
@@ -162,6 +162,12 @@ export class Generator extends React.Component<any, IGeneratorState> {
         break;
       case 'height':
         generatorData.height = value;
+        break;
+      case 'deadEnd':
+        generatorData.cullDeadEnds = value;
+        break;
+      case 'weave':
+        generatorData.weave = value;
         break;
     }
 
@@ -289,11 +295,15 @@ export class Generator extends React.Component<any, IGeneratorState> {
           <Button onClick={() => this.generate()}>Generate</Button>
         </Container>
         <Container
-          maxWidth="container.lg"
-          maxHeight="container.lg"
+          width="100%"
+          maxHeight="512px"
           textAlign="center"
           overflow="scroll"
           padding="1em"
+          css={{
+            WebkitOverflowScrolling: 'touch',
+            msOverflowStyle: '-ms-autohiding-scrollbar',
+          }}
         >
           <Center>
             <Canvas id="mazeCanvas" imgData={this.state.imgData}></Canvas>

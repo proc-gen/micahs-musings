@@ -1,4 +1,5 @@
 import { Cell } from '../';
+import { Random } from './random';
 
 export class MathUtils {
   public static MaxX(mapCells: Cell[]): number {
@@ -31,5 +32,17 @@ export class MathUtils {
       retVal = mapCells[i].y < retVal ? mapCells[i].y : retVal;
     }
     return retVal;
+  }
+
+  public static Shuffle<Type>(items: Type[], random: Random): Type[] {
+    let n: number = items.length;
+    while (n > 1) {
+      n--;
+      let k: number = random.GetInt(n + 1);
+      let item: Type = items[k];
+      items[k] = items[n];
+      items[n] = item;
+    }
+    return items;
   }
 }
