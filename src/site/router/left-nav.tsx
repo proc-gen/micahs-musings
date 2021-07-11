@@ -87,6 +87,25 @@ export const LeftNav: React.FC<ILeftNavProps> = () => {
                   </AccordionItem>
                 </AccordionPanel>
               </AccordionItem>
+              <AccordionItem>
+                <AccordionButton w="100%">
+                  Dangers of Teleporting
+                  <AccordionIcon />
+                </AccordionButton>
+                <AccordionPanel w="100%">
+                  <AccordionItem>
+                    <AccordionButton>
+                      <Link
+                        as={ReactLink}
+                        to="/writing/dangers-of-teleporting/chapter-1"
+                        w="100%"
+                      >
+                        Chapter 1
+                      </Link>
+                    </AccordionButton>
+                  </AccordionItem>
+                </AccordionPanel>
+              </AccordionItem>
             </AccordionPanel>
           </AccordionItem>
         </Accordion>

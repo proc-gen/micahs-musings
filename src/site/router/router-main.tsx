@@ -10,7 +10,7 @@ import { Algorithms } from '../mazes/algorithms/algorithms';
 
 import { Writing } from '../writing/writing';
 import { Chapter1WWC } from '../writing/when-worlds-collide/chapter-1';
-
+import { Chapter1DOT } from '../writing/dangers-of-teleporting/chapter-1';
 export const RouterMain: React.FC = () => {
   return (
     <LayoutMain>
@@ -26,6 +26,11 @@ export const RouterMain: React.FC = () => {
         exact
         path="/writing/when-worlds-collide/chapter-1"
         component={Chapter1WWC}
+      />
+      <Route
+        exact
+        path="/writing/dangers-of-teleporting/chapter-1"
+        component={Chapter1DOT}
       />
     </LayoutMain>
   );
