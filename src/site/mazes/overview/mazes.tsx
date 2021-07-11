@@ -14,8 +14,8 @@ export const Mazes: React.FC = () => {
     <Box padding="1em">
       <Heading paddingBottom="0.5em">Mazes - Overview</Heading>
       <SimpleGrid columns={2} spacing="1em" padding="1em">
-        <LinkButton href="/programming/mazes/generator" text="Generator" />
-        <LinkButton href="/programming/mazes/algorithms" text="Algorithms" />
+        <LinkButton href="/mazes/generator" text="Generator" />
+        <LinkButton href="/mazes/algorithms" text="Algorithms" />
       </SimpleGrid>
       <Container maxW="container.lg" padding="1em" fontSize="md">
         <Text textAlign="left" paddingBottom="1em">
