@@ -17,6 +17,7 @@ import { Canvas } from '../../../lib/components/canvas';
 import { GeneratorProperties } from './components/generator-properties';
 import { BinaryTreeProperties } from './components/binary-tree-properties';
 import { SidewinderProperties } from './components/sidewinder-properties';
+import { RecursiveSubdivisionProperties } from './components/recursive-subdivision-properties';
 
 import {
   Generator as MazeGenerator,
@@ -85,6 +86,8 @@ export class Generator extends React.Component<any, IGeneratorState> {
     this.handleGeneratorDataChange = this.handleGeneratorDataChange.bind(this);
     this.handleBinaryTreeChange = this.handleBinaryTreeChange.bind(this);
     this.handleSidewinderChange = this.handleSidewinderChange.bind(this);
+    this.handleRecursiveSubdivisionChange =
+      this.handleRecursiveSubdivisionChange.bind(this);
   }
 
   generate = () => {
@@ -246,6 +249,33 @@ export class Generator extends React.Component<any, IGeneratorState> {
     this.setState({ sidewinder: sidewinder });
   }
 
+  handleRecursiveSubdivisionChange(fieldName: string, value: number) {
+    let recursiveSubdivision = this.state.recursiveSubdivision;
+
+    switch (fieldName) {
+      case 'maxRooms':
+        recursiveSubdivision.maxRooms = value;
+        break;
+      case 'maxRoomWidth':
+        recursiveSubdivision.maxRoomWidth = value;
+        break;
+      case 'minRoomWidth':
+        recursiveSubdivision.minRoomWidth = value;
+        break;
+      case 'maxRoomHeight':
+        recursiveSubdivision.maxRoomHeight = value;
+        break;
+      case 'minRoomHeight':
+        recursiveSubdivision.minRoomHeight = value;
+        break;
+      case 'chanceForRoom':
+        recursiveSubdivision.chanceForRoom = value;
+        break;
+    }
+
+    this.setState({ recursiveSubdivision: recursiveSubdivision });
+  }
+
   getGeneratorSpecificPropertiesElement(): JSX.Element {
     let retElement = <></>;
 
@@ -261,6 +291,13 @@ export class Generator extends React.Component<any, IGeneratorState> {
         <SidewinderProperties
           data={this.state.sidewinder}
           handleChange={this.handleSidewinderChange}
+        />
+      );
+    } else if (this.state.generatorData.generator === 11) {
+      retElement = (
+        <RecursiveSubdivisionProperties
+          data={this.state.recursiveSubdivision}
+          handleChange={this.handleRecursiveSubdivisionChange}
         />
       );
     }

@@ -3,26 +3,35 @@ import { Generator, GeneratorData } from './generator';
 import { MathUtils } from '../utils/math';
 
 export class RecursiveSubdivisionData {
-  direction: number;
-  chanceVertical: number;
+  maxRooms: number;
+  maxRoomWidth: number;
+  minRoomWidth: number;
+  maxRoomHeight: number;
+  minRoomHeight: number;
+  chanceForRoom: number;
 
   constructor() {
-    this.direction = 1;
-    this.chanceVertical = 50;
+    this.maxRooms = 0;
+    this.maxRoomWidth = 1;
+    this.minRoomWidth = 1;
+    this.maxRoomHeight = 1;
+    this.minRoomHeight = 1;
+    this.chanceForRoom = 0;
   }
 }
 
 export class RecursiveSubdivision extends Generator {
   props: RecursiveSubdivisionData;
-
+  private numRooms: number;
   constructor(baseProps: GeneratorData, props: RecursiveSubdivisionData) {
     super(baseProps);
     this.props = props;
+    this.numRooms = 0;
   }
 
   Generate(): void {
     let mapCells: Cell[] = [];
-
+    this.numRooms = 0;
     let startX: number, startY: number, startWidth: number, startHeight: number;
 
     for (let i: number = 0; i < this.baseProps.width; i++) {
@@ -43,7 +52,6 @@ export class RecursiveSubdivision extends Generator {
     startWidth = MathUtils.MaxX(mapCells) - startX + 1;
     startHeight = MathUtils.MaxY(mapCells) - startY + 1;
 
-    //alert(startX + ', ' + startY + ', ' + startWidth + ', ' + startHeight);
     this.divide(mapCells, startX, startY, startHeight, startWidth);
   }
 
@@ -55,10 +63,27 @@ export class RecursiveSubdivision extends Generator {
     width: number
   ): void {
     if (height > 1 || width > 1) {
-      if (height > width) {
-        this.divideHorizontal(mapCells, row, column, height, width);
+      let divideContinue: boolean = true;
+      if (
+        this.props.chanceForRoom > 0 &&
+        (this.props.maxRooms === -1 || this.numRooms < this.props.maxRooms) &&
+        width >= this.props.minRoomWidth &&
+        width <= this.props.maxRoomWidth &&
+        height >= this.props.minRoomHeight &&
+        height <= this.props.maxRoomHeight
+      ) {
+        divideContinue = this.random.GetInt(100) >= this.props.chanceForRoom;
+      }
+      if (divideContinue) {
+        if (height > width) {
+          this.divideHorizontal(mapCells, row, column, height, width);
+        } else {
+          this.divideVertical(mapCells, row, column, height, width);
+        }
       } else {
-        this.divideVertical(mapCells, row, column, height, width);
+        if (height > 1 && width > 1) {
+          this.numRooms++;
+        }
       }
     }
   }
