@@ -1,9 +1,10 @@
 import { Cell } from '../maze-parts/cell';
 import { Grid } from '../maze-parts/grid';
-import { Image } from '../image-utils/image';
+import { Image } from '../../image-utils/image';
 import { Random } from '../utils/random';
 
 export class GeneratorData {
+  [key: string]: any;
   height: number;
   width: number;
   numCellSides: number;

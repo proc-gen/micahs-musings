@@ -30,7 +30,7 @@ export class BinaryTreeProperties extends React.Component<
   }
 
   handleDirectionsChange(event: React.FormEvent<HTMLSelectElement>) {
-    this.props.handleChange('directions', parseInt(event.currentTarget.value));
+    this.props.handleChange('direction', parseInt(event.currentTarget.value));
   }
 
   handleChanceVerticalChange(event: React.FormEvent<HTMLInputElement>) {

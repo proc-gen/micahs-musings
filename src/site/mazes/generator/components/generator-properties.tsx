@@ -52,7 +52,10 @@ export class GeneratorProperties extends React.Component<
   }
 
   handleDeadEndChange(event: React.FormEvent<HTMLInputElement>) {
-    this.props.handleChange('deadEnd', parseInt(event.currentTarget.value));
+    this.props.handleChange(
+      'cullDeadEnds',
+      parseInt(event.currentTarget.value)
+    );
   }
 
   handleWeaveChange(event: React.FormEvent<HTMLInputElement>) {

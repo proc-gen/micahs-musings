@@ -1,6 +1,7 @@
 import { Generator, GeneratorData } from './generator';
 
 export class BinaryTreeData {
+  [key: string]: any;
   direction: number; //1 = NE, 2 = SE, 3 = SW, 4 = NW
   chanceVertical: number; //1 - 99
 

@@ -2,6 +2,7 @@ import { Generator, GeneratorData } from './generator';
 import { Cell } from '../';
 
 export class SidewinderData {
+  [key: string]: any;
   sideDirection: number;
   windDirection: number;
   chanceWind: number; //1 - 99

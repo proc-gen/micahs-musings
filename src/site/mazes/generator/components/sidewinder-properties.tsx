@@ -44,10 +44,7 @@ export class SidewinderProperties extends React.Component<
   }
 
   handleChanceWindChange(event: React.FormEvent<HTMLInputElement>) {
-    this.props.handleChange(
-      'chanceVertical',
-      parseInt(event.currentTarget.value)
-    );
+    this.props.handleChange('chanceWind', parseInt(event.currentTarget.value));
   }
 
   render() {

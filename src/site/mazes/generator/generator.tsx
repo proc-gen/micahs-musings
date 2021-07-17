@@ -151,29 +151,8 @@ export class Generator extends React.Component<any, IGeneratorState> {
   };
 
   handleGeneratorDataChange(fieldName: string, value: number) {
-    let generatorData = this.state.generatorData;
-
-    switch (fieldName) {
-      case 'generator':
-        generatorData.generator = value;
-        break;
-      case 'seed':
-        generatorData.seed = value;
-        break;
-      case 'width':
-        generatorData.width = value;
-        break;
-      case 'height':
-        generatorData.height = value;
-        break;
-      case 'deadEnd':
-        generatorData.cullDeadEnds = value;
-        break;
-      case 'weave':
-        generatorData.weave = value;
-        break;
-    }
-
+    let { generatorData } = this.state;
+    generatorData[fieldName] = value;
     this.setState({ generatorData: generatorData });
   }
 
@@ -218,89 +197,54 @@ export class Generator extends React.Component<any, IGeneratorState> {
   }
 
   handleBinaryTreeChange(fieldName: string, value: number) {
-    let binaryTree = this.state.binaryTree;
-
-    switch (fieldName) {
-      case 'directions':
-        binaryTree.direction = value;
-        break;
-      case 'chanceVertical':
-        binaryTree.chanceVertical = value;
-        break;
-    }
-
+    let { binaryTree } = this.state;
+    binaryTree[fieldName] = value;
     this.setState({ binaryTree: binaryTree });
   }
+
   handleSidewinderChange(fieldName: string, value: number) {
-    let sidewinder = this.state.sidewinder;
-
-    switch (fieldName) {
-      case 'sideDirection':
-        sidewinder.sideDirection = value;
-        break;
-      case 'windDirection':
-        sidewinder.windDirection = value;
-        break;
-      case 'chanceVertical':
-        sidewinder.chanceWind = value;
-        break;
-    }
-
+    let { sidewinder } = this.state;
+    sidewinder[fieldName] = value;
     this.setState({ sidewinder: sidewinder });
   }
 
   handleRecursiveSubdivisionChange(fieldName: string, value: number) {
-    let recursiveSubdivision = this.state.recursiveSubdivision;
-
-    switch (fieldName) {
-      case 'maxRooms':
-        recursiveSubdivision.maxRooms = value;
-        break;
-      case 'maxRoomWidth':
-        recursiveSubdivision.maxRoomWidth = value;
-        break;
-      case 'minRoomWidth':
-        recursiveSubdivision.minRoomWidth = value;
-        break;
-      case 'maxRoomHeight':
-        recursiveSubdivision.maxRoomHeight = value;
-        break;
-      case 'minRoomHeight':
-        recursiveSubdivision.minRoomHeight = value;
-        break;
-      case 'chanceForRoom':
-        recursiveSubdivision.chanceForRoom = value;
-        break;
-    }
-
+    let { recursiveSubdivision } = this.state;
+    recursiveSubdivision[fieldName] = value;
     this.setState({ recursiveSubdivision: recursiveSubdivision });
   }
 
   getGeneratorSpecificPropertiesElement(): JSX.Element {
     let retElement = <></>;
+    const { generatorData } = this.state;
 
-    if (this.state.generatorData.generator === 1) {
-      retElement = (
-        <BinaryTreeProperties
-          data={this.state.binaryTree}
-          handleChange={this.handleBinaryTreeChange}
-        />
-      );
-    } else if (this.state.generatorData.generator === 2) {
-      retElement = (
-        <SidewinderProperties
-          data={this.state.sidewinder}
-          handleChange={this.handleSidewinderChange}
-        />
-      );
-    } else if (this.state.generatorData.generator === 11) {
-      retElement = (
-        <RecursiveSubdivisionProperties
-          data={this.state.recursiveSubdivision}
-          handleChange={this.handleRecursiveSubdivisionChange}
-        />
-      );
+    switch (generatorData.generator) {
+      case 1:
+        retElement = (
+          <BinaryTreeProperties
+            data={this.state.binaryTree}
+            handleChange={this.handleBinaryTreeChange}
+          />
+        );
+        break;
+      case 2:
+        retElement = (
+          <SidewinderProperties
+            data={this.state.sidewinder}
+            handleChange={this.handleSidewinderChange}
+          />
+        );
+        break;
+      case 11:
+        retElement = (
+          <RecursiveSubdivisionProperties
+            data={this.state.recursiveSubdivision}
+            handleChange={this.handleRecursiveSubdivisionChange}
+          />
+        );
+        break;
     }
+
     return retElement;
   }
 

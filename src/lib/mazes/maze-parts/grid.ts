@@ -1,7 +1,7 @@
 import { Cell } from './cell';
 
-import { Image } from '../image-utils/image';
-import { Black, RGBA, White } from '../image-utils/rgba';
+import { Image } from '../../image-utils/image';
+import { Black, RGBA, White } from '../../image-utils/rgba';
 
 export class Grid {
   width: number;

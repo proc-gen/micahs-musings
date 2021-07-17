@@ -1,5 +1,5 @@
-import { Image } from '../image-utils/image';
-import { RGBA } from '../image-utils/rgba';
+import { Image } from '../../image-utils/image';
+import { RGBA } from '../../image-utils/rgba';
 import { Wall } from './wall';
 
 export class Cell {

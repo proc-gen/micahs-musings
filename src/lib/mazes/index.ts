@@ -2,8 +2,8 @@ export { Cell } from './maze-parts/cell';
 export { Grid } from './maze-parts/grid';
 export { Wall } from './maze-parts/wall';
 
-export { Image } from './image-utils/image';
-export { RGBA } from './image-utils/rgba';
+export { Image } from '../image-utils/image';
+export { RGBA } from '../image-utils/rgba';
 
 export { Random } from './utils/random';
 

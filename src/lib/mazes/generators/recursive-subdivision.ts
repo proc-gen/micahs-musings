@@ -3,6 +3,7 @@ import { Generator, GeneratorData } from './generator';
 import { MathUtils } from '../utils/math';
 
 export class RecursiveSubdivisionData {
+  [key: string]: any;
   maxRooms: number;
   maxRoomWidth: number;
   minRoomWidth: number;
