@@ -4,7 +4,7 @@ import { Box, BoxProps, useColorModeValue } from '@chakra-ui/react';
 
 export interface ICardBodyProps extends BoxProps {}
 
-export const CardBody: React.FC<ICardBodyProps> = ({ children }, rest) => {
+export const CardBody: React.FC<ICardBodyProps> = ({ children, ...rest }) => {
   return (
     <Box
       padding="0.5em"

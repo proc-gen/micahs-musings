@@ -1,11 +1,13 @@
 import React from 'react';
-import { Box, Heading, SimpleGrid, Text } from '@chakra-ui/react';
+import { SimpleGrid, Text } from '@chakra-ui/react';
 
-import { LinkButton } from '../../lib/components/link-button';
-import { Thumbnail } from '../../lib/components/thumbnail';
-import { Card } from '../../lib/components/card';
-import { CardBody } from '../../lib/components/card-body';
-import { CardHeader } from '../../lib/components/card-header';
+import {
+  LinkButton,
+  Thumbnail,
+  Card,
+  CardBody,
+  CardHeader,
+} from '../../lib/components';
 
 import MoltenTeapot from './images/molten-teapot.jpg';
 import NoiseTerrain from './images/multiple-noise-terrain.jpg';
@@ -19,7 +21,7 @@ export const Home: React.FC = () => {
         <Thumbnail source={MoltenTeapot} altText="Molten Teapot" />
         <Thumbnail source={NoiseTerrain} altText="Terrain Generation" />
       </SimpleGrid>
-      <Card maxW="container.lg" width="container.lg" centered>
+      <Card maxW="container.lg" centered>
         <CardHeader>Welcome!</CardHeader>
         <CardBody>
           <Text>

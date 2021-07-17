@@ -9,6 +9,7 @@ import {
   ModalHeader,
   ModalOverlay,
   useDisclosure,
+  useColorModeValue,
 } from '@chakra-ui/react';
 
 export interface IThumbnailProps extends ImageProps {
@@ -25,7 +26,11 @@ export const Thumbnail: React.FC<IThumbnailProps> = ({ ...props }) => {
         src={props.source}
         alt={props.altText}
         onClick={onOpen}
-        _hover={{ border: 'solid 2px grey', transition: '0.1s' }}
+        _hover={{
+          border: 'solid 2px',
+          borderColor: useColorModeValue('gray.100', 'gray.800'),
+          transition: '0.1s',
+        }}
         props
       />
       <Modal isOpen={isOpen} onClose={onClose} size="full">
