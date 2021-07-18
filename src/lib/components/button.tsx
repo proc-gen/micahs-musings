@@ -7,8 +7,11 @@ export interface IButtonProps extends ButtonProps {}
 export const StyledButton: React.FC<IButtonProps> = ({ children, ...rest }) => {
   return (
     <Button
-      colorScheme={useColorModeValue('blackAlpha', 'whiteAlpha')}
+      backgroundColor={useColorModeValue('gray.200', 'gray.700')}
       color={useColorModeValue('gray.800', 'gray.100')}
+      _hover={{
+        backgroundColor: useColorModeValue('gray.400', 'gray.600'),
+      }}
       {...rest}
     >
       {children}

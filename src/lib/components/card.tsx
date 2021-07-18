@@ -14,8 +14,8 @@ export const Card: React.FC<ICardProps> = ({
   let retComponent = (
     <Box
       margin="1em"
-      backgroundColor={useColorModeValue('gray.200', 'gray.800')}
-      borderColor={useColorModeValue('gray.200', 'gray.800')}
+      backgroundColor={useColorModeValue('gray.300', 'gray.800')}
+      borderColor={useColorModeValue('gray.300', 'gray.800')}
       borderStyle="solid"
       borderWidth="1px"
       borderRadius="0.4em"

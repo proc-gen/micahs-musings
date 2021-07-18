@@ -10,6 +10,8 @@ import {
   Tooltip,
 } from '@chakra-ui/react';
 
+import { InputText } from '../../../../lib/components';
+
 import { GeneratorData } from '../../../../lib/mazes';
 
 export interface IGeneratorProps {
@@ -70,67 +72,49 @@ export class GeneratorProperties extends React.Component<
               <option value="11">Recursive Subdivision</option>
             </Select>
           </FormControl>
-          <FormControl id="seed">
-            <Tooltip label="The seed used by the random number generator.">
-              <FormLabel>Seed</FormLabel>
-            </Tooltip>
-            <Input
-              name="seed"
-              placeholder="Seed"
-              value={this.props.data.seed}
-              onChange={this.handleInputChange}
-            />
-          </FormControl>
+          <InputText
+            id="seed"
+            label="Seed"
+            tooltip="The seed used by the random number generator."
+            placeholder="Seed"
+            value={this.props.data.seed}
+            onChange={this.handleInputChange}
+          />
         </SimpleGrid>
         <SimpleGrid columns={4} spacing="1em" paddingBottom="1em">
-          <FormControl id="width">
-            <Tooltip label="The width of the maze to be generated.">
-              <FormLabel>Width</FormLabel>
-            </Tooltip>
-            <Input
-              name="width"
-              placeholder="Width"
-              value={this.props.data.width}
-              onChange={this.handleInputChange}
-            />
-          </FormControl>
-          <FormControl id="height">
-            <Tooltip label="The height of the maze to be generated.">
-              <FormLabel>Height</FormLabel>
-            </Tooltip>
-            <Input
-              name="height"
-              placeholder="Height"
-              value={this.props.data.height}
-              onChange={this.handleInputChange}
-            />
-          </FormControl>
-
-          <FormControl id="weave">
-            <Tooltip label="The percentage chance that a cell that fits the criteria for weaving is woven.">
-              <FormLabel>Weave</FormLabel>
-            </Tooltip>
-            <InputGroup>
-              <Input
-                name="weave"
-                placeholder="Weave"
-                value={this.props.data.weave}
-                onChange={this.handleInputChange}
-              />
-              <InputRightAddon children="%" />
-            </InputGroup>
-          </FormControl>
-          <FormControl id="cullDeadEnds">
-            <Tooltip label="The number of dead ends to be removed after the maze has been generated. At least one cell will always remain at the end of generation.">
-              <FormLabel>Cull Dead Ends</FormLabel>
-            </Tooltip>
-            <Input
-              name="cullDeadEnds"
-              placeholder="Cull Dead Ends"
-              value={this.props.data.cullDeadEnds}
-              onChange={this.handleInputChange}
-            />
-          </FormControl>
+          <InputText
+            id="width"
+            label="Width"
+            tooltip="The width of the maze to be generated."
+            placeholder="Width"
+            value={this.props.data.width}
+            onChange={this.handleInputChange}
+          />
+          <InputText
+            id="height"
+            label="Height"
+            tooltip="The height of the maze to be generated."
+            placeholder="Height"
+            value={this.props.data.height}
+            onChange={this.handleInputChange}
+          />
+          <InputText
+            id="weave"
+            label="Weave"
+            tooltip="The percentage chance that a cell that fits the criteria for weaving is woven."
+            placeholder="Weave"
+            value={this.props.data.weave}
+            onChange={this.handleInputChange}
+            rightAddon="%"
+          />
+          <InputText
+            id="cullDeadEnds"
+            label="Cull Dead Ends"
+            tooltip="The number of dead ends to be removed after the maze has been generated. At least one cell will always remain at the end of generation."
+            placeholder="Cull Dead Ends"
+            value={this.props.data.cullDeadEnds}
+            onChange={this.handleInputChange}
+          />
         </SimpleGrid>
       </>
     );

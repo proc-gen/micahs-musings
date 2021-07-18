@@ -6,3 +6,4 @@ export { CardHeader } from './card-header';
 export { Canvas } from './canvas';
 export { Paragraph } from './paragraph';
 export { StyledButton } from './button';
+export { InputText } from './input-text';
