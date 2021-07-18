@@ -13,7 +13,13 @@ import {
   TabPanel,
   Center,
 } from '@chakra-ui/react';
-import { Canvas } from '../../../lib/components/canvas';
+import {
+  Canvas,
+  StyledButton,
+  Card,
+  CardHeader,
+  CardBody,
+} from '../../../lib/components';
 import { GeneratorProperties } from './components/generator-properties';
 import { BinaryTreeProperties } from './components/binary-tree-properties';
 import { SidewinderProperties } from './components/sidewinder-properties';
@@ -250,47 +256,60 @@ export class Generator extends React.Component<any, IGeneratorState> {
 
   render() {
     return (
-      <Box padding="1em">
-        <Heading paddingBottom="0.5em">Mazes - Generator</Heading>
-
-        <Container padding="1em">
-          <Text textAlign="left" padding="1em">
-            <Tabs variant="enclosed">
-              <TabList>
-                <Tab>General Properties</Tab>
-                <Tab>{this.getGeneratorPropertiesTabName()} Properties</Tab>
-              </TabList>
-              <TabPanels>
-                <TabPanel>
-                  <GeneratorProperties
-                    data={this.state.generatorData}
-                    handleChange={this.handleGeneratorDataChange}
-                  />
-                </TabPanel>
-                <TabPanel>
-                  {this.getGeneratorSpecificPropertiesElement()}
-                </TabPanel>
-              </TabPanels>
-            </Tabs>
-          </Text>
-          <Button onClick={() => this.generate()}>Generate</Button>
-        </Container>
-        <Container
-          width="100%"
-          maxHeight="512px"
-          textAlign="center"
-          overflow="scroll"
-          padding="1em"
-          css={{
-            WebkitOverflowScrolling: 'touch',
-            msOverflowStyle: '-ms-autohiding-scrollbar',
-          }}
+      <>
+        <Card maxW="container.lg" centered>
+          <CardHeader>Mazes - Generator</CardHeader>
+          <CardBody>
+            <Container padding="1em">
+              <Text textAlign="left" padding="1em">
+                <Tabs variant="enclosed">
+                  <TabList>
+                    <Tab>General Properties</Tab>
+                    <Tab>{this.getGeneratorPropertiesTabName()} Properties</Tab>
+                  </TabList>
+                  <TabPanels>
+                    <TabPanel>
+                      <GeneratorProperties
+                        data={this.state.generatorData}
+                        handleChange={this.handleGeneratorDataChange}
+                      />
+                    </TabPanel>
+                    <TabPanel>
+                      {this.getGeneratorSpecificPropertiesElement()}
+                    </TabPanel>
+                  </TabPanels>
+                </Tabs>
+              </Text>
+              <StyledButton onClick={() => this.generate()}>
+                Generate
+              </StyledButton>
+            </Container>
+          </CardBody>
+        </Card>
+        <Card
+          maxW="container.lg"
+          centered
+          visibility={this.state.imgData.width > 1 ? 'initial' : 'hidden'}
         >
-          <Center>
-            <Canvas id="mazeCanvas" imgData={this.state.imgData}></Canvas>
-          </Center>
-        </Container>
-      </Box>
+          <CardBody>
+            <Container
+              width="100%"
+              maxHeight="512px"
+              textAlign="center"
+              overflow="scroll"
+              padding="1em"
+              css={{
+                WebkitOverflowScrolling: 'touch',
+                msOverflowStyle: '-ms-autohiding-scrollbar',
+              }}
+            >
+              <Center>
+                <Canvas id="mazeCanvas" imgData={this.state.imgData}></Canvas>
+              </Center>
+            </Container>
+          </CardBody>
+        </Card>
+      </>
     );
   }
 }

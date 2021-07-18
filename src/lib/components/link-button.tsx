@@ -1,17 +1,27 @@
 import React from 'react';
 
-import { Button, Link } from '@chakra-ui/react';
+import { Button, ButtonProps, Link, useColorModeValue } from '@chakra-ui/react';
 import { Link as ReactLink } from 'react-router-dom';
 
-export interface ILinkButtonProps {
+export interface ILinkButtonProps extends ButtonProps {
   href: string;
   text: string;
 }
 
-export const LinkButton: React.FC<ILinkButtonProps> = (props) => {
+export const LinkButton: React.FC<ILinkButtonProps> = ({
+  href,
+  text,
+  ...rest
+}) => {
   return (
-    <Link as={ReactLink} to={props.href}>
-      <Button>{props.text}</Button>
+    <Link as={ReactLink} to={href}>
+      <Button
+        colorScheme={useColorModeValue('blackAlpha', 'whiteAlpha')}
+        color={useColorModeValue('gray.800', 'gray.100')}
+        {...rest}
+      >
+        {text}
+      </Button>
     </Link>
   );
 };

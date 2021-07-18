@@ -14,7 +14,6 @@ export const HamburgerMenu: React.FC<IHamburgerMenuProps> = (props) => {
       size="md"
       fontSize="lg"
       variant="ghost"
-      color="current"
       onClick={props.onClick}
       icon={<FaBars />}
       aria-label={props.menuOpen ? 'Close left nav' : 'Open left nav'}
