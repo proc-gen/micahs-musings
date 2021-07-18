@@ -23,6 +23,7 @@ import {
 import { GeneratorProperties } from './components/generator-properties';
 import { BinaryTreeProperties } from './components/binary-tree-properties';
 import { SidewinderProperties } from './components/sidewinder-properties';
+import { GrowingTreeProperties } from './components/growing-tree-properties';
 import { RecursiveSubdivisionProperties } from './components/recursive-subdivision-properties';
 
 import {
@@ -92,6 +93,7 @@ export class Generator extends React.Component<any, IGeneratorState> {
     this.handleGeneratorDataChange = this.handleGeneratorDataChange.bind(this);
     this.handleBinaryTreeChange = this.handleBinaryTreeChange.bind(this);
     this.handleSidewinderChange = this.handleSidewinderChange.bind(this);
+    this.handleGrowingTreeChange = this.handleGrowingTreeChange.bind(this);
     this.handleRecursiveSubdivisionChange =
       this.handleRecursiveSubdivisionChange.bind(this);
   }
@@ -214,6 +216,12 @@ export class Generator extends React.Component<any, IGeneratorState> {
     this.setState({ sidewinder: sidewinder });
   }
 
+  handleGrowingTreeChange(fieldName: string, value: any) {
+    let { growingTree } = this.state;
+    growingTree[fieldName] = value;
+    this.setState({ growingTree: growingTree });
+  }
+
   handleRecursiveSubdivisionChange(fieldName: string, value: number) {
     let { recursiveSubdivision } = this.state;
     recursiveSubdivision[fieldName] = value;
@@ -238,6 +246,14 @@ export class Generator extends React.Component<any, IGeneratorState> {
           <SidewinderProperties
             data={this.state.sidewinder}
             handleChange={this.handleSidewinderChange}
+          />
+        );
+        break;
+      case 9:
+        retElement = (
+          <GrowingTreeProperties
+            data={this.state.growingTree}
+            handleChange={this.handleGrowingTreeChange}
           />
         );
         break;
