@@ -23,6 +23,7 @@ import {
 import { GeneratorProperties } from './components/generator-properties';
 import { BinaryTreeProperties } from './components/binary-tree-properties';
 import { SidewinderProperties } from './components/sidewinder-properties';
+import { RecursiveBacktrackerProperties } from './components/recursive-backtracker-properties';
 import { GrowingTreeProperties } from './components/growing-tree-properties';
 import { RecursiveSubdivisionProperties } from './components/recursive-subdivision-properties';
 
@@ -93,6 +94,8 @@ export class Generator extends React.Component<any, IGeneratorState> {
     this.handleGeneratorDataChange = this.handleGeneratorDataChange.bind(this);
     this.handleBinaryTreeChange = this.handleBinaryTreeChange.bind(this);
     this.handleSidewinderChange = this.handleSidewinderChange.bind(this);
+    this.handleRecursiveBacktrackerChange =
+      this.handleRecursiveBacktrackerChange.bind(this);
     this.handleGrowingTreeChange = this.handleGrowingTreeChange.bind(this);
     this.handleRecursiveSubdivisionChange =
       this.handleRecursiveSubdivisionChange.bind(this);
@@ -216,6 +219,12 @@ export class Generator extends React.Component<any, IGeneratorState> {
     this.setState({ sidewinder: sidewinder });
   }
 
+  handleRecursiveBacktrackerChange(fieldName: string, value: any) {
+    let { recursiveBacktracker } = this.state;
+    recursiveBacktracker[fieldName] = value;
+    this.setState({ recursiveBacktracker: recursiveBacktracker });
+  }
+
   handleGrowingTreeChange(fieldName: string, value: any) {
     let { growingTree } = this.state;
     growingTree[fieldName] = value;
@@ -246,6 +255,14 @@ export class Generator extends React.Component<any, IGeneratorState> {
           <SidewinderProperties
             data={this.state.sidewinder}
             handleChange={this.handleSidewinderChange}
+          />
+        );
+        break;
+      case 6:
+        retElement = (
+          <RecursiveBacktrackerProperties
+            data={this.state.recursiveBacktracker}
+            handleChange={this.handleRecursiveBacktrackerChange}
           />
         );
         break;

@@ -28,38 +28,18 @@ export class GeneratorProperties extends React.Component<
     this.state = {};
 
     this.handleGeneratorChange = this.handleGeneratorChange.bind(this);
-    this.handleSeedChange = this.handleSeedChange.bind(this);
-    this.handleWidthChange = this.handleWidthChange.bind(this);
-    this.handleHeightChange = this.handleHeightChange.bind(this);
-    this.handleDeadEndChange = this.handleDeadEndChange.bind(this);
-    this.handleWeaveChange = this.handleWeaveChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   handleGeneratorChange(event: React.FormEvent<HTMLSelectElement>) {
     this.props.handleChange('generator', parseInt(event.currentTarget.value));
   }
 
-  handleSeedChange(event: React.FormEvent<HTMLInputElement>) {
-    this.props.handleChange('seed', parseInt(event.currentTarget.value));
-  }
-
-  handleWidthChange(event: React.FormEvent<HTMLInputElement>) {
-    this.props.handleChange('width', parseInt(event.currentTarget.value));
-  }
-
-  handleHeightChange(event: React.FormEvent<HTMLInputElement>) {
-    this.props.handleChange('height', parseInt(event.currentTarget.value));
-  }
-
-  handleDeadEndChange(event: React.FormEvent<HTMLInputElement>) {
+  handleInputChange(event: React.FormEvent<HTMLInputElement>) {
     this.props.handleChange(
-      'cullDeadEnds',
+      event.currentTarget.id,
       parseInt(event.currentTarget.value)
     );
-  }
-
-  handleWeaveChange(event: React.FormEvent<HTMLInputElement>) {
-    this.props.handleChange('weave', parseInt(event.currentTarget.value));
   }
 
   render() {
@@ -98,7 +78,7 @@ export class GeneratorProperties extends React.Component<
               name="seed"
               placeholder="Seed"
               value={this.props.data.seed}
-              onChange={this.handleSeedChange}
+              onChange={this.handleInputChange}
             />
           </FormControl>
         </SimpleGrid>
@@ -111,7 +91,7 @@ export class GeneratorProperties extends React.Component<
               name="width"
               placeholder="Width"
               value={this.props.data.width}
-              onChange={this.handleWidthChange}
+              onChange={this.handleInputChange}
             />
           </FormControl>
           <FormControl id="height">
@@ -122,7 +102,7 @@ export class GeneratorProperties extends React.Component<
               name="height"
               placeholder="Height"
               value={this.props.data.height}
-              onChange={this.handleHeightChange}
+              onChange={this.handleInputChange}
             />
           </FormControl>
 
@@ -135,20 +115,20 @@ export class GeneratorProperties extends React.Component<
                 name="weave"
                 placeholder="Weave"
                 value={this.props.data.weave}
-                onChange={this.handleWeaveChange}
+                onChange={this.handleInputChange}
               />
               <InputRightAddon children="%" />
             </InputGroup>
           </FormControl>
-          <FormControl id="deadEnd">
+          <FormControl id="cullDeadEnds">
             <Tooltip label="The number of dead ends to be removed after the maze has been generated. At least one cell will always remain at the end of generation.">
               <FormLabel>Cull Dead Ends</FormLabel>
             </Tooltip>
             <Input
-              name="deadEnd"
+              name="cullDeadEnds"
               placeholder="Cull Dead Ends"
               value={this.props.data.cullDeadEnds}
-              onChange={this.handleDeadEndChange}
+              onChange={this.handleInputChange}
             />
           </FormControl>
         </SimpleGrid>
