@@ -44,11 +44,15 @@ export class GrowingTree extends Generator {
     if (
       this.props.setStartPosition &&
       mapCells.some(
-        (a) => a.x === this.props.startPosX && a.y === this.props.startPosY
+        (a) =>
+          a.x.toString() === this.props.startPosX.toString() &&
+          a.y.toString() === this.props.startPosY.toString()
       )
     ) {
       currentCell = mapCells.filter(
-        (a) => a.x === this.props.startPosX && a.y === this.props.startPosY
+        (a) =>
+          a.x.toString() === this.props.startPosX.toString() &&
+          a.y.toString() === this.props.startPosY.toString()
       )[0];
     } else {
       currentCell = mapCells[this.random.GetInt(mapCells.length)];

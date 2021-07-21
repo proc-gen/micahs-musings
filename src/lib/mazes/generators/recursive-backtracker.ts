@@ -142,7 +142,7 @@ export class RecursiveBacktracker extends Generator {
         let leftIndex = (previousCellIndex + 1) % 4;
         let leftMax = 0;
         let rightIndex = (previousCellIndex + 3) % 4;
-        let rightMax = 0;
+        //let rightMax = 0;
 
         if (
           currentCell.adjacentCells[forwardIndex] !== undefined &&
@@ -163,7 +163,7 @@ export class RecursiveBacktracker extends Generator {
           !(currentCell.adjacentCells[rightIndex] as Cell).visited
         ) {
           randomMax += this.props.rightChance;
-          rightMax = randomMax + this.props.rightChance - 1;
+          //rightMax = randomMax + this.props.rightChance - 1;
         }
 
         let randomValue = this.random.GetInt(randomMax);
@@ -175,13 +175,11 @@ export class RecursiveBacktracker extends Generator {
           randomValue <= leftMax
         ) {
           nextCell = currentCell.adjacentCells[leftIndex] as Cell;
-        } else if (
+        } /*if (
           (leftMax === 0 || randomValue > leftMax) &&
           randomValue <= rightMax
-        ) {
+        ) */ else {
           nextCell = currentCell.adjacentCells[rightIndex] as Cell;
-        } else {
-          throw 'blargh';
         }
       } else {
         nextCell = adjacentCells[

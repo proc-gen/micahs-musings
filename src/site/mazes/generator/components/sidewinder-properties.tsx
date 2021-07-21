@@ -1,11 +1,7 @@
 import React from 'react';
-import {
-  Input,
-  FormControl,
-  FormLabel,
-  Select,
-  SimpleGrid,
-} from '@chakra-ui/react';
+import { SimpleGrid } from '@chakra-ui/react';
+
+import { InputSelect, InputText } from '../../../../lib/components';
 
 import { SidewinderData } from '../../../../lib/mazes';
 
@@ -51,45 +47,41 @@ export class SidewinderProperties extends React.Component<
     return (
       <>
         <SimpleGrid columns={2} spacing="1em" paddingBottom="1em">
-          <FormControl id="sideDirection">
-            <FormLabel>Side Direction</FormLabel>
-            <Select
-              name="sideDirection"
-              placeHolder="Side Direction"
-              value={this.props.data.sideDirection}
-              onChange={this.handleSideDirectionChange}
-            >
-              <option value="0">North</option>
-              <option value="1">East</option>
-              <option value="2">South</option>
-              <option value="3">West</option>
-            </Select>
-          </FormControl>
-          <FormControl id="windDirection">
-            <FormLabel>Wind Direction</FormLabel>
-            <Select
-              name="windDirection"
-              placeHolder="Wind Direction"
-              value={this.props.data.windDirection}
-              onChange={this.handleWindDirectionChange}
-            >
-              <option value="0">North</option>
-              <option value="1">East</option>
-              <option value="2">South</option>
-              <option value="3">West</option>
-            </Select>
-          </FormControl>
+          <InputSelect
+            id="sideDirection"
+            label="Side Direction"
+            tooltip="Sets the direction considered to be sideways."
+            value={this.props.data.sideDirection}
+            onChange={this.handleSideDirectionChange}
+          >
+            <option value="0">North</option>
+            <option value="1">East</option>
+            <option value="2">South</option>
+            <option value="3">West</option>
+          </InputSelect>
+          <InputSelect
+            id="windDirection"
+            label="Wind Direction"
+            tooltip="Sets winding direction that is perpendicular to the sideways direction."
+            value={this.props.data.windDirection}
+            onChange={this.handleWindDirectionChange}
+          >
+            <option value="0">North</option>
+            <option value="1">East</option>
+            <option value="2">South</option>
+            <option value="3">West</option>
+          </InputSelect>
         </SimpleGrid>
         <SimpleGrid columns={2} spacing="1em" paddingBottom="1em">
-          <FormControl id="chanceWind">
-            <FormLabel>Wind Chance</FormLabel>
-            <Input
-              name="chanceWind"
-              placeholder="Wind Chance"
-              value={this.props.data.chanceWind}
-              onChange={this.handleChanceWindChange}
-            />
-          </FormControl>
+          <InputText
+            id="chanceWind"
+            label="Wind Chance"
+            tooltip="The percent chance that the winding direction will be chosen."
+            placeholder="Wind Chance"
+            value={this.props.data.chanceWind}
+            onChange={this.handleChanceWindChange}
+            rightAddon="%"
+          />
         </SimpleGrid>
       </>
     );

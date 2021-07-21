@@ -1,16 +1,7 @@
 import React from 'react';
-import {
-  Input,
-  InputGroup,
-  InputRightAddon,
-  FormControl,
-  FormLabel,
-  Select,
-  SimpleGrid,
-  Tooltip,
-} from '@chakra-ui/react';
+import { SimpleGrid } from '@chakra-ui/react';
 
-import { InputText } from '../../../../lib/components';
+import { InputText, InputSelect } from '../../../../lib/components';
 
 import { GeneratorData } from '../../../../lib/mazes';
 
@@ -48,30 +39,26 @@ export class GeneratorProperties extends React.Component<
     return (
       <>
         <SimpleGrid columns={2} spacing="1em" paddingBottom="1em">
-          <FormControl id="generator">
-            <Tooltip label="The base algorithm used by the maze generator. Go to Mazes/Algorithms in the left navigation for more information about a specific generator.">
-              <FormLabel>Generator</FormLabel>
-            </Tooltip>
+          <InputSelect
+            id="generator"
+            label="Select Generator"
+            tooltip="The base algorithm used by the maze generator. Go to Mazes/Algorithms in the left navigation for more information about a specific generator."
+            value={this.props.data.generator}
+            onChange={this.handleGeneratorChange}
+          >
+            <option value="1">Binary Tree</option>
+            <option value="2">Sidewinder</option>
+            <option value="3">Aldous-Broder</option>
+            <option value="4">Wilson's</option>
+            <option value="5">Hunt and Kill</option>
+            <option value="6">Recursive Backtracker</option>
+            <option value="7">Kruskal's</option>
+            <option value="8">Prim's</option>
+            <option value="9">Growing Tree</option>
+            <option value="10">Eller's</option>
+            <option value="11">Recursive Subdivision</option>
+          </InputSelect>
 
-            <Select
-              name="generator"
-              placeHolder="Select Generator"
-              value={this.props.data.generator}
-              onChange={this.handleGeneratorChange}
-            >
-              <option value="1">Binary Tree</option>
-              <option value="2">Sidewinder</option>
-              <option value="3">Aldous-Broder</option>
-              <option value="4">Wilson's</option>
-              <option value="5">Hunt and Kill</option>
-              <option value="6">Recursive Backtracker</option>
-              <option value="7">Kruskal's</option>
-              <option value="8">Prim's</option>
-              <option value="9">Growing Tree</option>
-              <option value="10">Eller's</option>
-              <option value="11">Recursive Subdivision</option>
-            </Select>
-          </FormControl>
           <InputText
             id="seed"
             label="Seed"

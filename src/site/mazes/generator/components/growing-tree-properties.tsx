@@ -1,12 +1,7 @@
 import React from 'react';
-import {
-  Input,
-  FormControl,
-  FormLabel,
-  Select,
-  SimpleGrid,
-  Text,
-} from '@chakra-ui/react';
+import { SimpleGrid, Text } from '@chakra-ui/react';
+
+import { InputSelect, InputText } from '../../../../lib/components';
 
 import { GrowingTreeData } from '../../../../lib/mazes';
 
@@ -41,49 +36,43 @@ export class GrowingTreeProperties extends React.Component<
     return (
       <>
         <SimpleGrid columns={3} spacing="1em" paddingBottom="1em">
-          <FormControl id="setStartPosition">
-            <FormLabel>Set Start Position</FormLabel>
-            <Select
-              name="setStartPosition"
-              placeHolder="Set Start Position"
-              value={this.props.data.setStartPosition.toString()}
-              onChange={this.handleSelectChange}
-            >
-              <option value="true">True</option>
-              <option value="false">False</option>
-            </Select>
-          </FormControl>
-          <FormControl id="startPosX">
-            <FormLabel>Start X Position</FormLabel>
-            <Input
-              name="startPosX"
-              placeholder="Start X Position"
-              value={this.props.data.startPosX}
-              onChange={this.handleInputChange}
-              disabled={!this.props.data.setStartPosition}
-            />
-          </FormControl>
-          <FormControl id="startPosY">
-            <FormLabel>Start Y Position</FormLabel>
-            <Input
-              name="startPosY"
-              placeholder="Start Y Position"
-              value={this.props.data.startPosY}
-              onChange={this.handleInputChange}
-              disabled={!this.props.data.setStartPosition}
-            />
-          </FormControl>
+          <InputSelect
+            id="setStartPosition"
+            label="Set Start Position"
+            tooltip="Sets whether the start position should be set with parameters or chosen at random."
+            value={this.props.data.setStartPosition.toString()}
+            onChange={this.handleSelectChange}
+          >
+            <option value="true">True</option>
+            <option value="false">False</option>
+          </InputSelect>
+
+          <InputText
+            id="startPosX"
+            label="Start X Position"
+            tooltip="The x-coordinate for the cell used to start generation."
+            placeholder="Start X Position"
+            value={this.props.data.startPosX}
+            onChange={this.handleInputChange}
+          />
+          <InputText
+            id="startPosY"
+            label="Start Y Position"
+            tooltip="The y-coordinate for the cell used to start generation."
+            placeholder="Start Y Position"
+            value={this.props.data.startPosY}
+            onChange={this.handleInputChange}
+          />
         </SimpleGrid>
         <SimpleGrid columns={2} spacing="1em" paddingBottom="1em">
-          <FormControl id="treeGrammar">
-            <FormLabel>Tree Grammar</FormLabel>
-            <Input
-              name="treeGrammar"
-              placeholder="Tree Grammar"
-              value={this.props.data.treeGrammar}
-              onChange={this.handleInputChange}
-            />
-          </FormControl>
+          <InputText
+            id="treeGrammar"
+            label="Tree Grammar"
+            tooltip="The grammar used for generation. The order of the grammar will be repeated until the entire maze is generated."
+            placeholder="Tree Grammar"
+            value={this.props.data.treeGrammar}
+            onChange={this.handleInputChange}
+          />
           <Text fontSize="small" margin="1em">
             <ul>
               <li>F - First cell in list</li>

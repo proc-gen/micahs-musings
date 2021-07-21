@@ -1,14 +1,7 @@
 import React from 'react';
-import {
-  Input,
-  InputGroup,
-  InputRightAddon,
-  FormControl,
-  FormLabel,
-  Select,
-  SimpleGrid,
-  Tooltip,
-} from '@chakra-ui/react';
+import { SimpleGrid } from '@chakra-ui/react';
+
+import { InputSelect, InputText } from '../../../../lib/components';
 
 import { RecursiveBacktrackerData } from '../../../../lib/mazes';
 
@@ -46,52 +39,44 @@ export class RecursiveBacktrackerProperties extends React.Component<
     return (
       <>
         <SimpleGrid columns={3} spacing="1em" paddingBottom="1em">
-          <FormControl id="setStartPosition">
-            <FormLabel>Set Start Position</FormLabel>
-            <Select
-              name="setStartPosition"
-              placeHolder="Set Start Position"
-              value={this.props.data.setStartPosition.toString()}
-              onChange={this.handleSelectChange}
-            >
-              <option value="true">True</option>
-              <option value="false">False</option>
-            </Select>
-          </FormControl>
-          <FormControl id="startPosX">
-            <FormLabel>Start X Position</FormLabel>
-            <Input
-              name="startPosX"
-              placeholder="Start X Position"
-              value={this.props.data.startPosX}
-              onChange={this.handleInputChange}
-              disabled={!this.props.data.setStartPosition}
-            />
-          </FormControl>
-          <FormControl id="startPosY">
-            <FormLabel>Start Y Position</FormLabel>
-            <Input
-              name="startPosY"
-              placeholder="Start Y Position"
-              value={this.props.data.startPosY}
-              onChange={this.handleInputChange}
-              disabled={!this.props.data.setStartPosition}
-            />
-          </FormControl>
+          <InputSelect
+            id="setStartPosition"
+            label="Set Start Position"
+            tooltip="Sets whether the start position should be set with parameters or chosen at random."
+            value={this.props.data.setStartPosition.toString()}
+            onChange={this.handleSelectChange}
+          >
+            <option value="true">True</option>
+            <option value="false">False</option>
+          </InputSelect>
+          <InputText
+            id="startPosX"
+            label="Start X Position"
+            tooltip="The x-coordinate for the cell used to start generation."
+            placeholder="Start X Position"
+            value={this.props.data.startPosX}
+            onChange={this.handleInputChange}
+          />
+          <InputText
+            id="startPosY"
+            label="Start Y Position"
+            tooltip="The y-coordinate for the cell used to start generation."
+            placeholder="Start Y Position"
+            value={this.props.data.startPosY}
+            onChange={this.handleInputChange}
+          />
         </SimpleGrid>
         <SimpleGrid columns={3} spacing="1em" paddingBottom="1em">
-          <FormControl id="directionBias">
-            <FormLabel>Direction Bias</FormLabel>
-            <Select
-              name="directionBias"
-              placeHolder="Direction Bias"
-              value={this.props.data.directionBias.toString()}
-              onChange={this.handleSelectChange}
-            >
-              <option value="Cardinal">Cardinal</option>
-              <option value="Turn">Turn</option>
-            </Select>
-          </FormControl>
+          <InputSelect
+            id="directionBias"
+            label="Direction Bias"
+            tooltip="Sets whether the direction bias should be based on the cardinal directions or based on direction compared to the previous cell."
+            value={this.props.data.directionBias.toString()}
+            onChange={this.handleSelectChange}
+          >
+            <option value="Cardinal">Cardinal</option>
+            <option value="Turn">Turn</option>
+          </InputSelect>
         </SimpleGrid>
         <SimpleGrid
           columns={4}
@@ -104,55 +89,42 @@ export class RecursiveBacktrackerProperties extends React.Component<
             this.props.data.directionBias === 'Cardinal' ? 'grid' : 'none'
           }
         >
-          <FormControl id="northChance">
-            <FormLabel>North Chance</FormLabel>
-            <InputGroup>
-              <Input
-                name="northChance"
-                placeholder="North Chance"
-                value={this.props.data.northChance}
-                onChange={this.handleInputChange}
-              />
-              <InputRightAddon children="%" />
-            </InputGroup>
-          </FormControl>
-          <FormControl id="eastChance">
-            <FormLabel>East Chance</FormLabel>
-            <InputGroup>
-              <Input
-                name="eastChance"
-                placeholder="East Chance"
-                value={this.props.data.eastChance}
-                onChange={this.handleInputChange}
-              />
-              <InputRightAddon children="%" />
-            </InputGroup>
-          </FormControl>
-
-          <FormControl id="southChance">
-            <FormLabel>South Chance</FormLabel>
-            <InputGroup>
-              <Input
-                name="southChance"
-                placeholder="South Chance"
-                value={this.props.data.southChance}
-                onChange={this.handleInputChange}
-              />
-              <InputRightAddon children="%" />
-            </InputGroup>
-          </FormControl>
-          <FormControl id="westChance">
-            <FormLabel>West Chance</FormLabel>
-            <InputGroup>
-              <Input
-                name="westChance"
-                placeholder="West Chance"
-                value={this.props.data.westChance}
-                onChange={this.handleInputChange}
-              />
-              <InputRightAddon children="%" />
-            </InputGroup>
-          </FormControl>
+          <InputText
+            id="northChance"
+            label="North Chance"
+            tooltip="The percentage chance that North will be chosen."
+            placeholder="North Chance"
+            value={this.props.data.northChance}
+            onChange={this.handleInputChange}
+            rightAddon="%"
+          />
+          <InputText
+            id="eastChance"
+            label="East Chance"
+            tooltip="The percentage chance that East will be chosen."
+            placeholder="East Chance"
+            value={this.props.data.eastChance}
+            onChange={this.handleInputChange}
+            rightAddon="%"
+          />
+          <InputText
+            id="southChance"
+            label="South Chance"
+            tooltip="The percentage chance that South will be chosen."
+            placeholder="South Chance"
+            value={this.props.data.southChance}
+            onChange={this.handleInputChange}
+            rightAddon="%"
+          />
+          <InputText
+            id="westChance"
+            label="West Chance"
+            tooltip="The percentage chance that West will be chosen."
+            placeholder="West Chance"
+            value={this.props.data.westChance}
+            onChange={this.handleInputChange}
+            rightAddon="%"
+          />
         </SimpleGrid>
         <SimpleGrid
           columns={3}
@@ -163,43 +135,33 @@ export class RecursiveBacktrackerProperties extends React.Component<
           }
           display={this.props.data.directionBias === 'Turn' ? 'grid' : 'none'}
         >
-          <FormControl id="forwardChance">
-            <FormLabel>Forward Chance</FormLabel>
-            <InputGroup>
-              <Input
-                name="forwardChance"
-                placeholder="Forward Chance"
-                value={this.props.data.forwardChance}
-                onChange={this.handleInputChange}
-              />
-              <InputRightAddon children="%" />
-            </InputGroup>
-          </FormControl>
-          <FormControl id="leftChance">
-            <FormLabel>Left Chance</FormLabel>
-            <InputGroup>
-              <Input
-                name="leftChance"
-                placeholder="Left Chance"
-                value={this.props.data.leftChance}
-                onChange={this.handleInputChange}
-              />
-              <InputRightAddon children="%" />
-            </InputGroup>
-          </FormControl>
-
-          <FormControl id="rightChance">
-            <FormLabel>Right Chance</FormLabel>
-            <InputGroup>
-              <Input
-                name="rightChance"
-                placeholder="Right Chance"
-                value={this.props.data.rightChance}
-                onChange={this.handleInputChange}
-              />
-              <InputRightAddon children="%" />
-            </InputGroup>
-          </FormControl>
+          <InputText
+            id="forwardChance"
+            label="Forward Chance"
+            tooltip="The percentage chance that moving forward will be chosen."
+            placeholder="Forward Chance"
+            value={this.props.data.forwardChance}
+            onChange={this.handleInputChange}
+            rightAddon="%"
+          />
+          <InputText
+            id="leftChance"
+            label="Left Chance"
+            tooltip="The percentage chance that a left turn will be chosen."
+            placeholder="Left Chance"
+            value={this.props.data.leftChance}
+            onChange={this.handleInputChange}
+            rightAddon="%"
+          />
+          <InputText
+            id="rightChance"
+            label="Right Chance"
+            tooltip="The percentage chance that a right turn will be chosen."
+            placeholder="Right Chance"
+            value={this.props.data.rightChance}
+            onChange={this.handleInputChange}
+            rightAddon="%"
+          />
         </SimpleGrid>
       </>
     );
