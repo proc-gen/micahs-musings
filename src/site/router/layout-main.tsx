@@ -6,6 +6,7 @@ import {
   GridItem,
   Heading,
   SimpleGrid,
+  Center,
   Flex,
   Spacer,
   useColorModeValue,
@@ -81,19 +82,18 @@ interface ILayoutProps {
 
 const MainLayout: React.FC<ILayoutProps> = ({ children, menuOpen }) => {
   return (
-    <Grid minH="100vh" templateColumns="repeat(12, 1fr)">
-      <GridItem
-        colSpan={menuOpen ? 2 : 0}
+    <Flex>
+      <Box
         display={menuOpen ? 'initial' : 'none'}
         transition="visibility 0s, opacity 0.5s linear"
         backgroundColor={useColorModeValue('gray.200', 'gray.800')}
       >
         <LeftNav />
-      </GridItem>
-      <GridItem colSpan={menuOpen ? 10 : 12} transition="0.5s">
+      </Box>
+      <Box width="100%" transition="0.5s">
         {children}
-      </GridItem>
-    </Grid>
+      </Box>
+    </Flex>
   );
 };
 
