@@ -16,8 +16,11 @@ export const LinkButton: React.FC<ILinkButtonProps> = ({
   return (
     <Link as={ReactLink} to={href}>
       <Button
-        colorScheme={useColorModeValue('blackAlpha', 'whiteAlpha')}
+        backgroundColor={useColorModeValue('blue.300', 'blue.700')}
         color={useColorModeValue('gray.800', 'gray.100')}
+        _hover={{
+          backgroundColor: useColorModeValue('blue.200', 'blue.600'),
+        }}
         {...rest}
       >
         {text}
