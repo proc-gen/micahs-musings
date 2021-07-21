@@ -6,6 +6,8 @@ import {
   GridItem,
   Heading,
   SimpleGrid,
+  Flex,
+  Spacer,
   useColorModeValue,
 } from '@chakra-ui/react';
 
@@ -37,22 +39,38 @@ interface ITopNavProps {
 
 const TopNav: React.FC<ITopNavProps> = ({ onClick, menuOpen, ...rest }) => {
   return (
-    <SimpleGrid
+    <Flex
       paddingBottom="1em"
-      rows={1}
-      minChildWidth="5em"
+      //minChildWidth="5em"
       backgroundColor={useColorModeValue('gray.200', 'gray.800')}
     >
-      <GridItem textAlign="left">
+      <Box textAlign="left">
         <HamburgerMenu menuOpen={menuOpen} onClick={onClick} />
-      </GridItem>
-      <GridItem textAlign="center">
+      </Box>
+      <Spacer />
+      <Box textAlign="center">
         <Heading size="xl">Micah's Musings</Heading>
-      </GridItem>
-      <GridItem textAlign="right">
+      </Box>
+      <Spacer />
+      <Box textAlign="right">
         <ColorModeSwitcher justifySelf="flex-end" />
-      </GridItem>
-    </SimpleGrid>
+      </Box>
+    </Flex>
+  );
+};
+
+interface IFooterProps {}
+
+const Footer: React.FC<IFooterProps> = ({ ...rest }) => {
+  return (
+    <Flex
+      paddingBottom="1em"
+      //minChildWidth="5em"
+      backgroundColor={useColorModeValue('gray.200', 'gray.800')}
+    >
+      <Spacer />
+      <Box textAlign="right"></Box>
+    </Flex>
   );
 };
 
@@ -102,6 +120,7 @@ export class LayoutMain extends React.Component<any, ILayoutMainState> {
         <MainLayout menuOpen={this.state.menuOpen}>
           {this.props.children}
         </MainLayout>
+        <Footer />
       </PageLayout>
     );
   }
