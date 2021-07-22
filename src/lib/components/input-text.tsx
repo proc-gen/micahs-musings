@@ -30,7 +30,7 @@ export const InputText: React.FC<IInputProps> = ({
 }) => {
   const addonColor = useColorModeValue('gray.200', 'gray.700');
   return (
-    <FormControl id={id}>
+    <FormControl id={id} margin="0.5em">
       {tooltip !== undefined && (
         <Tooltip label={tooltip}>
           <FormLabel>{label}</FormLabel>

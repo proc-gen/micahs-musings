@@ -1,5 +1,5 @@
 import React from 'react';
-import { SimpleGrid } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 
 import { InputText, InputSelect } from '../../../../lib/components';
 
@@ -38,7 +38,7 @@ export class GeneratorProperties extends React.Component<
   render() {
     return (
       <>
-        <SimpleGrid columns={2} spacing="1em" paddingBottom="1em">
+        <Flex>
           <InputSelect
             id="generator"
             label="Select Generator"
@@ -58,7 +58,6 @@ export class GeneratorProperties extends React.Component<
             <option value="10">Eller's</option>
             <option value="11">Recursive Subdivision</option>
           </InputSelect>
-
           <InputText
             id="seed"
             label="Seed"
@@ -67,8 +66,8 @@ export class GeneratorProperties extends React.Component<
             value={this.props.data.seed}
             onChange={this.handleInputChange}
           />
-        </SimpleGrid>
-        <SimpleGrid columns={4} spacing="1em" paddingBottom="1em">
+        </Flex>
+        <Flex>
           <InputText
             id="width"
             label="Width"
@@ -102,7 +101,7 @@ export class GeneratorProperties extends React.Component<
             value={this.props.data.cullDeadEnds}
             onChange={this.handleInputChange}
           />
-        </SimpleGrid>
+        </Flex>
       </>
     );
   }

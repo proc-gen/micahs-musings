@@ -1,5 +1,5 @@
 import React from 'react';
-import { SimpleGrid, Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 
 import { InputSelect, InputText } from '../../../../lib/components';
 
@@ -35,7 +35,7 @@ export class GrowingTreeProperties extends React.Component<
   render() {
     return (
       <>
-        <SimpleGrid columns={3} spacing="1em" paddingBottom="1em">
+        <Flex>
           <InputSelect
             id="setStartPosition"
             label="Set Start Position"
@@ -63,8 +63,8 @@ export class GrowingTreeProperties extends React.Component<
             value={this.props.data.startPosY}
             onChange={this.handleInputChange}
           />
-        </SimpleGrid>
-        <SimpleGrid columns={2} spacing="1em" paddingBottom="1em">
+        </Flex>
+        <Flex>
           <InputText
             id="treeGrammar"
             label="Tree Grammar"
@@ -80,8 +80,8 @@ export class GrowingTreeProperties extends React.Component<
               <li>R - Random cell from list</li>
             </ul>
           </Text>
-        </SimpleGrid>
-        <SimpleGrid columns={3} spacing="1em" paddingBottom="1em">
+        </Flex>
+        <Flex>
           <InputSelect
             id="directionBias"
             label="Direction Bias"
@@ -92,16 +92,13 @@ export class GrowingTreeProperties extends React.Component<
             <option value="Cardinal">Cardinal</option>
             <option value="Turn">Turn</option>
           </InputSelect>
-        </SimpleGrid>
-        <SimpleGrid
-          columns={4}
-          spacing="1em"
-          paddingBottom="1em"
+        </Flex>
+        <Flex
           visibility={
             this.props.data.directionBias === 'Cardinal' ? 'initial' : 'hidden'
           }
           display={
-            this.props.data.directionBias === 'Cardinal' ? 'grid' : 'none'
+            this.props.data.directionBias === 'Cardinal' ? 'flex' : 'none'
           }
         >
           <InputText
@@ -140,15 +137,12 @@ export class GrowingTreeProperties extends React.Component<
             onChange={this.handleInputChange}
             rightAddon="%"
           />
-        </SimpleGrid>
-        <SimpleGrid
-          columns={3}
-          spacing="1em"
-          paddingBottom="1em"
+        </Flex>
+        <Flex
           visibility={
             this.props.data.directionBias === 'Turn' ? 'initial' : 'hidden'
           }
-          display={this.props.data.directionBias === 'Turn' ? 'grid' : 'none'}
+          display={this.props.data.directionBias === 'Turn' ? 'flex' : 'none'}
         >
           <InputText
             id="forwardChance"
@@ -177,7 +171,7 @@ export class GrowingTreeProperties extends React.Component<
             onChange={this.handleInputChange}
             rightAddon="%"
           />
-        </SimpleGrid>
+        </Flex>
       </>
     );
   }

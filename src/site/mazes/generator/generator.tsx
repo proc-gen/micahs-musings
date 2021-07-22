@@ -287,37 +287,35 @@ export class Generator extends React.Component<any, IGeneratorState> {
   render() {
     return (
       <>
-        <Card maxW="container.lg" centered>
+        <Card w="container.lg" centered>
           <CardHeader>Mazes - Generator</CardHeader>
           <CardBody>
-            <Container padding="1em">
-              <Text textAlign="left" padding="1em">
-                <Tabs variant="enclosed">
-                  <TabList>
-                    <Tab>General Properties</Tab>
-                    <Tab>{this.getGeneratorPropertiesTabName()} Properties</Tab>
-                  </TabList>
-                  <TabPanels>
-                    <TabPanel>
-                      <GeneratorProperties
-                        data={this.state.generatorData}
-                        handleChange={this.handleGeneratorDataChange}
-                      />
-                    </TabPanel>
-                    <TabPanel>
-                      {this.getGeneratorSpecificPropertiesElement()}
-                    </TabPanel>
-                  </TabPanels>
-                </Tabs>
-              </Text>
-              <StyledButton onClick={() => this.generate()}>
-                Generate
-              </StyledButton>
-            </Container>
+            <Text textAlign="left" padding="1em">
+              <Tabs variant="enclosed-colored">
+                <TabList>
+                  <Tab>General Properties</Tab>
+                  <Tab>{this.getGeneratorPropertiesTabName()} Properties</Tab>
+                </TabList>
+                <TabPanels>
+                  <TabPanel>
+                    <GeneratorProperties
+                      data={this.state.generatorData}
+                      handleChange={this.handleGeneratorDataChange}
+                    />
+                  </TabPanel>
+                  <TabPanel>
+                    {this.getGeneratorSpecificPropertiesElement()}
+                  </TabPanel>
+                </TabPanels>
+              </Tabs>
+            </Text>
+            <StyledButton onClick={() => this.generate()}>
+              Generate
+            </StyledButton>
           </CardBody>
         </Card>
         <Card
-          maxW="container.lg"
+          w="container.lg"
           centered
           visibility={this.state.imgData.width > 1 ? 'initial' : 'hidden'}
         >

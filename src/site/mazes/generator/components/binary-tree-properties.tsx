@@ -1,5 +1,5 @@
 import React from 'react';
-import { SimpleGrid } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 
 import { InputSelect, InputText } from '../../../../lib/components';
 
@@ -38,7 +38,7 @@ export class BinaryTreeProperties extends React.Component<
 
   render() {
     return (
-      <SimpleGrid columns={2} spacing="1em" paddingBottom="1em">
+      <Flex>
         <InputSelect
           id="direction"
           label="Directions"
@@ -60,7 +60,7 @@ export class BinaryTreeProperties extends React.Component<
           onChange={this.handleChanceVerticalChange}
           rightAddon="%"
         />
-      </SimpleGrid>
+      </Flex>
     );
   }
 }

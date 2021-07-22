@@ -1,5 +1,5 @@
 import React from 'react';
-import { SimpleGrid } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 
 import { InputSelect, InputText } from '../../../../lib/components';
 
@@ -46,7 +46,7 @@ export class SidewinderProperties extends React.Component<
   render() {
     return (
       <>
-        <SimpleGrid columns={2} spacing="1em" paddingBottom="1em">
+        <Flex>
           <InputSelect
             id="sideDirection"
             label="Side Direction"
@@ -71,8 +71,8 @@ export class SidewinderProperties extends React.Component<
             <option value="2">South</option>
             <option value="3">West</option>
           </InputSelect>
-        </SimpleGrid>
-        <SimpleGrid columns={2} spacing="1em" paddingBottom="1em">
+        </Flex>
+        <Flex>
           <InputText
             id="chanceWind"
             label="Wind Chance"
@@ -82,7 +82,7 @@ export class SidewinderProperties extends React.Component<
             onChange={this.handleChanceWindChange}
             rightAddon="%"
           />
-        </SimpleGrid>
+        </Flex>
       </>
     );
   }

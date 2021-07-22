@@ -1,5 +1,5 @@
 import React from 'react';
-import { SimpleGrid } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 
 import { InputText } from '../../../../lib/components';
 
@@ -33,7 +33,7 @@ export class RecursiveSubdivisionProperties extends React.Component<
   render() {
     return (
       <>
-        <SimpleGrid columns={2} spacing="1em" paddingBottom="1em">
+        <Flex>
           <InputText
             id="chanceForRoom"
             label="Chance for Room"
@@ -51,8 +51,8 @@ export class RecursiveSubdivisionProperties extends React.Component<
             value={this.props.data.maxRooms}
             onChange={this.handleInputChange}
           />
-        </SimpleGrid>
-        <SimpleGrid columns={2} spacing="1em" paddingBottom="1em">
+        </Flex>
+        <Flex>
           <InputText
             id="minRoomWidth"
             label="Minimum Room Width"
@@ -69,8 +69,8 @@ export class RecursiveSubdivisionProperties extends React.Component<
             value={this.props.data.minRoomHeight}
             onChange={this.handleInputChange}
           />
-        </SimpleGrid>
-        <SimpleGrid columns={2} spacing="1em" paddingBottom="1em">
+        </Flex>
+        <Flex>
           <InputText
             id="maxRoomWidth"
             label="Maximum Room Width"
@@ -87,7 +87,7 @@ export class RecursiveSubdivisionProperties extends React.Component<
             value={this.props.data.maxRoomHeight}
             onChange={this.handleInputChange}
           />
-        </SimpleGrid>
+        </Flex>
       </>
     );
   }

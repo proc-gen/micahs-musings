@@ -1,5 +1,5 @@
 import React from 'react';
-import { SimpleGrid } from '@chakra-ui/react';
+import { Flex, Spacer } from '@chakra-ui/react';
 
 import { InputSelect, InputText } from '../../../../lib/components';
 
@@ -38,7 +38,7 @@ export class RecursiveBacktrackerProperties extends React.Component<
   render() {
     return (
       <>
-        <SimpleGrid columns={3} spacing="1em" paddingBottom="1em">
+        <Flex>
           <InputSelect
             id="setStartPosition"
             label="Set Start Position"
@@ -65,8 +65,8 @@ export class RecursiveBacktrackerProperties extends React.Component<
             value={this.props.data.startPosY}
             onChange={this.handleInputChange}
           />
-        </SimpleGrid>
-        <SimpleGrid columns={3} spacing="1em" paddingBottom="1em">
+        </Flex>
+        <Flex>
           <InputSelect
             id="directionBias"
             label="Direction Bias"
@@ -77,16 +77,14 @@ export class RecursiveBacktrackerProperties extends React.Component<
             <option value="Cardinal">Cardinal</option>
             <option value="Turn">Turn</option>
           </InputSelect>
-        </SimpleGrid>
-        <SimpleGrid
-          columns={4}
-          spacing="1em"
-          paddingBottom="1em"
+        </Flex>
+        <Flex
+          flexWrap="wrap"
           visibility={
             this.props.data.directionBias === 'Cardinal' ? 'initial' : 'hidden'
           }
           display={
-            this.props.data.directionBias === 'Cardinal' ? 'grid' : 'none'
+            this.props.data.directionBias === 'Cardinal' ? 'flex' : 'none'
           }
         >
           <InputText
@@ -125,15 +123,12 @@ export class RecursiveBacktrackerProperties extends React.Component<
             onChange={this.handleInputChange}
             rightAddon="%"
           />
-        </SimpleGrid>
-        <SimpleGrid
-          columns={3}
-          spacing="1em"
-          paddingBottom="1em"
+        </Flex>
+        <Flex
           visibility={
             this.props.data.directionBias === 'Turn' ? 'initial' : 'hidden'
           }
-          display={this.props.data.directionBias === 'Turn' ? 'grid' : 'none'}
+          display={this.props.data.directionBias === 'Turn' ? 'flex' : 'none'}
         >
           <InputText
             id="forwardChance"
@@ -162,7 +157,7 @@ export class RecursiveBacktrackerProperties extends React.Component<
             onChange={this.handleInputChange}
             rightAddon="%"
           />
-        </SimpleGrid>
+        </Flex>
       </>
     );
   }
