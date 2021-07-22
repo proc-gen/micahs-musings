@@ -2,11 +2,7 @@ import * as React from 'react';
 
 import {
   Box,
-  Grid,
-  GridItem,
   Heading,
-  SimpleGrid,
-  Center,
   Flex,
   Spacer,
   useColorModeValue,
@@ -66,7 +62,6 @@ const Footer: React.FC<IFooterProps> = ({ ...rest }) => {
   return (
     <Flex
       paddingBottom="1em"
-      //minChildWidth="5em"
       backgroundColor={useColorModeValue('gray.200', 'gray.800')}
     >
       <Spacer />

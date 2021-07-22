@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex } from '@chakra-ui/react';
+import { Wrap, WrapItem } from '@chakra-ui/react';
 
 import { InputText, InputSelect } from '../../../../lib/components';
 
@@ -38,70 +38,82 @@ export class GeneratorProperties extends React.Component<
   render() {
     return (
       <>
-        <Flex>
-          <InputSelect
-            id="generator"
-            label="Select Generator"
-            tooltip="The base algorithm used by the maze generator. Go to Mazes/Algorithms in the left navigation for more information about a specific generator."
-            value={this.props.data.generator}
-            onChange={this.handleGeneratorChange}
-          >
-            <option value="1">Binary Tree</option>
-            <option value="2">Sidewinder</option>
-            <option value="3">Aldous-Broder</option>
-            <option value="4">Wilson's</option>
-            <option value="5">Hunt and Kill</option>
-            <option value="6">Recursive Backtracker</option>
-            <option value="7">Kruskal's</option>
-            <option value="8">Prim's</option>
-            <option value="9">Growing Tree</option>
-            <option value="10">Eller's</option>
-            <option value="11">Recursive Subdivision</option>
-          </InputSelect>
-          <InputText
-            id="seed"
-            label="Seed"
-            tooltip="The seed used by the random number generator."
-            placeholder="Seed"
-            value={this.props.data.seed}
-            onChange={this.handleInputChange}
-          />
-        </Flex>
-        <Flex>
-          <InputText
-            id="width"
-            label="Width"
-            tooltip="The width of the maze to be generated."
-            placeholder="Width"
-            value={this.props.data.width}
-            onChange={this.handleInputChange}
-          />
-          <InputText
-            id="height"
-            label="Height"
-            tooltip="The height of the maze to be generated."
-            placeholder="Height"
-            value={this.props.data.height}
-            onChange={this.handleInputChange}
-          />
-          <InputText
-            id="weave"
-            label="Weave"
-            tooltip="The percentage chance that a cell that fits the criteria for weaving is woven."
-            placeholder="Weave"
-            value={this.props.data.weave}
-            onChange={this.handleInputChange}
-            rightAddon="%"
-          />
-          <InputText
-            id="cullDeadEnds"
-            label="Cull Dead Ends"
-            tooltip="The number of dead ends to be removed after the maze has been generated. At least one cell will always remain at the end of generation."
-            placeholder="Cull Dead Ends"
-            value={this.props.data.cullDeadEnds}
-            onChange={this.handleInputChange}
-          />
-        </Flex>
+        <Wrap>
+          <WrapItem>
+            <InputSelect
+              id="generator"
+              label="Select Generator"
+              tooltip="The base algorithm used by the maze generator. Go to Mazes/Algorithms in the left navigation for more information about a specific generator."
+              value={this.props.data.generator}
+              onChange={this.handleGeneratorChange}
+            >
+              <option value="1">Binary Tree</option>
+              <option value="2">Sidewinder</option>
+              <option value="3">Aldous-Broder</option>
+              <option value="4">Wilson's</option>
+              <option value="5">Hunt and Kill</option>
+              <option value="6">Recursive Backtracker</option>
+              <option value="7">Kruskal's</option>
+              <option value="8">Prim's</option>
+              <option value="9">Growing Tree</option>
+              <option value="10">Eller's</option>
+              <option value="11">Recursive Subdivision</option>
+            </InputSelect>
+          </WrapItem>
+          <WrapItem>
+            <InputText
+              id="seed"
+              label="Seed"
+              tooltip="The seed used by the random number generator."
+              placeholder="Seed"
+              value={this.props.data.seed}
+              onChange={this.handleInputChange}
+            />
+          </WrapItem>
+        </Wrap>
+        <Wrap>
+          <WrapItem>
+            <InputText
+              id="width"
+              label="Width"
+              tooltip="The width of the maze to be generated."
+              placeholder="Width"
+              value={this.props.data.width}
+              onChange={this.handleInputChange}
+            />
+          </WrapItem>
+          <WrapItem>
+            <InputText
+              id="height"
+              label="Height"
+              tooltip="The height of the maze to be generated."
+              placeholder="Height"
+              value={this.props.data.height}
+              onChange={this.handleInputChange}
+            />
+          </WrapItem>
+          <WrapItem>
+            <InputText
+              id="weave"
+              label="Weave"
+              tooltip="The percentage chance that a cell that fits the criteria for weaving is woven."
+              placeholder="Weave"
+              value={this.props.data.weave}
+              onChange={this.handleInputChange}
+              rightAddon="%"
+            />
+          </WrapItem>
+          <WrapItem>
+            <InputText
+              id="cullDeadEnds"
+              label="Cull Dead Ends"
+              tooltip="The number of dead ends to be removed after the maze has been generated. At least one cell will always remain at the end of generation."
+              placeholder="Cull Dead Ends"
+              value={this.props.data.cullDeadEnds}
+              onChange={this.handleInputChange}
+            />
+          </WrapItem>
+        </Wrap>
       </>
     );
   }

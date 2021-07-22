@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex } from '@chakra-ui/react';
+import { Wrap, WrapItem } from '@chakra-ui/react';
 
 import { InputSelect, InputText } from '../../../../lib/components';
 
@@ -38,29 +38,33 @@ export class BinaryTreeProperties extends React.Component<
 
   render() {
     return (
-      <Flex>
-        <InputSelect
-          id="direction"
-          label="Directions"
-          tooltip="Sets the two direction choices used."
-          value={this.props.data.direction}
-          onChange={this.handleDirectionsChange}
-        >
-          <option value="1">North & East</option>
-          <option value="2">South & East</option>
-          <option value="3">South & West</option>
-          <option value="4">North & West</option>
-        </InputSelect>
-        <InputText
-          id="chanceVertical"
-          label="Vertical Chance"
-          tooltip="The percentage chance that the North/South direction will be chosen."
-          placeholder="Vertical Chance"
-          value={this.props.data.chanceVertical}
-          onChange={this.handleChanceVerticalChange}
-          rightAddon="%"
-        />
-      </Flex>
+      <Wrap>
+        <WrapItem>
+          <InputSelect
+            id="direction"
+            label="Directions"
+            tooltip="Sets the two direction choices used."
+            value={this.props.data.direction}
+            onChange={this.handleDirectionsChange}
+          >
+            <option value="1">North & East</option>
+            <option value="2">South & East</option>
+            <option value="3">South & West</option>
+            <option value="4">North & West</option>
+          </InputSelect>
+        </WrapItem>
+        <WrapItem>
+          <InputText
+            id="chanceVertical"
+            label="Vertical Chance"
+            tooltip="The percentage chance that the North/South direction will be chosen."
+            placeholder="Vertical Chance"
+            value={this.props.data.chanceVertical}
+            onChange={this.handleChanceVerticalChange}
+            rightAddon="%"
+          />
+        </WrapItem>
+      </Wrap>
     );
   }
 }

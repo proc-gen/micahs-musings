@@ -287,7 +287,7 @@ export class Generator extends React.Component<any, IGeneratorState> {
   render() {
     return (
       <>
-        <Card w="container.lg" centered>
+        <Card maxW="container.lg" centered>
           <CardHeader>Mazes - Generator</CardHeader>
           <CardBody>
             <Text textAlign="left" padding="1em">
@@ -315,7 +315,7 @@ export class Generator extends React.Component<any, IGeneratorState> {
           </CardBody>
         </Card>
         <Card
-          w="container.lg"
+          maxW="container.lg"
           centered
           visibility={this.state.imgData.width > 1 ? 'initial' : 'hidden'}
         >

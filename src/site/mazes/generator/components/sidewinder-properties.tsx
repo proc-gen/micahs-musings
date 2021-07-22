@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex } from '@chakra-ui/react';
+import { Wrap, WrapItem } from '@chakra-ui/react';
 
 import { InputSelect, InputText } from '../../../../lib/components';
 
@@ -46,43 +46,49 @@ export class SidewinderProperties extends React.Component<
   render() {
     return (
       <>
-        <Flex>
-          <InputSelect
-            id="sideDirection"
-            label="Side Direction"
-            tooltip="Sets the direction considered to be sideways."
-            value={this.props.data.sideDirection}
-            onChange={this.handleSideDirectionChange}
-          >
-            <option value="0">North</option>
-            <option value="1">East</option>
-            <option value="2">South</option>
-            <option value="3">West</option>
-          </InputSelect>
-          <InputSelect
-            id="windDirection"
-            label="Wind Direction"
-            tooltip="Sets winding direction that is perpendicular to the sideways direction."
-            value={this.props.data.windDirection}
-            onChange={this.handleWindDirectionChange}
-          >
-            <option value="0">North</option>
-            <option value="1">East</option>
-            <option value="2">South</option>
-            <option value="3">West</option>
-          </InputSelect>
-        </Flex>
-        <Flex>
-          <InputText
-            id="chanceWind"
-            label="Wind Chance"
-            tooltip="The percent chance that the winding direction will be chosen."
-            placeholder="Wind Chance"
-            value={this.props.data.chanceWind}
-            onChange={this.handleChanceWindChange}
-            rightAddon="%"
-          />
-        </Flex>
+        <Wrap>
+          <WrapItem>
+            <InputSelect
+              id="sideDirection"
+              label="Side Direction"
+              tooltip="Sets the direction considered to be sideways."
+              value={this.props.data.sideDirection}
+              onChange={this.handleSideDirectionChange}
+            >
+              <option value="0">North</option>
+              <option value="1">East</option>
+              <option value="2">South</option>
+              <option value="3">West</option>
+            </InputSelect>
+          </WrapItem>
+          <WrapItem>
+            <InputSelect
+              id="windDirection"
+              label="Wind Direction"
+              tooltip="Sets winding direction that is perpendicular to the sideways direction."
+              value={this.props.data.windDirection}
+              onChange={this.handleWindDirectionChange}
+            >
+              <option value="0">North</option>
+              <option value="1">East</option>
+              <option value="2">South</option>
+              <option value="3">West</option>
+            </InputSelect>
+          </WrapItem>
+        </Wrap>
+        <Wrap>
+          <WrapItem>
+            <InputText
+              id="chanceWind"
+              label="Wind Chance"
+              tooltip="The percent chance that the winding direction will be chosen."
+              placeholder="Wind Chance"
+              value={this.props.data.chanceWind}
+              onChange={this.handleChanceWindChange}
+              rightAddon="%"
+            />
+          </WrapItem>
+        </Wrap>
       </>
     );
   }
