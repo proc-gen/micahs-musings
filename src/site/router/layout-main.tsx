@@ -78,16 +78,17 @@ interface ILayoutProps {
 const MainLayout: React.FC<ILayoutProps> = ({ children, menuOpen }) => {
   return (
     <Flex>
-      <Box
-        display={menuOpen ? 'initial' : 'none'}
-        transition="visibility 0s, opacity 0.5s linear"
-        backgroundColor={useColorModeValue('gray.200', 'gray.800')}
-      >
-        <LeftNav />
+      <Box position="relative">
+        <Box
+          display={menuOpen ? 'initial' : 'none'}
+          position="absolute"
+          top={0}
+          left={0}
+        >
+          <LeftNav />
+        </Box>
       </Box>
-      <Box width="100%" transition="0.5s">
-        {children}
-      </Box>
+      <Box width="100%">{children}</Box>
     </Flex>
   );
 };
