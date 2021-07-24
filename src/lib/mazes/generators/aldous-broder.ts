@@ -90,7 +90,10 @@ export class AldousBroder extends Generator {
     } while (mapCells.some((a) => !a.visited));
   }
 
-  pickNextCell(currentCell: Cell, previousCell: Cell | undefined): Cell {
+  private pickNextCell(
+    currentCell: Cell,
+    previousCell: Cell | undefined
+  ): Cell {
     let nextCell: Cell;
     let randomMax: number = 0;
 
