@@ -108,30 +108,67 @@ export class RecursiveBacktracker extends Generator {
     );
 
     if (this.props.directionBias === 'Cardinal') {
-      for (let i: number = 0; i < currentCell.adjacentCells.length; i++) {
-        if (
-          currentCell.adjacentCells[i] !== undefined &&
-          !(currentCell.adjacentCells[i] as Cell).visited
-        )
-          switch (i) {
-            case 0:
-              randomMax += this.props.northChance;
-              break;
-            case 1:
-              randomMax += this.props.eastChance;
-              break;
-            case 2:
-              randomMax += this.props.southChance;
-              break;
-            case 3:
-              randomMax += this.props.westChance;
-              break;
-          }
-      }
+      if (adjacentCells.length === 1) {
+        nextCell = adjacentCells[0] as Cell;
+      } else if (previousCell !== undefined) {
+        let northMax = 0;
+        let eastMax = 0;
+        let southMax = 0;
+        let westMax = 0;
 
-      nextCell = adjacentCells[
-        this.random.GetInt(randomMax) % adjacentCells.length
-      ] as Cell;
+        if (
+          currentCell.adjacentCells[0] !== undefined &&
+          !(currentCell.adjacentCells[0] as Cell).visited
+        ) {
+          northMax = this.props.northChance - 1;
+          randomMax += this.props.northChance;
+        }
+        if (
+          currentCell.adjacentCells[1] !== undefined &&
+          !(currentCell.adjacentCells[1] as Cell).visited
+        ) {
+          eastMax = randomMax + this.props.eastChance - 1;
+          randomMax += this.props.eastChance;
+        }
+        if (
+          currentCell.adjacentCells[2] !== undefined &&
+          !(currentCell.adjacentCells[2] as Cell).visited
+        ) {
+          southMax = randomMax + this.props.southChance - 1;
+          randomMax += this.props.southChance;
+        }
+        if (
+          currentCell.adjacentCells[3] !== undefined &&
+          !(currentCell.adjacentCells[3] as Cell).visited
+        ) {
+          westMax = randomMax + this.props.westChance - 1;
+          randomMax += this.props.westChance;
+        }
+
+        let randomValue = this.random.GetInt(randomMax);
+
+        if (northMax > 0 && randomValue <= northMax) {
+          nextCell = currentCell.adjacentCells[0] as Cell;
+        } else if (
+          eastMax > northMax &&
+          (northMax === 0 || randomValue > northMax) &&
+          randomValue <= eastMax
+        ) {
+          nextCell = currentCell.adjacentCells[1] as Cell;
+        } else if (
+          southMax > eastMax &&
+          (eastMax === 0 || randomValue > eastMax) &&
+          randomValue <= southMax
+        ) {
+          nextCell = currentCell.adjacentCells[2] as Cell;
+        } else {
+          nextCell = currentCell.adjacentCells[3] as Cell;
+        }
+      } else {
+        nextCell = adjacentCells[
+          this.random.GetInt(adjacentCells.length)
+        ] as Cell;
+      }
     } else {
       if (adjacentCells.length === 1) {
         nextCell = adjacentCells[0] as Cell;
@@ -142,35 +179,37 @@ export class RecursiveBacktracker extends Generator {
         let leftIndex = (previousCellIndex + 1) % 4;
         let leftMax = 0;
         let rightIndex = (previousCellIndex + 3) % 4;
-        //let rightMax = 0;
+        let rightMax = 0;
 
         if (
           currentCell.adjacentCells[forwardIndex] !== undefined &&
           !(currentCell.adjacentCells[forwardIndex] as Cell).visited
         ) {
-          randomMax += this.props.forwardChance;
           forwardMax = this.props.forwardChance - 1;
+          randomMax += this.props.forwardChance;
         }
         if (
           currentCell.adjacentCells[leftIndex] !== undefined &&
           !(currentCell.adjacentCells[leftIndex] as Cell).visited
         ) {
-          randomMax += this.props.leftChance;
           leftMax = randomMax + this.props.leftChance - 1;
+          randomMax += this.props.leftChance;
         }
         if (
           currentCell.adjacentCells[rightIndex] !== undefined &&
           !(currentCell.adjacentCells[rightIndex] as Cell).visited
         ) {
+          rightMax = randomMax + this.props.rightChance - 1;
+
           randomMax += this.props.rightChance;
-          //rightMax = randomMax + this.props.rightChance - 1;
         }
 
         let randomValue = this.random.GetInt(randomMax);
 
-        if (randomValue <= forwardMax) {
+        if (forwardMax > 0 && randomValue <= forwardMax) {
           nextCell = currentCell.adjacentCells[forwardIndex] as Cell;
         } else if (
+          leftMax > forwardMax &&
           (forwardMax === 0 || randomValue > forwardMax) &&
           randomValue <= leftMax
         ) {

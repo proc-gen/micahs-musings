@@ -38,7 +38,6 @@ const TopNav: React.FC<ITopNavProps> = ({ onClick, menuOpen, ...rest }) => {
   return (
     <Flex
       paddingBottom="1em"
-      //minChildWidth="5em"
       backgroundColor={useColorModeValue('gray.200', 'gray.800')}
     >
       <Box textAlign="left">
