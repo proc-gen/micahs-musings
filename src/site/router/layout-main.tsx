@@ -1,12 +1,6 @@
 import * as React from 'react';
 
-import {
-  Box,
-  Heading,
-  Flex,
-  Spacer,
-  useColorModeValue,
-} from '@chakra-ui/react';
+import { Box, Heading, Flex, Spacer, useColorModeValue } from '@chakra-ui/react';
 
 import { ColorModeSwitcher } from './color-mode-switcher';
 import { HamburgerMenu } from './hamburger-menu';
@@ -18,12 +12,7 @@ interface ILayoutMainState {
 
 const PageLayout: React.FC = ({ children, ...rest }) => {
   return (
-    <Box
-      textAlign="center"
-      fontSize="xl"
-      backgroundColor={useColorModeValue('gray.100', 'gray.900')}
-      {...rest}
-    >
+    <Box textAlign="center" fontSize="xl" backgroundColor={useColorModeValue('gray.100', 'gray.900')} {...rest}>
       {children}
     </Box>
   );
@@ -36,10 +25,7 @@ interface ITopNavProps {
 
 const TopNav: React.FC<ITopNavProps> = ({ onClick, menuOpen, ...rest }) => {
   return (
-    <Flex
-      paddingBottom="1em"
-      backgroundColor={useColorModeValue('gray.200', 'gray.800')}
-    >
+    <Flex paddingBottom="1em" backgroundColor={useColorModeValue('gray.200', 'gray.800')}>
       <Box textAlign="left">
         <HamburgerMenu menuOpen={menuOpen} onClick={onClick} />
       </Box>
@@ -59,10 +45,7 @@ interface IFooterProps {}
 
 const Footer: React.FC<IFooterProps> = ({ ...rest }) => {
   return (
-    <Flex
-      paddingBottom="1em"
-      backgroundColor={useColorModeValue('gray.200', 'gray.800')}
-    >
+    <Flex paddingBottom="1em" backgroundColor={useColorModeValue('gray.200', 'gray.800')}>
       <Spacer />
       <Box textAlign="right"></Box>
     </Flex>
@@ -78,12 +61,7 @@ const MainLayout: React.FC<ILayoutProps> = ({ children, menuOpen }) => {
   return (
     <Flex>
       <Box position="relative">
-        <Box
-          display={menuOpen ? 'initial' : 'none'}
-          position="absolute"
-          top={0}
-          left={0}
-        >
+        <Box display={menuOpen ? 'initial' : 'none'} position="absolute" top={0} left={0} zIndex={1500}>
           <LeftNav />
         </Box>
       </Box>
@@ -108,13 +86,8 @@ export class LayoutMain extends React.Component<any, ILayoutMainState> {
   render() {
     return (
       <PageLayout>
-        <TopNav
-          menuOpen={this.state.menuOpen}
-          onClick={this.handleHamburgerClick}
-        />
-        <MainLayout menuOpen={this.state.menuOpen}>
-          {this.props.children}
-        </MainLayout>
+        <TopNav menuOpen={this.state.menuOpen} onClick={this.handleHamburgerClick} />
+        <MainLayout menuOpen={this.state.menuOpen}>{this.props.children}</MainLayout>
         <Footer />
       </PageLayout>
     );

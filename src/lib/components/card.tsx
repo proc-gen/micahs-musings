@@ -6,11 +6,7 @@ export interface ICardProps extends BoxProps {
   centered?: boolean;
 }
 
-export const Card: React.FC<ICardProps> = ({
-  children,
-  centered = false,
-  ...props
-}) => {
+export const Card: React.FC<ICardProps> = ({ children, centered = false, ...props }) => {
   let retComponent = (
     <Box
       margin="1em"

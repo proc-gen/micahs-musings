@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IconButton, IconButtonProps } from '@chakra-ui/react';
+import { IconButton, IconButtonProps, useColorModeValue } from '@chakra-ui/react';
 import { FaBars } from 'react-icons/fa';
 
 type HamburgerMenuProps = Omit<IconButtonProps, 'aria-label'>;
@@ -17,6 +17,15 @@ export const HamburgerMenu: React.FC<IHamburgerMenuProps> = (props) => {
       onClick={props.onClick}
       icon={<FaBars />}
       aria-label={props.menuOpen ? 'Close left nav' : 'Open left nav'}
+      border="none"
+      transition="none"
+      _hover={{
+        border: '2px solid',
+        borderColor: useColorModeValue('green.500', 'green.500'),
+      }}
+      _focus={{
+        border: 'none',
+      }}
       {...props}
     />
   );

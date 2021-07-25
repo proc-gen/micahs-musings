@@ -1,27 +1,13 @@
 import React from 'react';
 
-import {
-  FormControl,
-  FormLabel,
-  Select,
-  InputGroup,
-  SelectProps,
-  Tooltip,
-  useColorModeValue,
-} from '@chakra-ui/react';
+import { FormControl, FormLabel, Select, InputGroup, SelectProps, Tooltip, useColorModeValue } from '@chakra-ui/react';
 
 export interface IInputSelectProps extends SelectProps {
   label: JSX.Element | string;
   tooltip?: JSX.Element | string;
 }
 
-export const InputSelect: React.FC<IInputSelectProps> = ({
-  children,
-  id,
-  label,
-  tooltip,
-  ...rest
-}) => {
+export const InputSelect: React.FC<IInputSelectProps> = ({ children, id, label, tooltip, ...rest }) => {
   return (
     <FormControl id={id} margin="0.5em">
       {tooltip !== undefined && (
@@ -36,13 +22,18 @@ export const InputSelect: React.FC<IInputSelectProps> = ({
           id={id}
           {...rest}
           variant="filled"
+          border="none"
           sx={{
-            backgroundColor: useColorModeValue('blackAlpha', 'whiteAlpha'),
+            backgroundColor: useColorModeValue('blackAlpha', 'gray.900'),
             ':hover': {
               backgroundColor: useColorModeValue('white', 'gray.700'),
+              borderBottom: '2px solid',
+              borderColor: useColorModeValue('green.500', 'green.500'),
             },
             ':focus': {
               backgroundColor: useColorModeValue('white', 'gray.700'),
+              borderBottom: '2px solid',
+              borderColor: useColorModeValue('green.500', 'green.500'),
             },
           }}
         >
