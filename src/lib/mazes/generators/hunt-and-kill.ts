@@ -1,4 +1,3 @@
-import { isTaggedTemplateExpression } from 'typescript';
 import { Cell } from '../maze-parts/cell';
 import { Generator, GeneratorData } from './generator';
 
@@ -30,16 +29,7 @@ export class HuntAndKillData {
   //TBRL - Top to Bottom, then Right to Left
   //BTRL - Bottom to Top, then Right to Left
   //R - Random
-  searchPattern:
-    | 'LRTB'
-    | 'RLTB'
-    | 'LRBT'
-    | 'RLBT'
-    | 'TBLR'
-    | 'BTLR'
-    | 'TBRL'
-    | 'BTRL'
-    | 'R';
+  searchPattern: 'LRTB' | 'RLTB' | 'LRBT' | 'RLBT' | 'TBLR' | 'BTLR' | 'TBRL' | 'BTRL' | 'R';
 
   constructor() {
     this.setStartPosition = false;
@@ -85,13 +75,9 @@ export class HuntAndKill extends Generator {
 
     if (
       this.props.setStartPosition &&
-      mapCells.some(
-        (a) => a.x === this.props.startPosX && a.y === this.props.startPosY
-      )
+      mapCells.some((a) => a.x === this.props.startPosX && a.y === this.props.startPosY)
     ) {
-      currentCell = mapCells.filter(
-        (a) => a.x === this.props.startPosX && a.y === this.props.startPosY
-      )[0];
+      currentCell = mapCells.filter((a) => a.x === this.props.startPosX && a.y === this.props.startPosY)[0];
     } else {
       currentCell = mapCells[this.random.GetInt(mapCells.length)];
     }
@@ -111,20 +97,15 @@ export class HuntAndKill extends Generator {
 
         if (this.props.searchPattern === 'R') {
           let cellsToChooseFrom = mapCells.filter(
-            (a) =>
-              !a.visited &&
-              a.adjacentCells.some((b) => b !== undefined && b.visited)
+            (a) => !a.visited && a.adjacentCells.some((b) => b !== undefined && b.visited)
           );
-          currentCell =
-            cellsToChooseFrom[this.random.GetInt(cellsToChooseFrom.length)];
+          currentCell = cellsToChooseFrom[this.random.GetInt(cellsToChooseFrom.length)];
 
           previousCell = undefined;
 
           this.MergeCells(
             currentCell as Cell,
-            (currentCell as Cell).adjacentCells.filter(
-              (a) => a !== undefined && a.visited
-            )[0]
+            (currentCell as Cell).adjacentCells.filter((a) => a !== undefined && a.visited)[0]
           );
           (currentCell as Cell).visited = true;
         } else {
@@ -199,22 +180,14 @@ export class HuntAndKill extends Generator {
                 if (
                   !this.grid.cells[i][j].masked &&
                   !this.grid.cells[i][j].visited &&
-                  this.grid.cells[i][j].adjacentCells.some(
-                    (a) => a !== undefined && a.visited
-                  )
+                  this.grid.cells[i][j].adjacentCells.some((a) => a !== undefined && a.visited)
                 ) {
                   currentCell = this.grid.cells[i][j];
                 }
                 i += iIncrement;
-              } while (
-                currentCell === undefined &&
-                i * iIncrement <= iEnd * iIncrement
-              );
+              } while (currentCell === undefined && i * iIncrement <= iEnd * iIncrement);
               j += jIncrement;
-            } while (
-              currentCell === undefined &&
-              j * jIncrement <= jEnd * jIncrement
-            );
+            } while (currentCell === undefined && j * jIncrement <= jEnd * jIncrement);
           } else {
             do {
               j = jStart;
@@ -222,32 +195,22 @@ export class HuntAndKill extends Generator {
                 if (
                   !this.grid.cells[i][j].masked &&
                   !this.grid.cells[i][j].visited &&
-                  this.grid.cells[i][j].adjacentCells.some(
-                    (a) => a !== undefined && a.visited
-                  )
+                  this.grid.cells[i][j].adjacentCells.some((a) => a !== undefined && a.visited)
                 ) {
                   currentCell = this.grid.cells[i][j];
                   alert(currentCell.ToString());
                 }
                 j += jIncrement;
-              } while (
-                currentCell === undefined &&
-                j * jIncrement <= jEnd * jIncrement
-              );
+              } while (currentCell === undefined && j * jIncrement <= jEnd * jIncrement);
               i += iIncrement;
-            } while (
-              currentCell === undefined &&
-              i * iIncrement <= iEnd * iIncrement
-            );
+            } while (currentCell === undefined && i * iIncrement <= iEnd * iIncrement);
           }
 
           previousCell = undefined;
 
           this.MergeCells(
             currentCell as Cell,
-            (currentCell as Cell).adjacentCells.filter(
-              (a) => a !== undefined && a.visited
-            )[0]
+            (currentCell as Cell).adjacentCells.filter((a) => a !== undefined && a.visited)[0]
           );
           (currentCell as Cell).visited = true;
         }
@@ -255,16 +218,11 @@ export class HuntAndKill extends Generator {
     } while (mapCells.some((a) => !a.visited));
   }
 
-  private pickNextCell(
-    currentCell: Cell,
-    previousCell: Cell | undefined
-  ): Cell {
+  private pickNextCell(currentCell: Cell, previousCell: Cell | undefined): Cell {
     let nextCell: Cell;
     let randomMax: number = 0;
 
-    const adjacentCells = currentCell.adjacentCells.filter(
-      (a) => a !== undefined
-    );
+    const adjacentCells = currentCell.adjacentCells.filter((a) => a !== undefined);
 
     if (this.props.directionBias === 'Cardinal') {
       if (previousCell !== undefined) {
@@ -293,25 +251,15 @@ export class HuntAndKill extends Generator {
 
         if (northMax > 0 && randomValue <= northMax) {
           nextCell = currentCell.adjacentCells[0] as Cell;
-        } else if (
-          eastMax > northMax &&
-          (northMax === 0 || randomValue > northMax) &&
-          randomValue <= eastMax
-        ) {
+        } else if (eastMax > northMax && (northMax === 0 || randomValue > northMax) && randomValue <= eastMax) {
           nextCell = currentCell.adjacentCells[1] as Cell;
-        } else if (
-          southMax > eastMax &&
-          (eastMax === 0 || randomValue > eastMax) &&
-          randomValue <= southMax
-        ) {
+        } else if (southMax > eastMax && (eastMax === 0 || randomValue > eastMax) && randomValue <= southMax) {
           nextCell = currentCell.adjacentCells[2] as Cell;
         } else {
           nextCell = currentCell.adjacentCells[3] as Cell;
         }
       } else {
-        nextCell = adjacentCells[
-          this.random.GetInt(adjacentCells.length)
-        ] as Cell;
+        nextCell = adjacentCells[this.random.GetInt(adjacentCells.length)] as Cell;
       }
     } else {
       if (previousCell !== undefined) {
@@ -346,25 +294,15 @@ export class HuntAndKill extends Generator {
 
         if (forwardMax > 0 && randomValue <= forwardMax) {
           nextCell = currentCell.adjacentCells[forwardIndex] as Cell;
-        } else if (
-          leftMax > forwardMax &&
-          (forwardMax === 0 || randomValue > forwardMax) &&
-          randomValue <= leftMax
-        ) {
+        } else if (leftMax > forwardMax && (forwardMax === 0 || randomValue > forwardMax) && randomValue <= leftMax) {
           nextCell = currentCell.adjacentCells[leftIndex] as Cell;
-        } else if (
-          rightMax > leftMax &&
-          (leftMax === 0 || randomValue > leftMax) &&
-          randomValue <= rightMax
-        ) {
+        } else if (rightMax > leftMax && (leftMax === 0 || randomValue > leftMax) && randomValue <= rightMax) {
           nextCell = currentCell.adjacentCells[rightIndex] as Cell;
         } else {
           nextCell = currentCell.adjacentCells[backwardIndex] as Cell;
         }
       } else {
-        nextCell = adjacentCells[
-          this.random.GetInt(adjacentCells.length)
-        ] as Cell;
+        nextCell = adjacentCells[this.random.GetInt(adjacentCells.length)] as Cell;
       }
     }
 

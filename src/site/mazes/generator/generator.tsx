@@ -1,22 +1,7 @@
 import React from 'react';
 
-import {
-  Container,
-  Text,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-  Center,
-} from '@chakra-ui/react';
-import {
-  Canvas,
-  StyledButton,
-  Card,
-  CardHeader,
-  CardBody,
-} from '../../../lib/components';
+import { Container, Text, Tabs, TabList, TabPanels, Tab, TabPanel, Center, Wrap, WrapItem } from '@chakra-ui/react';
+import { Canvas, StyledButton, Card, CardHeader, CardBody, Paragraph } from '../../../lib/components';
 import { GeneratorProperties } from './components/generator-properties';
 import { BinaryTreeProperties } from './components/binary-tree-properties';
 import { SidewinderProperties } from './components/sidewinder-properties';
@@ -51,6 +36,10 @@ import {
   RecursiveSubdivision,
   RecursiveSubdivisionData,
 } from '../../../lib/mazes';
+import { AldousBroderProperties } from './components/aldous-broder-properties';
+import { WilsonProperties } from './components/wilson-properties';
+import { HuntAndKillProperties } from './components/hunt-and-kill-properties';
+import { EllerProperties } from './components/eller-properties';
 
 interface IGeneratorState {
   imgData: Image;
@@ -91,11 +80,13 @@ export class Generator extends React.Component<any, IGeneratorState> {
     this.handleGeneratorDataChange = this.handleGeneratorDataChange.bind(this);
     this.handleBinaryTreeChange = this.handleBinaryTreeChange.bind(this);
     this.handleSidewinderChange = this.handleSidewinderChange.bind(this);
-    this.handleRecursiveBacktrackerChange =
-      this.handleRecursiveBacktrackerChange.bind(this);
+    this.handleRecursiveBacktrackerChange = this.handleRecursiveBacktrackerChange.bind(this);
     this.handleGrowingTreeChange = this.handleGrowingTreeChange.bind(this);
-    this.handleRecursiveSubdivisionChange =
-      this.handleRecursiveSubdivisionChange.bind(this);
+    this.handleRecursiveSubdivisionChange = this.handleRecursiveSubdivisionChange.bind(this);
+    this.handleAldousBroderChange = this.handleAldousBroderChange.bind(this);
+    this.handleWilsonChange = this.handleWilsonChange.bind(this);
+    this.handleHuntAndKillChange = this.handleHuntAndKillChange.bind(this);
+    this.handleEllerChange = this.handleEllerChange.bind(this);
   }
 
   generate = () => {
@@ -234,25 +225,52 @@ export class Generator extends React.Component<any, IGeneratorState> {
     this.setState({ recursiveSubdivision: recursiveSubdivision });
   }
 
+  handleAldousBroderChange(fieldName: string, value: any) {
+    let { aldousBroder } = this.state;
+    aldousBroder[fieldName] = value;
+    this.setState({ aldousBroder: aldousBroder });
+  }
+
+  handleWilsonChange(fieldName: string, value: any) {
+    let { wilson } = this.state;
+    wilson[fieldName] = value;
+    this.setState({ recursiveBacktracker: wilson });
+  }
+
+  handleHuntAndKillChange(fieldName: string, value: any) {
+    let { huntAndKill } = this.state;
+    huntAndKill[fieldName] = value;
+    this.setState({ huntAndKill: huntAndKill });
+  }
+
+  handleEllerChange(fieldName: string, value: any) {
+    let { eller } = this.state;
+    eller[fieldName] = value;
+    this.setState({ eller: eller });
+  }
+
   getGeneratorSpecificPropertiesElement(): JSX.Element {
     let retElement = <></>;
     const { generatorData } = this.state;
 
     switch (generatorData.generator) {
       case 1:
-        retElement = (
-          <BinaryTreeProperties
-            data={this.state.binaryTree}
-            handleChange={this.handleBinaryTreeChange}
-          />
-        );
+        retElement = <BinaryTreeProperties data={this.state.binaryTree} handleChange={this.handleBinaryTreeChange} />;
         break;
       case 2:
+        retElement = <SidewinderProperties data={this.state.sidewinder} handleChange={this.handleSidewinderChange} />;
+        break;
+      case 3:
         retElement = (
-          <SidewinderProperties
-            data={this.state.sidewinder}
-            handleChange={this.handleSidewinderChange}
-          />
+          <AldousBroderProperties data={this.state.aldousBroder} handleChange={this.handleAldousBroderChange} />
+        );
+        break;
+      case 4:
+        retElement = <WilsonProperties data={this.state.wilson} handleChange={this.handleWilsonChange} />;
+        break;
+      case 5:
+        retElement = (
+          <HuntAndKillProperties data={this.state.huntAndKill} handleChange={this.handleHuntAndKillChange} />
         );
         break;
       case 6:
@@ -265,11 +283,11 @@ export class Generator extends React.Component<any, IGeneratorState> {
         break;
       case 9:
         retElement = (
-          <GrowingTreeProperties
-            data={this.state.growingTree}
-            handleChange={this.handleGrowingTreeChange}
-          />
+          <GrowingTreeProperties data={this.state.growingTree} handleChange={this.handleGrowingTreeChange} />
         );
+        break;
+      case 10:
+        retElement = <EllerProperties data={this.state.eller} handleChange={this.handleEllerChange} />;
         break;
       case 11:
         retElement = (
@@ -277,6 +295,15 @@ export class Generator extends React.Component<any, IGeneratorState> {
             data={this.state.recursiveSubdivision}
             handleChange={this.handleRecursiveSubdivisionChange}
           />
+        );
+        break;
+      default:
+        retElement = (
+          <Wrap>
+            <WrapItem>
+              <Paragraph fontSize="md">No special properties for this generator... yet.</Paragraph>
+            </WrapItem>
+          </Wrap>
         );
         break;
     }
@@ -303,22 +330,14 @@ export class Generator extends React.Component<any, IGeneratorState> {
                       handleChange={this.handleGeneratorDataChange}
                     />
                   </TabPanel>
-                  <TabPanel>
-                    {this.getGeneratorSpecificPropertiesElement()}
-                  </TabPanel>
+                  <TabPanel>{this.getGeneratorSpecificPropertiesElement()}</TabPanel>
                 </TabPanels>
               </Tabs>
             </Text>
-            <StyledButton onClick={() => this.generate()}>
-              Generate
-            </StyledButton>
+            <StyledButton onClick={() => this.generate()}>Generate</StyledButton>
           </CardBody>
         </Card>
-        <Card
-          maxW="container.lg"
-          centered
-          visibility={this.state.imgData.width > 1 ? 'initial' : 'hidden'}
-        >
+        <Card maxW="container.lg" centered visibility={this.state.imgData.width > 1 ? 'initial' : 'hidden'}>
           <CardBody>
             <Container
               width="100%"

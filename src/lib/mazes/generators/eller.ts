@@ -3,6 +3,7 @@ import { Generator, GeneratorData } from './generator';
 import { MathUtils } from '../utils/math';
 
 export class EllerData {
+  [key: string]: any;
   sidewaysDirection: number;
   verticalDirection: number;
 
