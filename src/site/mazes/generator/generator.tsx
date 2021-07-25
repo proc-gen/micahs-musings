@@ -1,13 +1,17 @@
 import React from 'react';
 
-import { Container, Text, Tabs, TabList, TabPanels, Tab, TabPanel, Center, Wrap, WrapItem } from '@chakra-ui/react';
-import { Canvas, StyledButton, Card, CardHeader, CardBody, Paragraph } from '../../../lib/components';
+import { Container, Text, Flex, Center, Wrap, WrapItem, Spacer } from '@chakra-ui/react';
+import { Canvas, StyledButton, Card, CardHeader, CardBody, Paragraph, StyledTabs } from '../../../lib/components';
 import { GeneratorProperties } from './components/generator-properties';
 import { BinaryTreeProperties } from './components/binary-tree-properties';
 import { SidewinderProperties } from './components/sidewinder-properties';
 import { RecursiveBacktrackerProperties } from './components/recursive-backtracker-properties';
 import { GrowingTreeProperties } from './components/growing-tree-properties';
 import { RecursiveSubdivisionProperties } from './components/recursive-subdivision-properties';
+import { AldousBroderProperties } from './components/aldous-broder-properties';
+import { WilsonProperties } from './components/wilson-properties';
+import { HuntAndKillProperties } from './components/hunt-and-kill-properties';
+import { EllerProperties } from './components/eller-properties';
 
 import {
   Generator as MazeGenerator,
@@ -36,10 +40,6 @@ import {
   RecursiveSubdivision,
   RecursiveSubdivisionData,
 } from '../../../lib/mazes';
-import { AldousBroderProperties } from './components/aldous-broder-properties';
-import { WilsonProperties } from './components/wilson-properties';
-import { HuntAndKillProperties } from './components/hunt-and-kill-properties';
-import { EllerProperties } from './components/eller-properties';
 
 interface IGeneratorState {
   imgData: Image;
@@ -88,6 +88,38 @@ export class Generator extends React.Component<any, IGeneratorState> {
     this.handleHuntAndKillChange = this.handleHuntAndKillChange.bind(this);
     this.handleEllerChange = this.handleEllerChange.bind(this);
   }
+
+  resetToDefaults = () => {
+    let imgData = new Image(1, 1);
+    let generatorData = new GeneratorData();
+    let binaryTree = new BinaryTreeData();
+    let sidewinder = new SidewinderData();
+    let aldousBroder = new AldousBroderData();
+    let wilson = new WilsonData();
+    let huntAndKill = new HuntAndKillData();
+    let recursiveBacktracker = new RecursiveBacktrackerData();
+    let kruskal = new KruskalData();
+    let prim = new PrimData();
+    let growingTree = new GrowingTreeData();
+    let eller = new EllerData();
+    let recursiveSubdivision = new RecursiveSubdivisionData();
+
+    this.setState({
+      imgData: imgData,
+      generatorData: generatorData,
+      binaryTree: binaryTree,
+      sidewinder: sidewinder,
+      wilson: wilson,
+      aldousBroder: aldousBroder,
+      huntAndKill: huntAndKill,
+      recursiveBacktracker: recursiveBacktracker,
+      prim: prim,
+      kruskal: kruskal,
+      eller: eller,
+      growingTree: growingTree,
+      recursiveSubdivision: recursiveSubdivision,
+    });
+  };
 
   generate = () => {
     let maze: MazeGenerator;
@@ -318,23 +350,31 @@ export class Generator extends React.Component<any, IGeneratorState> {
           <CardHeader>Mazes - Generator</CardHeader>
           <CardBody>
             <Text textAlign="left" padding="1em">
-              <Tabs variant="enclosed-colored">
-                <TabList>
-                  <Tab>General Properties</Tab>
-                  <Tab>{this.getGeneratorPropertiesTabName()} Properties</Tab>
-                </TabList>
-                <TabPanels>
-                  <TabPanel>
-                    <GeneratorProperties
-                      data={this.state.generatorData}
-                      handleChange={this.handleGeneratorDataChange}
-                    />
-                  </TabPanel>
-                  <TabPanel>{this.getGeneratorSpecificPropertiesElement()}</TabPanel>
-                </TabPanels>
-              </Tabs>
+              <StyledTabs
+                tabData={[
+                  {
+                    label: 'General Properties',
+                    panel: (
+                      <GeneratorProperties
+                        data={this.state.generatorData}
+                        handleChange={this.handleGeneratorDataChange}
+                      />
+                    ),
+                  },
+                  {
+                    label: this.getGeneratorPropertiesTabName() + ' Properties',
+                    panel: this.getGeneratorSpecificPropertiesElement(),
+                  },
+                ]}
+              />
             </Text>
-            <StyledButton onClick={() => this.generate()}>Generate</StyledButton>
+            <Flex>
+              <Spacer />
+              <StyledButton onClick={() => this.resetToDefaults()}>Reset to Defaults</StyledButton>
+              <Spacer />
+              <StyledButton onClick={() => this.generate()}>Generate</StyledButton>
+              <Spacer />
+            </Flex>
           </CardBody>
         </Card>
         <Card maxW="container.lg" centered visibility={this.state.imgData.width > 1 ? 'initial' : 'hidden'}>
