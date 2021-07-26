@@ -138,7 +138,7 @@ export class Generator extends React.Component<any, IGeneratorState> {
       generatorData,
     } = this.state;
 
-    switch (generatorData.generator) {
+    switch (parseInt(generatorData.generator.toString())) {
       case 1:
         maze = new BinaryTree(generatorData, binaryTree);
         break;
@@ -181,7 +181,7 @@ export class Generator extends React.Component<any, IGeneratorState> {
     this.setState({ imgData: maze.Display(32) });
   };
 
-  handleGeneratorDataChange(fieldName: string, value: number) {
+  handleGeneratorDataChange(fieldName: string, value: any) {
     let { generatorData } = this.state;
     generatorData[fieldName] = value;
     this.setState({ generatorData: generatorData });

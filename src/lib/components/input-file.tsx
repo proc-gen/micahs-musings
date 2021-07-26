@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import {
   FormControl,
@@ -6,21 +6,33 @@ import {
   Input,
   InputGroup,
   InputProps,
-  InputRightAddon,
-  InputLeftAddon,
+  InputLeftElement,
   Tooltip,
   useColorModeValue,
 } from '@chakra-ui/react';
 
-export interface IInputProps extends InputProps {
+import { FaFile } from 'react-icons/fa';
+import { createRef } from 'react';
+
+export interface IInputFileProps extends InputProps {
   label: JSX.Element | string;
   tooltip?: JSX.Element | string;
-  rightAddon?: JSX.Element | string;
-  leftAddon?: JSX.Element | string;
+  acceptedFileTypes?: string;
+  onFileUpload: (selectorFiles: FileList | null) => any;
 }
 
-export const InputText: React.FC<IInputProps> = ({ children, id, label, tooltip, leftAddon, rightAddon, ...rest }) => {
+export const InputFile: React.FC<IInputFileProps> = ({
+  children,
+  id,
+  label,
+  tooltip,
+  acceptedFileTypes,
+  onFileUpload,
+  ...rest
+}) => {
   const addonColor = useColorModeValue('gray.200', 'gray.600');
+  const inputRef = createRef<HTMLInputElement>();
+
   return (
     <FormControl id={id} margin="0.5em">
       {tooltip !== undefined && (
@@ -30,12 +42,22 @@ export const InputText: React.FC<IInputProps> = ({ children, id, label, tooltip,
       )}
       {tooltip === undefined && <FormLabel htmlFor={id}>{label}</FormLabel>}
       <InputGroup>
-        {leftAddon !== undefined && <InputLeftAddon children={leftAddon} backgroundColor={addonColor} />}
-        <Input
+        <InputLeftElement children={<FaFile />} backgroundColor={addonColor} pointerEvents="none" />
+        <input
+          type="file"
+          accept={acceptedFileTypes}
+          ref={inputRef}
           id={id}
           name={id}
+          onChange={(e) => onFileUpload(e.target.files)}
+          style={{ display: 'none' }}
+        />
+        <Input
           variant="filled"
           border="none"
+          onClick={() => {
+            inputRef?.current?.click();
+          }}
           {...rest}
           sx={{
             backgroundColor: useColorModeValue('gray.100', 'gray.900'),
@@ -51,7 +73,6 @@ export const InputText: React.FC<IInputProps> = ({ children, id, label, tooltip,
             },
           }}
         />
-        {rightAddon !== undefined && <InputRightAddon children={rightAddon} backgroundColor={addonColor} />}
       </InputGroup>
     </FormControl>
   );

@@ -43,12 +43,7 @@ export class Cell {
     this.walls[direction].isWall = isWall;
   }
 
-  SetWallAndStairs(
-    direction: number,
-    isWall: boolean,
-    isStairsUp: boolean,
-    isStairsDown: boolean
-  ): void {
+  SetWallAndStairs(direction: number, isWall: boolean, isStairsUp: boolean, isStairsDown: boolean): void {
     this.walls[direction].isWall = isWall;
     this.walls[direction].isStairsUp = isStairsUp;
     this.walls[direction].isStairsDown = isStairsDown;
@@ -72,10 +67,8 @@ export class Cell {
       this.adjacentCells[direction]?.underCell === undefined &&
       this.adjacentCells[direction]?.adjacentCells[direction] !== undefined &&
       this.checkPassage(direction) &&
-      (this.adjacentCells[direction] as Cell).adjacentCells[(direction + 1) % 4]
-        ?.underCell === undefined &&
-      (this.adjacentCells[direction] as Cell).adjacentCells[(direction + 3) % 4]
-        ?.underCell === undefined;
+      (this.adjacentCells[direction] as Cell).adjacentCells[(direction + 1) % 4]?.underCell === undefined &&
+      (this.adjacentCells[direction] as Cell).adjacentCells[(direction + 3) % 4]?.underCell === undefined;
     return canTunnel;
   }
 
@@ -106,21 +99,14 @@ export class Cell {
         this.adjacentCells[direction] !== undefined &&
         this.walls[direction] !== undefined &&
         this.walls[direction].IsFlat() &&
-        this.adjacentCells[direction]?.adjacentCells[(direction + 1) % 4] !==
-          undefined &&
+        this.adjacentCells[direction]?.adjacentCells[(direction + 1) % 4] !== undefined &&
         this.adjacentCells[direction]?.walls[(direction + 1) % 4].IsFlat() &&
-        this.adjacentCells[direction]?.adjacentCells[(direction + 1) % 4]
-          ?.adjacentCells[(direction + 2) % 4] !== undefined &&
-        this.adjacentCells[direction]?.adjacentCells[
-          (direction + 1) % 4
-        ]?.walls[(direction + 2) % 4].IsFlat() &&
-        this.adjacentCells[direction]?.adjacentCells[(direction + 1) % 4]
-          ?.adjacentCells[(direction + 2) % 4]?.adjacentCells[
-          (direction + 3) % 4
-        ] !== undefined &&
-        this.adjacentCells[direction]?.adjacentCells[
-          (direction + 1) % 4
-        ]?.adjacentCells[(direction + 2) % 4]?.walls[
+        this.adjacentCells[direction]?.adjacentCells[(direction + 1) % 4]?.adjacentCells[(direction + 2) % 4] !==
+          undefined &&
+        this.adjacentCells[direction]?.adjacentCells[(direction + 1) % 4]?.walls[(direction + 2) % 4].IsFlat() &&
+        this.adjacentCells[direction]?.adjacentCells[(direction + 1) % 4]?.adjacentCells[(direction + 2) % 4]
+          ?.adjacentCells[(direction + 3) % 4] !== undefined &&
+        this.adjacentCells[direction]?.adjacentCells[(direction + 1) % 4]?.adjacentCells[(direction + 2) % 4]?.walls[
           (direction + 3) % 4
         ].IsFlat();
     }
@@ -137,147 +123,116 @@ export class Cell {
       }
     }
 
-    //Columns
-
-    //NE
-    paintColor = this.ColumnExists(0) ? floorColor : wallColor;
-    for (let i: number = dimension - dimension / 4; i < dimension; i++) {
-      for (let j: number = dimension - dimension / 4; j < dimension; j++) {
-        imgData.SetPixel(i, j, paintColor);
-      }
-    }
-
-    //SE
-    paintColor = this.ColumnExists(1) ? floorColor : wallColor;
-    for (let i: number = dimension - dimension / 4; i < dimension; i++) {
-      for (let j: number = 0; j < dimension / 4; j++) {
-        imgData.SetPixel(i, j, paintColor);
-      }
-    }
-
-    //SW
-    paintColor = this.ColumnExists(2) ? floorColor : wallColor;
-    for (let i: number = 0; i < dimension / 4; i++) {
-      for (let j: number = 0; j < dimension / 4; j++) {
-        imgData.SetPixel(i, j, paintColor);
-      }
-    }
-
-    //NW
-    paintColor = this.ColumnExists(3) ? floorColor : wallColor;
-    for (let i: number = 0; i < dimension / 4; i++) {
-      for (let j: number = dimension - dimension / 4; j < dimension; j++) {
-        imgData.SetPixel(i, j, paintColor);
-      }
-    }
-
-    //Walls
-
-    //North
-    if (this.walls[0].isWall) {
-      paintColor = this.walls[0].isWall ? wallColor : floorColor;
-      for (let i: number = dimension / 4; i < dimension - dimension / 4; i++) {
-        for (
-          let j: number = dimension - dimension / 4;
-          j < dimension - dimension / 8;
-          j++
-        )
-          imgData.SetPixel(i, j, paintColor);
-      }
-      paintColor =
-        this.underCell === undefined || this.underCell.walls[0].isWall
-          ? wallColor
-          : floorColor;
-      for (let i: number = dimension / 4; i < dimension - dimension / 4; i++) {
-        for (let j: number = dimension - dimension / 8; j < dimension; j++)
-          imgData.SetPixel(i, j, paintColor);
-      }
-    } else {
-      paintColor = floorColor;
-      for (let i: number = dimension / 4; i < dimension - dimension / 4; i++) {
-        for (let j: number = dimension - dimension / 4; j < dimension; j++)
-          imgData.SetPixel(i, j, paintColor);
-      }
-    }
-
-    //East
-    if (this.walls[1].isWall) {
-      paintColor = this.walls[1].isWall ? wallColor : floorColor;
-      for (let j: number = dimension / 4; j < dimension - dimension / 4; j++) {
-        for (
-          let i: number = dimension - dimension / 4;
-          i < dimension - dimension / 8;
-          i++
-        )
-          imgData.SetPixel(i, j, paintColor);
-      }
-      paintColor =
-        this.underCell === undefined || this.underCell.walls[1].isWall
-          ? wallColor
-          : floorColor;
-      for (let j: number = dimension / 4; j < dimension - dimension / 4; j++) {
-        for (let i: number = dimension - dimension / 8; i < dimension; i++)
-          imgData.SetPixel(i, j, paintColor);
-      }
-    } else {
-      paintColor = floorColor;
-      for (let j: number = dimension / 4; j < dimension - dimension / 4; j++) {
-        for (let i: number = dimension - dimension / 4; i < dimension; i++)
-          imgData.SetPixel(i, j, paintColor);
-      }
-    }
-
-    //South
-    if (this.walls[2].isWall) {
-      paintColor = this.walls[2].isWall ? wallColor : floorColor;
-      for (let i: number = dimension / 4; i < dimension - dimension / 4; i++) {
-        for (let j: number = dimension / 8; j < dimension / 4; j++)
-          imgData.SetPixel(i, j, paintColor);
-      }
-      paintColor =
-        this.underCell === undefined || this.underCell.walls[2].isWall
-          ? wallColor
-          : floorColor;
-      for (let i: number = dimension / 4; i < dimension - dimension / 4; i++) {
-        for (let j: number = 0; j < dimension / 8; j++)
-          imgData.SetPixel(i, j, paintColor);
-      }
-    } else {
-      paintColor = floorColor;
-      for (let i: number = dimension / 4; i < dimension - dimension / 4; i++) {
-        for (let j: number = 0; j < dimension / 4; j++)
-          imgData.SetPixel(i, j, paintColor);
-      }
-    }
-
-    //West
-    if (this.walls[3].isWall) {
-      paintColor = this.walls[3].isWall ? wallColor : floorColor;
-      for (let j: number = dimension / 4; j < dimension - dimension / 4; j++) {
-        for (let i: number = dimension / 8; i < dimension / 4; i++)
-          imgData.SetPixel(i, j, paintColor);
-      }
-      paintColor =
-        this.underCell === undefined || this.underCell.walls[3].isWall
-          ? wallColor
-          : floorColor;
-      for (let j: number = dimension / 4; j < dimension - dimension / 4; j++) {
-        for (let i: number = 0; i < dimension / 8; i++)
-          imgData.SetPixel(i, j, paintColor);
-      }
-    } else {
-      paintColor = floorColor;
-      for (let j: number = dimension / 4; j < dimension - dimension / 4; j++) {
-        for (let i: number = 0; i < dimension / 4; i++)
-          imgData.SetPixel(i, j, paintColor);
-      }
-    }
-
-    if (this.walls.filter((a) => a.isWall).length === 4) {
+    if (this.walls.filter((a) => a.isWall).length === 4 || this.masked) {
       paintColor = wallColor;
       for (let i: number = 0; i < dimension; i++) {
-        for (let j: number = 0; j < dimension; j++)
+        for (let j: number = 0; j < dimension; j++) imgData.SetPixel(i, j, paintColor);
+      }
+    } else {
+      //Columns
+
+      //NE
+      paintColor = this.ColumnExists(0) ? floorColor : wallColor;
+      for (let i: number = dimension - dimension / 4; i < dimension; i++) {
+        for (let j: number = dimension - dimension / 4; j < dimension; j++) {
           imgData.SetPixel(i, j, paintColor);
+        }
+      }
+
+      //SE
+      paintColor = this.ColumnExists(1) ? floorColor : wallColor;
+      for (let i: number = dimension - dimension / 4; i < dimension; i++) {
+        for (let j: number = 0; j < dimension / 4; j++) {
+          imgData.SetPixel(i, j, paintColor);
+        }
+      }
+
+      //SW
+      paintColor = this.ColumnExists(2) ? floorColor : wallColor;
+      for (let i: number = 0; i < dimension / 4; i++) {
+        for (let j: number = 0; j < dimension / 4; j++) {
+          imgData.SetPixel(i, j, paintColor);
+        }
+      }
+
+      //NW
+      paintColor = this.ColumnExists(3) ? floorColor : wallColor;
+      for (let i: number = 0; i < dimension / 4; i++) {
+        for (let j: number = dimension - dimension / 4; j < dimension; j++) {
+          imgData.SetPixel(i, j, paintColor);
+        }
+      }
+
+      //Walls
+
+      //North
+      if (this.walls[0].isWall) {
+        paintColor = this.walls[0].isWall ? wallColor : floorColor;
+        for (let i: number = dimension / 4; i < dimension - dimension / 4; i++) {
+          for (let j: number = dimension - dimension / 4; j < dimension - dimension / 8; j++)
+            imgData.SetPixel(i, j, paintColor);
+        }
+        paintColor = this.underCell === undefined || this.underCell.walls[0].isWall ? wallColor : floorColor;
+        for (let i: number = dimension / 4; i < dimension - dimension / 4; i++) {
+          for (let j: number = dimension - dimension / 8; j < dimension; j++) imgData.SetPixel(i, j, paintColor);
+        }
+      } else {
+        paintColor = floorColor;
+        for (let i: number = dimension / 4; i < dimension - dimension / 4; i++) {
+          for (let j: number = dimension - dimension / 4; j < dimension; j++) imgData.SetPixel(i, j, paintColor);
+        }
+      }
+
+      //East
+      if (this.walls[1].isWall) {
+        paintColor = this.walls[1].isWall ? wallColor : floorColor;
+        for (let j: number = dimension / 4; j < dimension - dimension / 4; j++) {
+          for (let i: number = dimension - dimension / 4; i < dimension - dimension / 8; i++)
+            imgData.SetPixel(i, j, paintColor);
+        }
+        paintColor = this.underCell === undefined || this.underCell.walls[1].isWall ? wallColor : floorColor;
+        for (let j: number = dimension / 4; j < dimension - dimension / 4; j++) {
+          for (let i: number = dimension - dimension / 8; i < dimension; i++) imgData.SetPixel(i, j, paintColor);
+        }
+      } else {
+        paintColor = floorColor;
+        for (let j: number = dimension / 4; j < dimension - dimension / 4; j++) {
+          for (let i: number = dimension - dimension / 4; i < dimension; i++) imgData.SetPixel(i, j, paintColor);
+        }
+      }
+
+      //South
+      if (this.walls[2].isWall) {
+        paintColor = this.walls[2].isWall ? wallColor : floorColor;
+        for (let i: number = dimension / 4; i < dimension - dimension / 4; i++) {
+          for (let j: number = dimension / 8; j < dimension / 4; j++) imgData.SetPixel(i, j, paintColor);
+        }
+        paintColor = this.underCell === undefined || this.underCell.walls[2].isWall ? wallColor : floorColor;
+        for (let i: number = dimension / 4; i < dimension - dimension / 4; i++) {
+          for (let j: number = 0; j < dimension / 8; j++) imgData.SetPixel(i, j, paintColor);
+        }
+      } else {
+        paintColor = floorColor;
+        for (let i: number = dimension / 4; i < dimension - dimension / 4; i++) {
+          for (let j: number = 0; j < dimension / 4; j++) imgData.SetPixel(i, j, paintColor);
+        }
+      }
+
+      //West
+      if (this.walls[3].isWall) {
+        paintColor = this.walls[3].isWall ? wallColor : floorColor;
+        for (let j: number = dimension / 4; j < dimension - dimension / 4; j++) {
+          for (let i: number = dimension / 8; i < dimension / 4; i++) imgData.SetPixel(i, j, paintColor);
+        }
+        paintColor = this.underCell === undefined || this.underCell.walls[3].isWall ? wallColor : floorColor;
+        for (let j: number = dimension / 4; j < dimension - dimension / 4; j++) {
+          for (let i: number = 0; i < dimension / 8; i++) imgData.SetPixel(i, j, paintColor);
+        }
+      } else {
+        paintColor = floorColor;
+        for (let j: number = dimension / 4; j < dimension - dimension / 4; j++) {
+          for (let i: number = 0; i < dimension / 4; i++) imgData.SetPixel(i, j, paintColor);
+        }
       }
     }
 

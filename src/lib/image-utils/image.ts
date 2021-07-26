@@ -50,7 +50,7 @@ export class Image extends ImageData {
   }
 
   Transpose() {
-    let newData: Image = new Image(this.width, this.height);
+    let newData: Image = new Image(this.height, this.width);
     for (let i: number = 0; i < this.width; i++) {
       for (let j: number = 0; j < this.height; j++) {
         newData.SetPixel(j, i, this.GetPixel(i, j));

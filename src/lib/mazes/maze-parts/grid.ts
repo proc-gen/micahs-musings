@@ -23,40 +23,55 @@ export class Grid {
     }
   }
 
-  InitializeGrid(): void {
+  InitializeGrid(maskImage: Image | undefined): void {
+    if (maskImage !== undefined) {
+      let rotatedImage: Image = new Image(maskImage.width, maskImage.height);
+      for (let i = 0; i < maskImage.data.length; i++) {
+        rotatedImage.data[i] = maskImage.data[i];
+      }
+      rotatedImage.FlipOverX();
+      rotatedImage.Transpose();
+      let widthFactor: number = rotatedImage.width / this.width;
+      let heightFactor: number = rotatedImage.height / this.height;
+
+      for (let i: number = 0; i < this.width; i++) {
+        for (let j: number = 0; j < this.height; j++) {
+          if (
+            rotatedImage.GetPixel(parseInt((i * widthFactor).toFixed(0)), parseInt((j * heightFactor).toFixed(0))).r ===
+            0
+          ) {
+            this.cells[i][j].visited = true;
+            this.cells[i][j].masked = true;
+          }
+        }
+      }
+    }
+
     for (let i: number = 0; i < this.width; i++) {
       for (let j: number = 0; j < this.height; j++) {
         if (!this.cells[i][j].masked) {
           if (this.numCellSides === 4) {
             //North
             if (j < this.height - 1) {
-              this.cells[i][j].adjacentCells.push(
-                !this.cells[i][j + 1].masked ? this.cells[i][j + 1] : undefined
-              );
+              this.cells[i][j].adjacentCells.push(!this.cells[i][j + 1].masked ? this.cells[i][j + 1] : undefined);
             } else {
               this.cells[i][j].adjacentCells.push(undefined);
             }
             //East
             if (i < this.width - 1) {
-              this.cells[i][j].adjacentCells.push(
-                !this.cells[i + 1][j].masked ? this.cells[i + 1][j] : undefined
-              );
+              this.cells[i][j].adjacentCells.push(!this.cells[i + 1][j].masked ? this.cells[i + 1][j] : undefined);
             } else {
               this.cells[i][j].adjacentCells.push(undefined);
             }
             //South
             if (j > 0) {
-              this.cells[i][j].adjacentCells.push(
-                !this.cells[i][j - 1].masked ? this.cells[i][j - 1] : undefined
-              );
+              this.cells[i][j].adjacentCells.push(!this.cells[i][j - 1].masked ? this.cells[i][j - 1] : undefined);
             } else {
               this.cells[i][j].adjacentCells.push(undefined);
             }
             //West
             if (i > 0) {
-              this.cells[i][j].adjacentCells.push(
-                !this.cells[i - 1][j].masked ? this.cells[i - 1][j] : undefined
-              );
+              this.cells[i][j].adjacentCells.push(!this.cells[i - 1][j].masked ? this.cells[i - 1][j] : undefined);
             } else {
               this.cells[i][j].adjacentCells.push(undefined);
             }
@@ -92,16 +107,8 @@ export class Grid {
 
     for (let i: number = 0; i < this.width; i++) {
       for (let j: number = 0; j < this.height; j++) {
-        let cellImgData = this.cells[i][j].Display(
-          dimension,
-          wallColor,
-          floorColor
-        );
-        imgData.SetPixels(
-          (i + iOffset) * dimension,
-          (j + jOffset) * dimension,
-          cellImgData
-        );
+        let cellImgData = this.cells[i][j].Display(dimension, wallColor, floorColor);
+        imgData.SetPixels((i + iOffset) * dimension, (j + jOffset) * dimension, cellImgData);
       }
     }
 

@@ -12,10 +12,10 @@ export const InputSelect: React.FC<IInputSelectProps> = ({ children, id, label, 
     <FormControl id={id} margin="0.5em">
       {tooltip !== undefined && (
         <Tooltip label={tooltip}>
-          <FormLabel>{label}</FormLabel>
+          <FormLabel htmlFor={id}>{label}</FormLabel>
         </Tooltip>
       )}
-      {tooltip === undefined && <FormLabel>{label}</FormLabel>}
+      {tooltip === undefined && <FormLabel htmlFor={id}>{label}</FormLabel>}
       <InputGroup>
         <Select
           name={id}
