@@ -1,7 +1,7 @@
 {
   "name": "test-chakra-ui",
-  "author": "Micah Caunter",
-  "version": "0.2.3",
+  "author": "Micah Caunter ",
+  "version": "0.3.0",
   "homepage": "https://proc-gen.github.io/micahs-musings",
   "dependencies": {
     "@chakra-ui/icons": "^1.0.13",

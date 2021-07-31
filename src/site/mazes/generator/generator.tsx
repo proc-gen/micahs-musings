@@ -284,8 +284,7 @@ export class Generator extends React.Component<any, IGeneratorState> {
   getGeneratorSpecificPropertiesElement(): JSX.Element {
     let retElement = <></>;
     const { generatorData } = this.state;
-
-    switch (generatorData.generator) {
+    switch (parseInt(generatorData.generator.toString())) {
       case 1:
         retElement = <BinaryTreeProperties data={this.state.binaryTree} handleChange={this.handleBinaryTreeChange} />;
         break;

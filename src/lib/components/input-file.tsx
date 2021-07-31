@@ -6,7 +6,7 @@ import {
   Input,
   InputGroup,
   InputProps,
-  InputLeftElement,
+  InputLeftAddon,
   Tooltip,
   useColorModeValue,
 } from '@chakra-ui/react';
@@ -19,6 +19,7 @@ export interface IInputFileProps extends InputProps {
   tooltip?: JSX.Element | string;
   acceptedFileTypes?: string;
   onFileUpload: (selectorFiles: FileList | null) => any;
+  text: string | undefined;
 }
 
 export const InputFile: React.FC<IInputFileProps> = ({
@@ -28,6 +29,7 @@ export const InputFile: React.FC<IInputFileProps> = ({
   tooltip,
   acceptedFileTypes,
   onFileUpload,
+  text,
   ...rest
 }) => {
   const addonColor = useColorModeValue('gray.200', 'gray.600');
@@ -42,7 +44,7 @@ export const InputFile: React.FC<IInputFileProps> = ({
       )}
       {tooltip === undefined && <FormLabel htmlFor={id}>{label}</FormLabel>}
       <InputGroup>
-        <InputLeftElement children={<FaFile />} backgroundColor={addonColor} pointerEvents="none" />
+        <InputLeftAddon children={<FaFile />} backgroundColor={addonColor} pointerEvents="none" />
         <input
           type="file"
           accept={acceptedFileTypes}
@@ -55,9 +57,11 @@ export const InputFile: React.FC<IInputFileProps> = ({
         <Input
           variant="filled"
           border="none"
+          readOnly
           onClick={() => {
             inputRef?.current?.click();
           }}
+          value={text}
           {...rest}
           sx={{
             backgroundColor: useColorModeValue('gray.100', 'gray.900'),

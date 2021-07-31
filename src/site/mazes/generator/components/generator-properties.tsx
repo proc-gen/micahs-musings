@@ -1,7 +1,7 @@
 import React from 'react';
 import { Wrap, WrapItem, Image } from '@chakra-ui/react';
 
-import { InputText, InputSelect } from '../../../../lib/components';
+import { InputText, InputSelect, InputFile } from '../../../../lib/components';
 
 import {
   GeneratorData,
@@ -26,46 +26,56 @@ export interface IGeneratorProps {
   handleChange: (fieldName: string, value: any) => void;
 }
 
-export interface IGeneratorState {}
+export interface IGeneratorState {
+  customImage: string | undefined;
+  customImageFilename: string | undefined;
+}
 
 export class GeneratorProperties extends React.Component<IGeneratorProps, IGeneratorState> {
   constructor(props: IGeneratorProps) {
     super(props);
-    this.state = {};
+    this.state = { customImage: undefined, customImageFilename: undefined };
 
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.getMaskImage = this.getMaskImage.bind(this);
+    this.setMaskImage = this.setMaskImage.bind(this);
+    this.onFileUpload = this.onFileUpload.bind(this);
   }
 
   handleSelectChange(event: React.FormEvent<HTMLSelectElement>) {
     this.props.handleChange(event.currentTarget.id, event.currentTarget.value);
 
-    if (event.currentTarget.id === 'maskImageSelection') {
+    if (event.currentTarget.id === 'maskImageSelection' && event.currentTarget.value !== 'custom') {
       let maskImage: string = this.getMaskImage(event.currentTarget.value);
       if (maskImage !== '') {
-        let img = document.createElement('img');
-        img.onload = (e) => {
-          let canvas = document.createElement('canvas');
-          canvas.height = img.height;
-          canvas.width = img.width;
-
-          let context = canvas.getContext('2d');
-          if (context !== undefined && context !== null) {
-            context.drawImage(img, 0, 0);
-            let imgData: ImageData = context.getImageData(0, 0, img.width, img.height);
-            let convertedImgData = new MazeImage(img.width, img.height);
-            for (let i = 0; i < imgData.data.length; i++) {
-              convertedImgData.data[i] = imgData.data[i];
-            }
-            this.props.handleChange('maskImage', convertedImgData);
-          }
-        };
-        img.src = maskImage;
+        this.setMaskImage(maskImage);
       } else {
         this.props.handleChange('maskImage', undefined);
       }
+      this.setState({ customImage: undefined, customImageFilename: undefined });
     }
+  }
+
+  setMaskImage(maskImage: string) {
+    let img = document.createElement('img');
+    img.onload = (e) => {
+      let canvas = document.createElement('canvas');
+      canvas.height = img.height;
+      canvas.width = img.width;
+
+      let context = canvas.getContext('2d');
+      if (context !== undefined && context !== null) {
+        context.drawImage(img, 0, 0);
+        let imgData: ImageData = context.getImageData(0, 0, img.width, img.height);
+        let convertedImgData = new MazeImage(img.width, img.height);
+        for (let i = 0; i < imgData.data.length; i++) {
+          convertedImgData.data[i] = imgData.data[i];
+        }
+        this.props.handleChange('maskImage', convertedImgData);
+      }
+    };
+    img.src = maskImage;
   }
 
   handleInputChange(event: React.FormEvent<HTMLInputElement>) {
@@ -74,7 +84,15 @@ export class GeneratorProperties extends React.Component<IGeneratorProps, IGener
 
   onFileUpload(selectorFiles: FileList | null) {
     if (selectorFiles !== null) {
-      alert(selectorFiles[0].name);
+      let reader = new FileReader();
+      reader.readAsDataURL(selectorFiles[0]);
+      reader.onload = () => {
+        this.setMaskImage(reader.result as string);
+        this.setState({ customImage: reader.result as string, customImageFilename: selectorFiles[0].name });
+      };
+      reader.onerror = () => {
+        this.props.handleChange('maskImage', undefined);
+      };
     }
   }
 
@@ -120,6 +138,9 @@ export class GeneratorProperties extends React.Component<IGeneratorProps, IGener
         break;
       case 'square-with-rounded-edges':
         retVal = SquareWithRoundedEdgesMask;
+        break;
+      case 'custom':
+        retVal = this.state.customImage || '';
         break;
     }
 
@@ -205,6 +226,7 @@ export class GeneratorProperties extends React.Component<IGeneratorProps, IGener
             />
           </WrapItem>
         </Wrap>
+
         <Wrap>
           <WrapItem>
             <InputSelect
@@ -228,10 +250,25 @@ export class GeneratorProperties extends React.Component<IGeneratorProps, IGener
               <option value="right-triangle">Right Triangle</option>
               <option value="six-pointed-star">Six Pointed Star</option>
               <option value="square-with-rounded-edges">Square with Rounded Edges</option>
+              <option value="custom">Upload Custom</option>
             </InputSelect>
           </WrapItem>
+          {this.props.data.maskImageSelection === 'custom' && (
+            <WrapItem>
+              <InputFile
+                id="customMask"
+                label="Custom Mask File"
+                tooltip="Upload a png file to use as a custom mask."
+                acceptedFileTypes=".png"
+                onFileUpload={this.onFileUpload}
+                text={this.state.customImageFilename}
+              />
+            </WrapItem>
+          )}
+        </Wrap>
+        <Wrap>
           <WrapItem>
-            <Image src={this.getMaskImage(this.props.data.maskImageSelection)} maxWidth="100px" maxHeight="100px" />
+            <Image margin="0.5em" src={this.getMaskImage(this.props.data.maskImageSelection)} width="200px" />
           </WrapItem>
         </Wrap>
       </>
