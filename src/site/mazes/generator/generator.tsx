@@ -12,6 +12,7 @@ import { AldousBroderProperties } from './components/aldous-broder-properties';
 import { WilsonProperties } from './components/wilson-properties';
 import { HuntAndKillProperties } from './components/hunt-and-kill-properties';
 import { EllerProperties } from './components/eller-properties';
+import { DisplayProperties } from './components/display-properties';
 
 import {
   Generator as MazeGenerator,
@@ -39,7 +40,10 @@ import {
   EllerData,
   RecursiveSubdivision,
   RecursiveSubdivisionData,
+  DisplayData,
+  Cell,
 } from '../../../lib/mazes';
+import { Black, Blue, Green, Red, White } from '../../../lib/image-utils/rgba';
 
 interface IGeneratorState {
   imgData: Image;
@@ -55,6 +59,7 @@ interface IGeneratorState {
   growingTree: GrowingTreeData;
   eller: EllerData;
   recursiveSubdivision: RecursiveSubdivisionData;
+  display: DisplayData;
 }
 
 export class Generator extends React.Component<any, IGeneratorState> {
@@ -75,6 +80,7 @@ export class Generator extends React.Component<any, IGeneratorState> {
       growingTree: new GrowingTreeData(),
       eller: new EllerData(),
       recursiveSubdivision: new RecursiveSubdivisionData(),
+      display: new DisplayData(),
     };
 
     this.handleGeneratorDataChange = this.handleGeneratorDataChange.bind(this);
@@ -87,6 +93,7 @@ export class Generator extends React.Component<any, IGeneratorState> {
     this.handleWilsonChange = this.handleWilsonChange.bind(this);
     this.handleHuntAndKillChange = this.handleHuntAndKillChange.bind(this);
     this.handleEllerChange = this.handleEllerChange.bind(this);
+    this.handleDisplayChange = this.handleDisplayChange.bind(this);
   }
 
   resetToDefaults = () => {
@@ -103,6 +110,7 @@ export class Generator extends React.Component<any, IGeneratorState> {
     let growingTree = new GrowingTreeData();
     let eller = new EllerData();
     let recursiveSubdivision = new RecursiveSubdivisionData();
+    let display = new DisplayData();
 
     this.setState({
       imgData: imgData,
@@ -118,6 +126,7 @@ export class Generator extends React.Component<any, IGeneratorState> {
       eller: eller,
       growingTree: growingTree,
       recursiveSubdivision: recursiveSubdivision,
+      display: display,
     });
   };
 
@@ -136,6 +145,7 @@ export class Generator extends React.Component<any, IGeneratorState> {
       eller,
       recursiveSubdivision,
       generatorData,
+      display,
     } = this.state;
 
     switch (parseInt(generatorData.generator.toString())) {
@@ -178,7 +188,7 @@ export class Generator extends React.Component<any, IGeneratorState> {
     }
 
     maze.RunGenerator();
-    this.setState({ imgData: maze.Display(32) });
+    this.setState({ imgData: maze.Display(display) });
   };
 
   handleGeneratorDataChange(fieldName: string, value: any) {
@@ -225,6 +235,81 @@ export class Generator extends React.Component<any, IGeneratorState> {
         break;
     }
     return retVal;
+  }
+
+  handleDisplayChange(fieldName: string, value: any) {
+    let { display } = this.state;
+    display[fieldName] = value;
+    if (fieldName === 'wallColorName' || fieldName === 'floorColorName') {
+      display[fieldName.replace('Name', '')] = this.getColorFunction(value);
+    } else if (fieldName === 'clearColorName') {
+      display[fieldName.replace('Name', '')] = this.getClearColorFunction(value);
+    }
+    this.setState({ display: display });
+  }
+
+  getColorFunction(color: string) {
+    switch (color) {
+      case 'black':
+        return (cell: Cell) => {
+          return Black;
+        };
+        break;
+      case 'white':
+        return (cell: Cell) => {
+          return White;
+        };
+        break;
+      case 'red':
+        return (cell: Cell) => {
+          return Red;
+        };
+        break;
+      case 'green':
+        return (cell: Cell) => {
+          return Green;
+        };
+        break;
+      case 'blue':
+        return (cell: Cell) => {
+          return Blue;
+        };
+        break;
+    }
+
+    return undefined;
+  }
+
+  getClearColorFunction(color: string) {
+    switch (color) {
+      case 'black':
+        return (x: number, y: number) => {
+          return Black;
+        };
+        break;
+      case 'white':
+        return (x: number, y: number) => {
+          return White;
+        };
+        break;
+      case 'red':
+        return (x: number, y: number) => {
+          return Red;
+        };
+        break;
+      case 'green':
+        return (x: number, y: number) => {
+          return Green;
+        };
+        break;
+      case 'blue':
+        return (x: number, y: number) => {
+          return Blue;
+        };
+        break;
+    }
+
+    return undefined;
   }
 
   handleBinaryTreeChange(fieldName: string, value: number) {
@@ -363,6 +448,10 @@ export class Generator extends React.Component<any, IGeneratorState> {
                   {
                     label: this.getGeneratorPropertiesTabName() + ' Properties',
                     panel: this.getGeneratorSpecificPropertiesElement(),
+                  },
+                  {
+                    label: 'Display Properties',
+                    panel: <DisplayProperties data={this.state.display} handleChange={this.handleDisplayChange} />,
                   },
                 ]}
               />

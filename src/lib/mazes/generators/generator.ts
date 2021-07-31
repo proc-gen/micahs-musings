@@ -2,6 +2,7 @@ import { Cell } from '../maze-parts/cell';
 import { Grid } from '../maze-parts/grid';
 import { Image } from '../../image-utils/image';
 import { Random } from '../utils/random';
+import { Black, RGBA, White } from '../../image-utils/rgba';
 
 export class GeneratorData {
   [key: string]: any;
@@ -26,6 +27,33 @@ export class GeneratorData {
     this.cullDeadEnds = 0;
     this.useMask = false;
     this.maskImageSelection = 'none';
+  }
+}
+
+export class DisplayData {
+  [key: string]: any;
+
+  cellDimension: 8 | 16 | 24 | 32 | 40 | 48 | 56 | 64;
+  wallColor: (cell: Cell) => RGBA;
+  wallColorName: string;
+  floorColor: (cell: Cell) => RGBA;
+  floorColorName: string;
+  clearColor: (x: number, y: number) => RGBA;
+  clearColorName: string;
+  constructor() {
+    this.cellDimension = 16;
+    this.wallColor = (cell: Cell) => {
+      return Black;
+    };
+    this.floorColor = (cell: Cell) => {
+      return White;
+    };
+    this.clearColor = (x: number, y: number) => {
+      return White;
+    };
+    this.wallColorName = 'black';
+    this.floorColorName = 'white';
+    this.clearColorName = 'white';
   }
 }
 
@@ -197,7 +225,7 @@ export class Generator {
     }
   }
 
-  Display(dimension: number): Image {
-    return this.grid.Display(dimension);
+  Display(displayProps: DisplayData): Image {
+    return this.grid.Display(displayProps);
   }
 }

@@ -69,6 +69,7 @@ export const InputFile: React.FC<IInputFileProps> = ({
               backgroundColor: useColorModeValue('white', 'gray.700'),
               borderBottom: '2px inset',
               borderColor: useColorModeValue('green.500', 'green.500'),
+              cursor: 'pointer',
             },
             ':focus': {
               backgroundColor: useColorModeValue('white', 'gray.700'),

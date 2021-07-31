@@ -9,7 +9,7 @@ export { Random } from './utils/random';
 
 export { AldousBroder, AldousBroderData } from './generators/aldous-broder';
 export { BinaryTree, BinaryTreeData } from './generators/binary-tree';
-export { Generator, GeneratorData } from './generators/generator';
+export { Generator, GeneratorData, DisplayData } from './generators/generator';
 export { GrowingTree, GrowingTreeData } from './generators/growing-tree';
 export { HuntAndKill, HuntAndKillData } from './generators/hunt-and-kill';
 export { Kruskal, KruskalData } from './generators/kruskal';

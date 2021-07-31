@@ -1,7 +1,7 @@
 import { Cell } from './cell';
 
 import { Image } from '../../image-utils/image';
-import { Black, RGBA, White } from '../../image-utils/rgba';
+import { DisplayData } from '../generators/generator';
 
 export class Grid {
   width: number;
@@ -85,15 +85,13 @@ export class Grid {
     }
   }
 
-  Display(dimension: number): Image {
+  Display(displayProps: DisplayData): Image {
     const size: number = Math.max(this.width, this.height);
-    const wallColor: RGBA = Black;
-    const floorColor: RGBA = White;
 
-    let imgData = new Image(size * dimension, size * dimension);
-    for (let i: number = 0; i < size * dimension; i++) {
-      for (let j: number = 0; j < size * dimension; j++) {
-        imgData.SetPixel(i, j, floorColor);
+    let imgData = new Image(size * displayProps.cellDimension, size * displayProps.cellDimension);
+    for (let i: number = 0; i < size * displayProps.cellDimension; i++) {
+      for (let j: number = 0; j < size * displayProps.cellDimension; j++) {
+        imgData.SetPixel(i, j, displayProps.clearColor(i, j));
       }
     }
 
@@ -107,8 +105,16 @@ export class Grid {
 
     for (let i: number = 0; i < this.width; i++) {
       for (let j: number = 0; j < this.height; j++) {
-        let cellImgData = this.cells[i][j].Display(dimension, wallColor, floorColor);
-        imgData.SetPixels((i + iOffset) * dimension, (j + jOffset) * dimension, cellImgData);
+        let cellImgData = this.cells[i][j].Display(
+          displayProps,
+          (i + iOffset) * displayProps.cellDimension,
+          (j + jOffset) * displayProps.cellDimension
+        );
+        imgData.SetPixels(
+          (i + iOffset) * displayProps.cellDimension,
+          (j + jOffset) * displayProps.cellDimension,
+          cellImgData
+        );
       }
     }
 

@@ -1,5 +1,6 @@
 import { Image } from '../../image-utils/image';
 import { RGBA } from '../../image-utils/rgba';
+import { DisplayData } from '../generators/generator';
 import { Wall } from './wall';
 
 export class Cell {
@@ -113,22 +114,31 @@ export class Cell {
     return retVal;
   }
 
-  Display(dimension: number, wallColor: RGBA, floorColor: RGBA): Image {
+  Display(displayProps: DisplayData, iOffset: number, jOffset: number): Image {
+    const dimension = displayProps.cellDimension;
+    const floorColor = displayProps.floorColor(this);
+    const wallColor = displayProps.wallColor(this);
+
     let imgData = new Image(dimension, dimension);
     let paintColor: RGBA = floorColor;
 
     for (let i: number = 0; i < dimension; i++) {
       for (let j: number = 0; j < dimension; j++) {
-        imgData.SetPixel(i, j, paintColor);
+        imgData.SetPixel(i, j, displayProps.clearColor(i + iOffset, j + jOffset));
       }
     }
 
     if (this.walls.filter((a) => a.isWall).length === 4 || this.masked) {
-      paintColor = wallColor;
+      /*paintColor = wallColor;
       for (let i: number = 0; i < dimension; i++) {
         for (let j: number = 0; j < dimension; j++) imgData.SetPixel(i, j, paintColor);
-      }
+      }*/
     } else {
+      paintColor = floorColor;
+      for (let i: number = dimension / 4; i < dimension - dimension / 4; i++) {
+        for (let j: number = dimension / 4; j < dimension - dimension / 4; j++) imgData.SetPixel(i, j, paintColor);
+      }
+
       //Columns
 
       //NE
